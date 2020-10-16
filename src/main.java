@@ -1,5 +1,5 @@
 public class main {
   static void myMethod() {
-    //Bienvenue sur le projet AGILE 
+    //Bienvenue sur le projet AGILE  
   }
 }

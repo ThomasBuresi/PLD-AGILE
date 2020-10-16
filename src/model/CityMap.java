@@ -1,3 +1,5 @@
+package model;
+
 
 import java.util.*;
 
@@ -15,7 +17,18 @@ public class CityMap {
     /**
      * 
      */
-    protected string filePath;
+    protected String filePath;
+    
+    /**
+     * 
+     */
+    protected HashMap<Long,Intersection> listIntersection;
+    
+    
+    /**
+     * 
+     */
+    protected HashMap<Long,Segment> listSegment;
 
 
 

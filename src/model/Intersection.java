@@ -1,4 +1,4 @@
-
+package model;
 import java.util.*;
 
 /**
@@ -15,22 +15,19 @@ public class Intersection {
     /**
      * 
      */
-    protected void longitude;
+    protected float longitude;
 
     /**
      * 
      */
-    protected void latitude;
+    protected float latitude;
+
+
 
     /**
      * 
      */
-    public void Attribute1;
-
-    /**
-     * 
-     */
-    protected void idIntersection;
+    protected long idIntersection;
 
 
 

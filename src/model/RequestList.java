@@ -1,4 +1,4 @@
-
+package model;
 import java.util.*;
 
 /**
@@ -15,22 +15,18 @@ public class RequestList {
     /**
      * 
      */
-    protected void departure;
+    protected Intersection departure;
 
     /**
      * 
      */
-    protected void departureTime;
+    protected Date departureTime;
+
 
     /**
      * 
      */
-    public void Attribute1;
-
-    /**
-     * 
-     */
-    protected void filePath;
+    protected String filePath;
 
 
     /**

@@ -1,4 +1,4 @@
-
+package model;
 import java.util.*;
 
 /**
@@ -15,12 +15,22 @@ public class Request {
     /**
      * 
      */
-    protected void deliveryDuration;
+    protected int deliveryDuration;
 
     /**
      * 
      */
-    protected void pickupDuration;
+    protected Intersection deliveryAddress;
+    
+    /**
+     * 
+     */
+    protected Intersection pickupAddress;
+    
+    /**
+     * 
+     */
+    protected int pickupDuration;
 
 
 

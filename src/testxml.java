@@ -10,7 +10,7 @@ import java.io.File;
 public class testxml {
   public static void main(String[] args) {
 	  try{  
-		  File file = new File("C:\\Users\\sylva\\Downloads\\smallMap.xml");  
+		  File file = new File("/Users/thomasburesi/Downloads/smallMap.xml");  
 		  DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();  
 		  DocumentBuilder db = dbf.newDocumentBuilder();  
 		  Document doc = db.parse(file);  

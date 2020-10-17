@@ -7,13 +7,6 @@ import java.util.*;
 public class Segment {
 
     /**
-     * Default constructor
-     */
-    public Segment() {
-    	
-    }
-
-    /**
      * 
      */
     protected String name;
@@ -34,7 +27,12 @@ public class Segment {
      */
     protected float length;
 
-
+    /**
+     * Default constructor
+     */
+    public Segment() {
+    	
+    }
 
 
 }

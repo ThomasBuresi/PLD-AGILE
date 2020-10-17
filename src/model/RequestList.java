@@ -5,14 +5,8 @@ import java.util.*;
  * 
  */
 public class RequestList {
-
-    /**
-     * Default constructor
-     */
-    public RequestList() {
-    }
-
-    /**
+	
+	/**
      * 
      */
     protected Intersection departure;
@@ -27,6 +21,12 @@ public class RequestList {
      * 
      */
     protected String filePath;
+    
+    /**
+     * Default constructor
+     */
+    public RequestList() {
+    }
 
 
     /**
@@ -35,5 +35,20 @@ public class RequestList {
     public void fillRequests() {
         // TODO implement here
     }
+
+
+	public Intersection getDeparture() {
+		return departure;
+	}
+
+
+	public Date getDepartureTime() {
+		return departureTime;
+	}
+
+
+	public String getFilePath() {
+		return filePath;
+	}
 
 }

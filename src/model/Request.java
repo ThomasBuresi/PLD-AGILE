@@ -7,12 +7,6 @@ import java.util.*;
 public class Request {
 
     /**
-     * Default constructor
-     */
-    public Request() {
-    }
-
-    /**
      * 
      */
     protected int deliveryDuration;
@@ -32,7 +26,27 @@ public class Request {
      */
     protected int pickupDuration;
 
+    /**
+     * Default constructor
+     */
+    public Request() {
+    }
 
+	public int getDeliveryDuration() {
+		return deliveryDuration;
+	}
+
+	public Intersection getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public Intersection getPickupAddress() {
+		return pickupAddress;
+	}
+
+	public int getPickupDuration() {
+		return pickupDuration;
+	}
 
 
 

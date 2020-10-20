@@ -28,7 +28,31 @@ public class Intersection {
     			
     }
 
-    @Override
+    public float getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
+	}
+
+	public float getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
+
+	public long getIdIntersection() {
+		return idIntersection;
+	}
+
+	public void setIdIntersection(long idIntersection) {
+		this.idIntersection = idIntersection;
+	}
+
+	@Override
 	public String toString() {
 		return "Intersection [longitude=" + longitude + ", latitude=" + latitude + ", idIntersection=" + idIntersection
 				+ "]";

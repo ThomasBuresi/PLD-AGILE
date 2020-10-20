@@ -20,7 +20,12 @@ public class Intersection {
      * 
      */
     protected long idIntersection;
-
+    
+    /**
+     * 
+     */
+    protected List<Segment> listSegments;
+    
     /**
      * Default constructor
      */
@@ -39,7 +44,7 @@ public class Intersection {
     	this.longitude = longitude;
     	this.latitude = latitude;
     	this.idIntersection= idIntersection;
-    	
+    	this.listSegments = new ArrayList<Segment>();
     			
     }
 
@@ -73,7 +78,16 @@ public class Intersection {
 				+ "]";
 	}
 
+	/**
+	 *
+	 */
+	
+	public void addSegment(Segment s) {
+		listSegments.add(s);
+	}
 
-
+	public List<Segment> getListSegments() {
+		return listSegments;
+	}
    
 }

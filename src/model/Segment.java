@@ -9,16 +9,19 @@ public class Segment {
     /**
      * Default constructor
      */
-    public Segment() {
-    	
-    }
+	public Segment(String name, Intersection origin, Intersection destination, float length) {
+		this.name = name;
+		this.origin = origin;
+		this.destination = destination;
+		this.length = length;
+	}
 
     /**
      * 
      */
     protected String name;
-    
-    /**
+
+	/**
      * 
      */
     protected Intersection origin;

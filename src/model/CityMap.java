@@ -77,7 +77,7 @@ public class CityMap {
   	  			  long id = Long.parseLong(eElement.getAttribute("id"));  
   	  			  float lat = Float.parseFloat(eElement.getAttribute("latitude"));  
   	  			  float longit = Float.parseFloat(eElement.getAttribute("longitude"));
-  				  Intersection inters = new Intersection(id, lat, longit);
+  				  Intersection inters = new Intersection( lat, longit, id);
   				  listIntersection.put(id, inters);
   	  		  }  
   	  	  }

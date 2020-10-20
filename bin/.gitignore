@@ -1,1 +1,9 @@
+/resources/
+/.classpath
+/.project
+/.settings/
+/README.md
+/lib/
 /model/
+/testIHM.class
+/testxml.class

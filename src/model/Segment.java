@@ -37,7 +37,13 @@ public class Segment {
      */
     protected float length;
 
-
-
+    /**
+     * 
+     */
+	@Override
+	public String toString() {
+		return "Segment [name=" + name + ", origin=" + origin + ", destination=" + destination + ", length=" + length
+				+ "]";
+	}
 
 }

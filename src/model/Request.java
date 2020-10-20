@@ -36,6 +36,15 @@ public class Request {
      */
     protected int pickupDuration;
 
+    /**
+     * 
+     */
+	@Override
+	public String toString() {
+		return "Request [deliveryDuration=" + deliveryDuration + ", deliveryAddress=" + deliveryAddress
+				+ ", pickupAddress=" + pickupAddress + ", pickupDuration=" + pickupDuration + "]";
+	}
+
 
 
 

@@ -1,7 +1,3 @@
-bin/.gitignore
-.gitignore
 /lib/
-/view/
-/Observable.class
-/Observer.class
-/controller/
+/testIHM.class
+/model/

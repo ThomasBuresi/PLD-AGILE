@@ -1,3 +1,14 @@
+/.classpath
+/.project
+/.settings/
+/Observable.class
+/Observer.class
+/README.md
+/controller/
 /lib/
-/testIHM.class
 /model/
+/resources/
+/testIHM.class
+/testxml.class
+/utils/
+/view/

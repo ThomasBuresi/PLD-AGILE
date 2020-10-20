@@ -1,12 +1,20 @@
-package Controller;
+package controller;
 
 import java.util.*;
+
+import model.CityMap;
 
 /**
  * 
  */
 public class Controller {
 
+	/**
+	 * CityMap that will be imported from a file path
+	 */
+	private CityMap cityMap;
+	
+	
     /**
      * Default constructor
      */
@@ -15,21 +23,11 @@ public class Controller {
 
 
 
-
-
-
-
-
-
-
-
-
-
     /**
      * @param CityMap 
      * @param int
      */
-    public void Controller(CityMap CityMap, void int) {
+    public void Controller(CityMap cityMap ) {
         // TODO implement here
     }
 
@@ -38,7 +36,7 @@ public class Controller {
      */
     public void undo() {
         // TODO implement here
-        return null;
+        
     }
 
     /**
@@ -46,7 +44,12 @@ public class Controller {
      */
     public void redo() {
         // TODO implement here
-        return null;
+        
     }
 
+    public void loadFile(String absolute_path) {
+    	cityMap = new CityMap(absolute_path);
+    	System.out.println("map loaded");
+    }
+    
 }

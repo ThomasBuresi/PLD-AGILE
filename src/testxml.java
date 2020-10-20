@@ -3,7 +3,6 @@ import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;  
 import org.w3c.dom.NodeList;
 
-import model.Intersection;
 
 import org.w3c.dom.Node;  
 import org.w3c.dom.Element;  
@@ -11,6 +10,9 @@ import java.io.File;
 import model.CityMap;
 import model.Intersection;
 import model.Segment;
+import model.RequestList;
+
+import java.util.*;
 
 
 public class testxml {
@@ -32,7 +34,7 @@ public class testxml {
 		  float longmax = 0.0f;
 		  for (int i = 0; i < nodeList.getLength(); i++) {  
 			Node node = nodeList.item(i);  
-			System.out.println("\nNode Name :" + node.getNodeName());  
+			//System.out.println("\nNode Name :" + node.getNodeName());  
 			if (node.getNodeType() == Node.ELEMENT_NODE){  
 		  		Element eElement = (Element) node;
 		  		Intersection inter = new Intersection(Float.parseFloat(eElement.getAttribute("latitude")),Float.parseFloat(eElement.getAttribute("longitude")),Long.parseLong(eElement.getAttribute("id")));
@@ -48,7 +50,7 @@ public class testxml {
 		  		else if(inter.getLongitude()< longmin) {
 		  			longmin = inter.getLongitude();
 		  		}
-		  		System.out.println(inter.toString());  
+		  		//System.out.println(inter.toString());  
 
 		  	}  
 		  }
@@ -60,6 +62,37 @@ public class testxml {
 		  catch (Exception e){  
 		  e.printStackTrace(); 
 		  }  
+	  
+	  System.out.println("\n************TEST OF CITYMAP****************");
+	  
+	  CityMap map = new CityMap("src/resources/smallMap.xml");
+	  map.fillMap();
+	  
+	  System.out.println("\n"+map.getIntersection(25175791).toString());
+	  
+	  System.out.println("\nintersections "+map.getListIntersection().size());
+	  
+	  HashMap <Long, Intersection> list = map.getListIntersection();
+	  
+	  int i=0;
+	  
+	  //Iterate through the HashMap (to get all the segments for example)
+	  for (Map.Entry <Long, Intersection> entry : list.entrySet()) {
+		  i+= entry.getValue().getListSegments().size();
+		  //System.out.println(entry.getKey() + "/" + entry.getValue().toString());
+	  }
+	  
+	  System.out.println("segments " + i);
+	  
+	  System.out.println("\n************TEST OF REQUESTLIST****************");
+	  
+	  RequestList reqlist = new RequestList("src/resources/requestsSmall1.xml", map);
+	  
+	  reqlist.fillRequests();
+	  
+	  System.out.println(reqlist);
+	  
+	  
 
 	  
     //Bienvenue sur le projet AGILE 

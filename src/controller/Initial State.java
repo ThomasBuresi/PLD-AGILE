@@ -1,11 +1,11 @@
-package Controller;
+package controller;
 
 import java.util.*;
 
 /**
  * 
  */
-public class Initial State implements State {
+public class InitialState implements State {
 
     /**
      * Default constructor

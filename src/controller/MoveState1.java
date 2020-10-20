@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.util.*;
 
@@ -17,13 +17,6 @@ public class MoveState1 implements State {
      * 
      */
     public void MoveState1() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void leftClick() {
         // TODO implement here
     }
 

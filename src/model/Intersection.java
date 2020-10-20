@@ -7,22 +7,23 @@ import java.util.*;
 public class Intersection {
 	
 	/**
-     * 
+     * Longitude of the intersection (in degrees)
      */
     protected float longitude;
 
     /**
-     * 
+     * Latitude of the intersection (in degrees)
      */
     protected float latitude;
 
     /**
-     * 
+     * Id of the intersection
      */
     protected long idIntersection;
     
     /**
-     * 
+     * List of all the segments that have as origin this
+     * intersection
      */
     protected List<Segment> listSegments;
     
@@ -33,12 +34,13 @@ public class Intersection {
     	longitude = 0.0f;
     	latitude = 0.0f;
     	idIntersection=0;
-    	
-    			
     }
     
     /**
-     * constructor
+     * Constructor of Intersection
+     * @param longitude
+     * @param latitude
+     * @param idIntersection
      */
     public Intersection(float longitude, float latitude, long idIntersection) {
     	this.longitude = longitude;
@@ -79,9 +81,10 @@ public class Intersection {
 	}
 
 	/**
-	 *
+	 * Add a <code>Segment</code> to the list of Segments of the Intersection
+	 * (<code>listSegments</code>)
+	 * @param s
 	 */
-	
 	public void addSegment(Segment s) {
 		listSegments.add(s);
 	}

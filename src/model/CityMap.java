@@ -20,12 +20,14 @@ import org.w3c.dom.NodeList;
 public class CityMap {
 
 	/**
-	* 
+	* The path to the XML file containing the map (list of segments 
+	* and intersections)
 	*/
 	protected String filePath;
 
 	/**
-	 * 
+	 * Map that stores all the intersections, the key being the id of
+	 * the intersection and the value being the intersection itself
 	 */
 	protected HashMap<Long, Intersection> listIntersection;
 
@@ -36,33 +38,39 @@ public class CityMap {
 	}
 
 	/**
-	 * Constructor
+	 * Constructor of <code>CityMap</code>
+	 * @param _filePath
 	 */
 	public CityMap(String _filePath) {
 		this.filePath = _filePath;
+		this.listIntersection = new HashMap<Long, Intersection>();
 	}
 
 	/**
-     * 
+     * Parses the XML file given by the attribute <code>filePath</code>
+     * and creates two list of nodes : one for the intersections and one
+     * for the segments. Then, calls the methods <code>fillIntersectionsList</code>
+     * and <code>fillSegmentsList</code> to fill the map of intersections
+     * and the list of segments for each intersection.
      */
     public void fillMap() {
         try {
         	File file = new File(filePath);  
-    		  DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();  
-    		  DocumentBuilder db = dbf.newDocumentBuilder();  
-    		  Document doc = db.parse(file);  
-    		  doc.getDocumentElement().normalize();  
-    		  NodeList intersectionsList = doc.getElementsByTagName("intersection");
-    		  fillIntersectionsList(intersectionsList);
-    		  NodeList segmentsList = doc.getElementsByTagName("segment");
-    		  fillSegmentsList(segmentsList);
+    		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();  
+    		DocumentBuilder db = dbf.newDocumentBuilder();  
+    		Document doc = db.parse(file);  
+    		doc.getDocumentElement().normalize();  
+    		NodeList intersectionsList = doc.getElementsByTagName("intersection");
+    		fillIntersectionsList(intersectionsList);
+    		NodeList segmentsList = doc.getElementsByTagName("segment");
+    		fillSegmentsList(segmentsList);
         } catch (Exception e) {
         	e.printStackTrace();
         }
     }
 
 	/**
-	 * Returns the intersection with the specified ID
+	 * Returns the <code>Intersection</code> with the specified ID
 	 * 
 	 * @param id
 	 */
@@ -71,7 +79,9 @@ public class CityMap {
 	}
 
 	/**
-	 * 
+	 * Fills the map <code>listIntersection</code> with all the intersections
+	 * that are in the list of nodes given as parameter
+	 * @param intersectionsList
 	 */
 	public void fillIntersectionsList(NodeList intersectionsList) {
 		try {
@@ -93,7 +103,9 @@ public class CityMap {
 	}
 
 	/**
-	 * 
+	 * Adds each <code>Segment</code> from the list of nodes given as parameter to the
+	 * list of segments of the origin intersection
+	 * @param segmentsList
 	 */
 	public void fillSegmentsList(NodeList segmentsList) {
 		try {

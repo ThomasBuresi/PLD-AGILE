@@ -11,6 +11,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import utils.TimeUtils;
+
 /**
  * 
  */
@@ -32,7 +34,7 @@ public class RequestList {
 	/**
 	 * 
 	 */
-	protected Date departureTime;
+	protected int departureTime;
 
 	/**
 	 * 
@@ -69,6 +71,7 @@ public class RequestList {
 			}
 			Element depot = (Element) depotList.item(0);
 			departure = cityMap.listIntersection.get(Long.parseLong(depot.getAttribute("address")));
+			departureTime = TimeUtils.timeToSeconds(depot.getAttribute("departureTime"));
 			NodeList nodeList = doc.getElementsByTagName("request");
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				Node node = nodeList.item(i);

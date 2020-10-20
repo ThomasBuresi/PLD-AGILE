@@ -6,11 +6,15 @@ import java.util.*;
  */
 public class Request {
 
-    /**
+	/**
      * Default constructor
      */
-    public Request() {
-    }
+    public Request(int deliveryDuration, Intersection deliveryAddress, Intersection pickupAddress, int pickupDuration) {
+		this.deliveryDuration = deliveryDuration;
+		this.deliveryAddress = deliveryAddress;
+		this.pickupAddress = pickupAddress;
+		this.pickupDuration = pickupDuration;
+	}
 
     /**
      * 

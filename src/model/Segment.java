@@ -7,11 +7,20 @@ import java.util.*;
 public class Segment {
 
     /**
+     * Default constructor
+     */
+	public Segment(String name, Intersection origin, Intersection destination, float length) {
+		this.name = name;
+		this.origin = origin;
+		this.destination = destination;
+	}
+
+    /**
      * 
      */
     protected String name;
-    
-    /**
+
+	/**
      * 
      */
     protected Intersection origin;
@@ -28,11 +37,18 @@ public class Segment {
     protected float length;
 
     /**
+     * 
+     */
+	@Override
+	public String toString() {
+		return "Segment [name=" + name + ", origin=" + origin + ", destination=" + destination + ", length=" + length
+				+ "]";
+	}
+    /**
      * Default constructor
      */
     public Segment() {
     	
     }
-
 
 }

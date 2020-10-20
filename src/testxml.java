@@ -13,9 +13,7 @@ import model.Segment;
 public class testxml {
   public static void main(String[] args) {
 	  try{  
-		  CityMap cityMap = new CityMap("C:\\Disk D\\INSA\\4IF\\AGILE\\fichiersXML2020\\smallMap.xml");
-		  
-		  File file = new File("C:\\Disk D\\INSA\\4IF\\AGILE\\fichiersXML2020\\smallMap.xml");  
+		  File file = new File("src/resources/smallMap.xml");  
 		  DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();  
 		  DocumentBuilder db = dbf.newDocumentBuilder();  
 		  Document doc = db.parse(file);  

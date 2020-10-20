@@ -1,1 +1,14 @@
-*.class
+/.classpath
+/.project
+/.settings/
+/Observable.class
+/Observer.class
+/README.md
+/controller/
+/lib/
+/model/
+/resources/
+/testIHM.class
+/testxml.class
+/utils/
+/view/

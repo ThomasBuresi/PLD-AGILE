@@ -5,6 +5,13 @@ import java.util.*;
  * 
  */
 public class Segment {
+	
+	/**
+     * Default constructor
+     */
+    public Segment() {
+    	
+    }
 
     /**
      * Default constructor
@@ -44,11 +51,6 @@ public class Segment {
 		return "Segment [name=" + name + ", origin=" + origin + ", destination=" + destination + ", length=" + length
 				+ "]";
 	}
-    /**
-     * Default constructor
-     */
-    public Segment() {
-    	
-    }
+    
 
 }

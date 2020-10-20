@@ -25,21 +25,27 @@ public class RequestList {
 		this.filePath = filePath;
 		this.cityMap = cityMap;
 	}
-
+	
 	/**
+     * 
+     */
+    protected Intersection departure;
+
+    /**
+     * 
+     */
+    protected int departureTime;
+
+    /**
 	 * 
 	 */
-	protected Intersection departure;
-
-	/**
-	 * 
-	 */
-	protected int departureTime;
-
-	/**
-	 * 
-	 */
-	protected String filePath;
+    protected String filePath;
+    
+    /**
+     * Default constructor
+     */
+    public RequestList() {
+    }
 
 	/**
 	 * 
@@ -89,6 +95,21 @@ public class RequestList {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	public Intersection getDeparture() {
+		return departure;
+	}
+
+
+	public int getDepartureTime() {
+		return departureTime;
+	}
+
+
+	public String getFilePath() {
+		return filePath;
 	}
 
 }

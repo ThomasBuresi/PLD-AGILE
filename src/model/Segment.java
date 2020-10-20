@@ -13,7 +13,6 @@ public class Segment {
 		this.name = name;
 		this.origin = origin;
 		this.destination = destination;
-		this.length = length;
 	}
 
     /**
@@ -45,5 +44,11 @@ public class Segment {
 		return "Segment [name=" + name + ", origin=" + origin + ", destination=" + destination + ", length=" + length
 				+ "]";
 	}
+    /**
+     * Default constructor
+     */
+    public Segment() {
+    	
+    }
 
 }

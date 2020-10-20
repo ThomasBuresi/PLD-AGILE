@@ -44,8 +44,27 @@ public class Request {
 		return "Request [deliveryDuration=" + deliveryDuration + ", deliveryAddress=" + deliveryAddress
 				+ ", pickupAddress=" + pickupAddress + ", pickupDuration=" + pickupDuration + "]";
 	}
+    /**
+     * Default constructor
+     */
+    public Request() {
+    }
 
+	public int getDeliveryDuration() {
+		return deliveryDuration;
+	}
 
+	public Intersection getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public Intersection getPickupAddress() {
+		return pickupAddress;
+	}
+
+	public int getPickupDuration() {
+		return pickupDuration;
+	}
 
 
 

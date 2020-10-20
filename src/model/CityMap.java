@@ -38,5 +38,13 @@ public class CityMap {
     public void fillMap() {
         // TODO implement here
     }
+    
+    /**
+     * Returns the intersection with the specified ID
+     * @param id
+     */
+    public Intersection getIntersection(long id) {
+    	return listIntersection.get(id);
+    }
 
 }

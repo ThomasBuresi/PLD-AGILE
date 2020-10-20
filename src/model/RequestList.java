@@ -17,6 +17,7 @@ import utils.TimeUtils;
  * 
  */
 public class RequestList {
+<<<<<<< HEAD
 
 	/**
 	 * Default constructor
@@ -25,16 +26,41 @@ public class RequestList {
 		this.filePath = filePath;
 		this.cityMap = cityMap;
 	}
+=======
+	
+	/**
+     * 
+     */
+    protected Intersection departure;
+
+    /**
+     * 
+     */
+    protected Date departureTime;
+>>>>>>> c892e7504a7f09b1a1b8e1a47c972a746a66f088
 
 	/**
 	 * 
 	 */
 	protected Intersection departure;
 
+<<<<<<< HEAD
 	/**
 	 * 
 	 */
 	protected int departureTime;
+=======
+    /**
+     * 
+     */
+    protected String filePath;
+    
+    /**
+     * Default constructor
+     */
+    public RequestList() {
+    }
+>>>>>>> c892e7504a7f09b1a1b8e1a47c972a746a66f088
 
 	/**
 	 * 
@@ -89,6 +115,21 @@ public class RequestList {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	public Intersection getDeparture() {
+		return departure;
+	}
+
+
+	public Date getDepartureTime() {
+		return departureTime;
+	}
+
+
+	public String getFilePath() {
+		return filePath;
 	}
 
 }

@@ -6,11 +6,15 @@ import java.util.*;
  */
 public class Request {
 
-    /**
+	/**
      * Default constructor
      */
-    public Request() {
-    }
+    public Request(int deliveryDuration, Intersection deliveryAddress, Intersection pickupAddress, int pickupDuration) {
+		this.deliveryDuration = deliveryDuration;
+		this.deliveryAddress = deliveryAddress;
+		this.pickupAddress = pickupAddress;
+		this.pickupDuration = pickupDuration;
+	}
 
     /**
      * 
@@ -31,6 +35,15 @@ public class Request {
      * 
      */
     protected int pickupDuration;
+
+    /**
+     * 
+     */
+	@Override
+	public String toString() {
+		return "Request [deliveryDuration=" + deliveryDuration + ", deliveryAddress=" + deliveryAddress
+				+ ", pickupAddress=" + pickupAddress + ", pickupDuration=" + pickupDuration + "]";
+	}
 
 
 

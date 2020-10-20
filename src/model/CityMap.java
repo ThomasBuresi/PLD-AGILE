@@ -31,7 +31,6 @@ public class CityMap {
     protected HashMap<Long,Segment> listSegment;
 
 
-
     /**
      * 
      */

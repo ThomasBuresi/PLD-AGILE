@@ -1,8 +1,7 @@
-/resources/
-/.classpath
-/.project
-/.settings/
-/README.md
+bin/.gitignore
+.gitignore
 /lib/
-/model/
-/lib/
+/view/
+/Observable.class
+/Observer.class
+/controller/

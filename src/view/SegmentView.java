@@ -7,18 +7,20 @@ import java.util.*;
 
 import javax.swing.JPanel;
 
+import model.Intersection;
+
 /**
  * 
  */
 public class SegmentView {
 
+	protected HashMap<Long, Intersection> listIntersection;
 	
     /**
      * Default constructor
      */
-    public SegmentView() {
-    	
-    	
+    public SegmentView(HashMap<Long, Intersection> listIntersection) {
+    	this.listIntersection = listIntersection;    	
     }
 
     public void paintComponent(Graphics g) 

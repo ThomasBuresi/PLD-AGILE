@@ -52,4 +52,8 @@ public class Controller {
     	System.out.println("map loaded");
     }
     
+    public CityMap getCityMap() {
+    	return cityMap;
+    }
+    
 }

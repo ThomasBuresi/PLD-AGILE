@@ -44,6 +44,7 @@ public class CityMap {
 	public CityMap(String _filePath) {
 		this.filePath = _filePath;
 		this.listIntersection = new HashMap<Long, Intersection>();
+		fillMap();
 	}
 
 	/**

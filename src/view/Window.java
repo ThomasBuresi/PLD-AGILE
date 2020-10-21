@@ -48,10 +48,10 @@ public class Window extends JFrame{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CityMap cityMap=new CityMap();
+		//CityMap cityMap=new CityMap(); useful citymap is created in Controller.java
 		Controller controller = new Controller();
 		//Frame
-        Window  test = new Window(controller,cityMap);
+        Window  test = new Window(controller); //,cityMap); to be deleted
         test.setVisible(true);
     }
 	
@@ -59,14 +59,14 @@ public class Window extends JFrame{
 	/**
      * Default constructor to build the default basic window 
      */
-    public Window(Controller controller, CityMap cityMap) {
+    public Window(Controller controller) { //, CityMap cityMap) { to be deleted
     	
     	ButtonListener buttonListener = new ButtonListener(controller);
     	
     	// Main Frame
     	setTitle("Deliver'IF");
         setSize(1300,720);
-        setLocation(100,100);
+        setLocation(1000,100);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
@@ -85,9 +85,9 @@ public class Window extends JFrame{
         //    scroll.add(new JButton("Button n°" + i));
         //}
         
-        
-        
-        graphicalView = new GraphicalView();
+        //CityMap cityMap = controller.getCityMap();
+                
+        graphicalView = new GraphicalView(controller);
         textualView = new TextualView();
         
         
@@ -120,7 +120,7 @@ public class Window extends JFrame{
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        graphicalView.graphicalCityMap.paintComponents(g);
+        graphicalView.graphicalCityMap.paintComponent(g);    	
     }
     
     public GraphicalView getGraphicalView () {

@@ -6,6 +6,8 @@ import java.util.*;
 
 import javax.swing.JPanel;
 
+import controller.Controller;
+
 /**
  * 
  */
@@ -17,26 +19,28 @@ public class GraphicalView extends JPanel implements Observer {
 	 * Containing the city map
 	 */
 	public GraphicalCityMap graphicalCityMap;
-	
-	
+		
     /**
      * Default constructor
      */
-    public GraphicalView() {
+    public GraphicalView(Controller controller) {
     	
     	setBounds(20,20,900,500);
         setBackground(Color.white);
     	
         // add Observers here 
     	
-    	graphicalCityMap = new GraphicalCityMap();
+    	graphicalCityMap = new GraphicalCityMap(controller);
     	
     	add(graphicalCityMap);
     	repaint();
     }
 
-
-    
+//    public void paintComponent(Graphics g) 
+//    {     
+//    	super.paintComponent(g);
+//    }
+//    
      
     public void update() {
         // TODO implement here

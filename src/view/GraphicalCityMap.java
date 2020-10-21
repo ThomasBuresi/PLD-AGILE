@@ -8,12 +8,16 @@ import java.util.*;
 
 import javax.swing.JPanel;
 
+import controller.Controller;
 import model.CityMap;
+import model.Intersection;
 
 /**
  * 
  */
 public class GraphicalCityMap extends JPanel {
+	
+	private HashMap<Long, Intersection> listIntersection;
 	
 	/**
 	 * 
@@ -26,19 +30,27 @@ public class GraphicalCityMap extends JPanel {
     /**
      * Default constructor
      */
-    public GraphicalCityMap() {
+    public GraphicalCityMap(Controller controller) {
     	//super();
-    	
+    	if (controller.getCityMap() != null) {
+    		listIntersection = controller.getCityMap().getListIntersection();
+    	} else {
+    		listIntersection = null;
+    	}
     	
     	setBounds(20,20,900,500);
         // to complete 
-        intersectionView = new IntersectionView();
+    	
+    	if (listIntersection != null) {
+    		intersectionView = new IntersectionView(listIntersection);            
+            //segmentView=new SegmentView(listIntersection);
+    		add(intersectionView);
+            repaint();
+            //add(intersectionView);
+    	}
         
-        segmentView=new SegmentView();
-
-        
-        repaint();
-        //add(intersectionView);
+    	
+    	
     
     }
     
@@ -49,9 +61,12 @@ public class GraphicalCityMap extends JPanel {
     
     public void paintComponent(Graphics g) 
     {     
-    	//super.paintComponent(g);
+    	super.paintComponent(g);
+    	g.drawOval(300, 300, 50, 50);
+    	System.out.println("oval in graphicalcitymap.java");
     	
-    	segmentView.paintComponent(g);
+    	
+    	//segmentView.paintComponent(g);
     	//intersectionView.paintComponent(g);
     	
 

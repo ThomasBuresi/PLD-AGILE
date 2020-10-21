@@ -30,6 +30,27 @@ public class CityMap {
 	 * the intersection and the value being the intersection itself
 	 */
 	protected HashMap<Long, Intersection> listIntersection;
+	
+	/**
+	 * 
+	 */
+	protected float latMin;
+	
+	/**
+	 * 
+	 */
+	protected float latMax;
+	
+	/**
+	 * 
+	 */
+	protected float longMin;
+	
+	/**
+	 * 
+	 */
+	protected float longMax;
+	
 
 	/**
 	 * Default constructor
@@ -44,7 +65,11 @@ public class CityMap {
 	public CityMap(String _filePath) {
 		this.filePath = _filePath;
 		this.listIntersection = new HashMap<Long, Intersection>();
-		fillMap();
+		this.latMax = -200;
+		this.latMin = 200;
+		this.longMax = -200;
+		this.longMin = 200;
+		//fillMap(); //don't think we should call methods from the constructor
 	}
 
 	/**
@@ -96,6 +121,16 @@ public class CityMap {
 					float longit = Float.parseFloat(eElement.getAttribute("longitude"));
 					Intersection inters = new Intersection(lat, longit, id);
 					listIntersection.put(id, inters);
+					if (lat > latMax) {
+						latMax = lat;
+					} else if (lat < latMin) {
+						latMin = lat;
+					}
+					if (longit > longMax) {
+						longMax = longit;
+					} else if (longit < longMin) {
+						longMin = longit;
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -131,6 +166,22 @@ public class CityMap {
 
 	public HashMap<Long, Intersection> getListIntersection() {
 		return listIntersection;
+	}
+
+	public float getLatMin() {
+		return latMin;
+	}
+
+	public float getLatMax() {
+		return latMax;
+	}
+
+	public float getLongMin() {
+		return longMin;
+	}
+
+	public float getLongMax() {
+		return longMax;
 	}
 
 }

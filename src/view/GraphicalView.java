@@ -24,23 +24,30 @@ public class GraphicalView extends JPanel implements Observer {
      * Default constructor
      */
     public GraphicalView(Controller controller) {
-    	
-    	setBounds(20,20,900,500);
-        setBackground(Color.white);
-    	
+    	this.setLayout(null);
+    	this.setBounds(20,20,900,500);
+        //setBackground(Color.yellow);
+    	System.out.println("view " + this.getWidth() + " " + this.getHeight());
         // add Observers here 
     	
     	graphicalCityMap = new GraphicalCityMap(controller);
     	
-    	add(graphicalCityMap);
+    	this.add(graphicalCityMap);
     	repaint();
     }
-
-//    public void paintComponent(Graphics g) 
-//    {     
-//    	super.paintComponent(g);
-//    }
-//    
+    
+    public void repaint(Graphics g) {
+		super.repaint();
+		paintComponent(g);
+	}
+    
+    @Override
+    public void paintComponent(Graphics g) 
+    {     
+    	super.paintComponent(g);
+    	//graphicalCityMap.paintComponent(g);
+    }
+    
      
     public void update() {
         // TODO implement here

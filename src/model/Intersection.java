@@ -42,7 +42,7 @@ public class Intersection {
      * @param latitude
      * @param idIntersection
      */
-    public Intersection(float longitude, float latitude, long idIntersection) {
+    public Intersection(float latitude, float longitude, long idIntersection) {
     	this.longitude = longitude;
     	this.latitude = latitude;
     	this.idIntersection= idIntersection;

@@ -49,6 +49,7 @@ public class Controller {
 
     public void loadFile(String absolute_path) {
     	cityMap = new CityMap(absolute_path);
+    	cityMap.fillMap();
     	System.out.println("map loaded");
     }
     

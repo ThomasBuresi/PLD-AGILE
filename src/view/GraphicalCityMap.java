@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
@@ -22,7 +23,7 @@ public class GraphicalCityMap extends JPanel {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	
 	public SegmentView segmentView;
 	public IntersectionView intersectionView;
@@ -37,17 +38,23 @@ public class GraphicalCityMap extends JPanel {
     	} else {
     		listIntersection = null;
     	}
-    	
-    	setBounds(20,20,900,500);
+    	this.setLayout(null);
+    	this.setBounds(0,0,900,500);
+    	this.setBackground(Color.green);
+    	System.out.println("city view " + this.getWidth() + " " + this.getHeight());
         // to complete 
     	
     	if (listIntersection != null) {
     		intersectionView = new IntersectionView(listIntersection);            
-            //segmentView=new SegmentView(listIntersection);
-    		add(intersectionView);
+            segmentView=new SegmentView(listIntersection, controller.getCityMap().getLatMin(),
+            		controller.getCityMap().getLatMax(), controller.getCityMap().getLongMin(),
+            		controller.getCityMap().getLongMax());
+    		//add(intersectionView);
+            this.add(segmentView);
             repaint();
-            //add(intersectionView);
+            
     	}
+    	
         
     	
     	
@@ -59,15 +66,16 @@ public class GraphicalCityMap extends JPanel {
 		paintComponent(g);
 	}
     
+    @Override
     public void paintComponent(Graphics g) 
     {     
     	super.paintComponent(g);
-    	g.drawOval(300, 300, 50, 50);
-    	System.out.println("oval in graphicalcitymap.java");
+    	//g.drawLine(20, 20, 920, 520);
+    	//g.drawOval(300, 300, 50, 50);
+    	//System.out.println("oval in graphicalcitymap.java");
     	
-    	
-    	//segmentView.paintComponent(g);
     	//intersectionView.paintComponent(g);
+    	segmentView.paintComponent(g);
     	
 
     }

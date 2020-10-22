@@ -17,7 +17,7 @@ import controller.Controller;
 import model.CityMap;
 
 /**
- * 
+ * Window
  */
 public class Window extends JFrame{
 

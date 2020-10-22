@@ -35,7 +35,7 @@ public class Window extends JFrame{
 	 * Button to load the files and requests 
 	 */
 	private JButton load_file;
-	private JButton load_requests;
+	private JButton load_requests_file;
 	
 	/**
 	 * Label to change the descriptions of the actions to perform, indications for the user 
@@ -80,6 +80,10 @@ public class Window extends JFrame{
         load_file = new JButton("Load File");
         load_file.addActionListener(buttonListener);
         
+        // Load requests file
+        load_requests_file = new JButton("Load Requests File");
+        load_requests_file.addActionListener(buttonListener);
+        
         //Indications for the user
         indications = new JLabel("You may load a map file (XML). ");
         
@@ -90,15 +94,12 @@ public class Window extends JFrame{
         //}
         
         //CityMap cityMap = controller.getCityMap();
-                
-
-        
-        
 
         // to add the buttons in a complementary way to the textual view
         JPanel right_panel = new JPanel();
         right_panel.setBounds(950,20,300,500);
         right_panel.add(load_file);
+        right_panel.add(load_requests_file);
         
         
         

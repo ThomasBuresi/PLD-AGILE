@@ -37,6 +37,7 @@ public class GraphicalCityMap extends JPanel {
     		listIntersection = controller.getCityMap().getListIntersection();
     	} else {
     		listIntersection = null;
+    		System.out.println("listIntersection is null");
     	}
     	this.setLayout(null);
     	this.setBounds(0,0,900,500);
@@ -49,7 +50,7 @@ public class GraphicalCityMap extends JPanel {
             segmentView=new SegmentView(listIntersection, controller.getCityMap().getLatMin(),
             		controller.getCityMap().getLatMax(), controller.getCityMap().getLongMin(),
             		controller.getCityMap().getLongMax());
-    		//add(intersectionView);
+    		this.add(intersectionView);
             this.add(segmentView);
             repaint();
             
@@ -72,10 +73,10 @@ public class GraphicalCityMap extends JPanel {
     	super.paintComponent(g);
     	//g.drawLine(20, 20, 920, 520);
     	//g.drawOval(300, 300, 50, 50);
-    	//System.out.println("oval in graphicalcitymap.java");
+    	//System.out.println("oval in intersectionview.java");
     	
     	//intersectionView.paintComponent(g);
-    	segmentView.paintComponent(g);
+    	//segmentView.paintComponent(g);
     	
 
     }

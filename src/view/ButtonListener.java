@@ -65,7 +65,26 @@ public class ButtonListener implements ActionListener {
                  System.out.println("L'ouverture est annulée\n");
             }
 			break;
-		}	
+		case "Load Requests File":
+			//
+			int val_ret_requests = fc.showOpenDialog(null);
+
+            if (val_ret_requests == JFileChooser.APPROVE_OPTION) {
+               File requests_file = fc.getSelectedFile();
+               
+               controller.loadRequestsFile(requests_file.getAbsolutePath());
+               
+               graphicalView.updateGraphicalCityMap(controller);
+               window.repaint();
+               System.out.println("requests path was : " + requests_file.getAbsolutePath());
+            		   
+            } else {
+                 System.out.println("L'ouverture est annulée\n");
+            }
+			break;
+			//
+		}
+			
 		
 		
 	}

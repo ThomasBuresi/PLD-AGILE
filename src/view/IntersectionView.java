@@ -18,10 +18,11 @@ public class IntersectionView extends JPanel {
      * Default constructor
      */
     public IntersectionView(HashMap<Long, Intersection> listIntersection) {
-    	this.listIntersection = listIntersection;    	
+    	this.listIntersection = listIntersection;  
+    	System.out.println("new intersection view");
     }
     
-    
+    @Override
     public void paintComponent(Graphics g) 
     {     
     	super.paintComponent(g);

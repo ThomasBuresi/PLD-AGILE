@@ -36,6 +36,11 @@ public class GraphicalView extends JPanel implements Observer {
     	repaint();
     }
     
+    /**
+     * Update graphical city map to take into account the change of CityMap
+     * @param controller
+     */
+    
     public void updateGraphicalCityMap(Controller controller) {
     	this.remove(graphicalCityMap);
     	graphicalCityMap = new GraphicalCityMap(controller);

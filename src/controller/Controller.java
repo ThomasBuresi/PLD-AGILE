@@ -3,6 +3,7 @@ package controller;
 import java.util.*;
 
 import model.CityMap;
+import model.RequestList;
 
 /**
  * 
@@ -13,6 +14,7 @@ public class Controller {
 	 * CityMap that will be imported from a file path
 	 */
 	private CityMap cityMap;
+	private RequestList requestList;
 	
 	
     /**
@@ -51,6 +53,12 @@ public class Controller {
     	cityMap = new CityMap(absolute_path);
     	cityMap.fillMap();
     	System.out.println("map loaded");
+    }
+    
+    public void loadRequestsFile(String absolute_path) {
+    	requestList = new RequestList(absolute_path, cityMap);
+    	requestList.fillRequests();
+    	System.out.println("requests loaded");
     }
     
     public CityMap getCityMap() {

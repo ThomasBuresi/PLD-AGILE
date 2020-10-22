@@ -28,7 +28,7 @@ public class ButtonListener implements ActionListener {
 	/**
 	 * Repaint
 	 */
-	private Window window;
+	//private Window window;
 	
 	private GraphicalView graphicalView;
 	
@@ -37,7 +37,7 @@ public class ButtonListener implements ActionListener {
      */
     public ButtonListener(Controller controller, Window window, GraphicalView graphicalView) {
     	this.controller=controller;
-    	this.window = window;
+    	//this.window = window;
     	this.graphicalView = graphicalView;
     	fc = new JFileChooser();
     }
@@ -58,7 +58,7 @@ public class ButtonListener implements ActionListener {
                controller.loadFile(file.getAbsolutePath());
                
                graphicalView.updateGraphicalCityMap(controller);
-               window.repaint();
+               //window.repaint();
                
             		   
             } else {
@@ -75,7 +75,7 @@ public class ButtonListener implements ActionListener {
                controller.loadRequestsFile(requests_file.getAbsolutePath());
                
                graphicalView.updateGraphicalCityMap(controller);
-               window.repaint();
+               //window.repaint();
                System.out.println("requests path was : " + requests_file.getAbsolutePath());
             		   
             } else {

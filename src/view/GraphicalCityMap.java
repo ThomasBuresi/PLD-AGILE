@@ -36,32 +36,42 @@ public class GraphicalCityMap extends JPanel {
     	//super();
     	if (controller.getCityMap() != null) {
     		listIntersection = controller.getCityMap().getListIntersection();
-    		requestList = controller.getRequestList();
     	} else {
     		listIntersection = null;
     		requestList = null;
-    		System.out.println("listIntersection is null");
+    		System.err.println("listIntersection is null");
     	}
+    	if (controller.getRequestList() != null) {
+    		requestList = controller.getRequestList();
+    	} else {
+    		requestList = null;
+    		System.err.println("RequestList is null");
+    	}
+    	
     	this.setLayout(null);
     	this.setBounds(0,0,900,500);
-    	this.setBackground(Color.green);
+    	this.setBackground(Color.white);
+    	//this.setOpaque(false);
     	System.out.println("city view " + this.getWidth() + " " + this.getHeight());
         // to complete 
     	
-    	if (listIntersection != null) {
-    		intersectionView = new IntersectionView(listIntersection);            
+    	if (listIntersection != null) {   
+    		System.out.println("intersection List not null");
             segmentView=new SegmentView(listIntersection, controller.getCityMap().getLatMin(),
             		controller.getCityMap().getLatMax(), controller.getCityMap().getLongMin(),
             		controller.getCityMap().getLongMax());
-    		this.add(intersectionView);
             this.add(segmentView);
             repaint();
-            
     	}
     	
-        
-    	
-    	
+    	if (requestList != null) {
+    		System.out.println("request List not null");
+    		intersectionView = new IntersectionView(listIntersection, requestList,  
+    				controller.getCityMap().getLatMin(), controller.getCityMap().getLatMax(), 
+    				controller.getCityMap().getLongMin(), controller.getCityMap().getLongMax());           
+            this.add(intersectionView);
+            repaint();
+    	}
     
     }
     
@@ -78,7 +88,7 @@ public class GraphicalCityMap extends JPanel {
     	//g.drawOval(300, 300, 50, 50);
     	//System.out.println("oval in intersectionview.java");
     	
-    	intersectionView.paintComponent(g);
+    	//intersectionView.paintComponent(g);
     	//segmentView.paintComponent(g);
     	
 

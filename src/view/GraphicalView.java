@@ -26,7 +26,8 @@ public class GraphicalView extends JPanel implements Observer {
     public GraphicalView(Controller controller) {
     	this.setLayout(null);
     	this.setBounds(20,20,900,500);
-        //setBackground(Color.yellow);
+        //setBackground(Color.white);
+        //this.setOpaque(false);
     	System.out.println("view " + this.getWidth() + " " + this.getHeight());
         // add Observers here 
     	

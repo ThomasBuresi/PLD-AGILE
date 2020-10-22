@@ -47,6 +47,7 @@ public class SegmentView extends JPanel {
 
     	this.setLayout(null);
     	this.setBounds(0,0,900,500);
+    	this.setOpaque(false);
     	this.setBackground(Color.white);
     	this.listIntersection = listIntersection; 
     	this.latMax = latMax;

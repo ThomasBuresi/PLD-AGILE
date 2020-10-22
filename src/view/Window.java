@@ -50,7 +50,7 @@ public class Window extends JFrame{
 	public static void main(String[] args) {
 		//CityMap cityMap=new CityMap(); //useful citymap is created in Controller.java
 		Controller controller = new Controller();
-		controller.loadFile("src/resources/largeMap.xml");
+		controller.loadFile("src/resources/smallMap.xml");
 		//Frame
         Window  test = new Window(controller); //,cityMap); to be deleted
         test.setVisible(true);
@@ -62,7 +62,10 @@ public class Window extends JFrame{
      */
     public Window(Controller controller) { //, CityMap cityMap) { to be deleted
     	
-    	ButtonListener buttonListener = new ButtonListener(controller);
+    	graphicalView = new GraphicalView(controller);
+        textualView = new TextualView();
+    	
+    	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView);
     	
     	// Main Frame
     	setTitle("Deliver'IF");
@@ -88,8 +91,7 @@ public class Window extends JFrame{
         
         //CityMap cityMap = controller.getCityMap();
                 
-        graphicalView = new GraphicalView(controller);
-        textualView = new TextualView();
+
         
         
 

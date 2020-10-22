@@ -67,22 +67,23 @@ public class SegmentView extends JPanel {
         //g.drawLine(0, 0, 900, 500);
         System.out.println("hii " + this.getWidth() + " " + this.getHeight());
         System.out.println(latMin + " "+ latMax + " " + longMin + " " + longMax);
-        
+        int i = 0;
         for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
-  		  int i = entry.getValue().getListSegments().size();
+  		  i += entry.getValue().getListSegments().size();
   		  //System.out.println(i);
   		  List<Segment> seg = entry.getValue().getListSegments();
   		  for (Segment s : seg) {
-  			  int yOrig = (int)Math.round((s.getOrigin().getLatitude()-latMin)/(latMax-latMin)*this.getHeight());
+  			  int yOrig = this.getHeight() - (int)Math.round((s.getOrigin().getLatitude()-latMin)/(latMax-latMin)*this.getHeight());
   			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMin)/(longMax-longMin)*this.getWidth());
-  			  int yDest = (int)Math.round((s.getDestination().getLatitude()-latMin)/(latMax-latMin)*this.getHeight());
+  			  int yDest = this.getHeight() - (int)Math.round((s.getDestination().getLatitude()-latMin)/(latMax-latMin)*this.getHeight());
   			  int xDest = (int)Math.round((s.getDestination().getLongitude()-longMin)/(longMax-longMin)*this.getWidth());
-  			  System.out.println(xOrig + " "+ yOrig + " " + xDest + " " + yDest);
+  			  //System.out.println(xOrig + " "+ yOrig + " " + xDest + " " + yDest);
   			  //System.out.println(s.getOrigin().getLatitude());
   			  g.drawLine(xOrig, yOrig, xDest, yDest);
   		  }
   		  //System.out.println(entry.getKey() + "/" + entry.getValue().toString());
   	  	}
+        System.out.println(i);
     }
 
 }

@@ -65,4 +65,8 @@ public class Controller {
     	return cityMap;
     }
     
+    public RequestList getRequestList() {
+    	return requestList;
+    }
+    
 }

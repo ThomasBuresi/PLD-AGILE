@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import controller.Controller;
 import model.CityMap;
 import model.Intersection;
+import model.RequestList;
 
 /**
  * 
@@ -19,7 +20,7 @@ import model.Intersection;
 public class GraphicalCityMap extends JPanel {
 	
 	private HashMap<Long, Intersection> listIntersection;
-	
+	private RequestList requestList;
 	/**
 	 * 
 	 */
@@ -35,8 +36,10 @@ public class GraphicalCityMap extends JPanel {
     	//super();
     	if (controller.getCityMap() != null) {
     		listIntersection = controller.getCityMap().getListIntersection();
+    		requestList = controller.getRequestList();
     	} else {
     		listIntersection = null;
+    		requestList = null;
     		System.out.println("listIntersection is null");
     	}
     	this.setLayout(null);
@@ -75,7 +78,7 @@ public class GraphicalCityMap extends JPanel {
     	//g.drawOval(300, 300, 50, 50);
     	//System.out.println("oval in intersectionview.java");
     	
-    	//intersectionView.paintComponent(g);
+    	intersectionView.paintComponent(g);
     	//segmentView.paintComponent(g);
     	
 

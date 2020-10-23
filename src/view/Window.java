@@ -50,7 +50,7 @@ public class Window extends JFrame{
 	public static void main(String[] args) {
 		//CityMap cityMap=new CityMap(); //useful citymap is created in Controller.java
 		Controller controller = new Controller();
-		controller.loadFile("src/resources/smallMap.xml");
+		//controller.loadFile("src/resources/largeMap.xml");
 		//Frame
         Window  test = new Window(controller); //,cityMap); to be deleted
         test.setVisible(true);
@@ -70,7 +70,7 @@ public class Window extends JFrame{
     	// Main Frame
     	setTitle("Deliver'IF");
         setSize(1300,720);
-        setLocation(500,100);
+        setLocation(100,10);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);

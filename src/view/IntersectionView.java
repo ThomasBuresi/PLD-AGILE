@@ -66,13 +66,18 @@ public class IntersectionView extends JPanel {
     {     
     	super.paintComponent(g);
     	Color colors[] = {Color.red, Color.green, Color.yellow, Color.cyan, Color.pink, Color.orange, Color.gray, Color.magenta};
-    	g.setColor(Color.black);
-    	//g.drawOval(500, 100, 50, 50);
-    	
-    	g.fillRect((int)Math.round((requestList.getDeparture().getLatitude()-latMin)/(latMax-latMin)*this.getWidth())-5,
-    			this.getHeight() - (int)Math.round((requestList.getDeparture().getLongitude()-latMin)/(latMax-latMin)*this.getHeight())-5, 
-    			10, 10);
     	List<Request> requests = requestList.getListRequests();
+    	
+    	System.out.println(requestList);
+    	
+    	int departure_px = (int)Math.round((requestList.getDeparture().getLatitude()-latMin)/(latMax-latMin)*this.getWidth())-5;
+    	int departure_py = this.getHeight() - (int)Math.round((requestList.getDeparture().getLongitude()-longMin)/(longMax-longMin)*this.getHeight())-5;
+    	System.out.println("departure : " + departure_px + " " + departure_py);
+        g.fillRect(departure_px, departure_py, 10, 10);
+      
+    	
+        System.out.println(" Min : "+longMin + " " + latMin+ " / Max :" + longMax + " " + latMax);
+        
     	int col_counter = 0;
     	for (Request res : requests) {
     		g.setColor(colors[col_counter]);

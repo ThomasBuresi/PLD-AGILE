@@ -17,7 +17,7 @@ import model.RequestList;
 /**
  * 
  */
-public class GraphicalCityMap extends JPanel {
+public class GraphicalCityMap {
 	
 	private HashMap<Long, Intersection> listIntersection;
 	private RequestList requestList;
@@ -26,8 +26,8 @@ public class GraphicalCityMap extends JPanel {
 	 */
 	//private static final long serialVersionUID = 1L;
 	
-	public SegmentView segmentView;
-	public IntersectionView intersectionView;
+	public GraphicalSegment graphicalSegment;
+	public GraphicalIntersection graphicalIntersection;
 
     /**
      * Default constructor
@@ -48,51 +48,33 @@ public class GraphicalCityMap extends JPanel {
     		System.err.println("RequestList is null");
     	}
     	
-    	this.setLayout(null);
-    	this.setBounds(0,0,900,500);
-    	this.setBackground(Color.white);
-    	//this.setOpaque(false);
-    	System.out.println("city view " + this.getWidth() + " " + this.getHeight());
+    	// System.out.println("city view " + width + " " + height);
         // to complete 
     	
     	if (listIntersection != null) {   
     		System.out.println("intersection List not null");
-            segmentView=new SegmentView(listIntersection, controller.getCityMap().getLatMin(),
+            graphicalSegment=new GraphicalSegment(listIntersection, controller.getCityMap().getLatMin(),
             		controller.getCityMap().getLatMax(), controller.getCityMap().getLongMin(),
-            		controller.getCityMap().getLongMax());
-            this.add(segmentView);
-            repaint();
+            		controller.getCityMap().getLongMax());            
     	}
     	
     	if (requestList != null) {
     		System.out.println("request List not null");
-    		intersectionView = new IntersectionView(listIntersection, requestList,  
+    		graphicalIntersection = new GraphicalIntersection(listIntersection, requestList,  
     				controller.getCityMap().getLatMin(), controller.getCityMap().getLatMax(), 
-    				controller.getCityMap().getLongMin(), controller.getCityMap().getLongMax());           
-            this.add(intersectionView);
-            repaint();
+    				controller.getCityMap().getLongMin(), controller.getCityMap().getLongMax());  
     	}
     
     }
     
-    public void repaint(Graphics g) {
-		super.repaint();
-		paintComponent(g);
-	}
-    
-    @Override
-    public void paintComponent(Graphics g) 
+    public void drawGraphicalCityMap(Graphics g, int height, int width) 
     {     
-    	super.paintComponent(g);
-    	//g.drawLine(20, 20, 920, 520);
-    	//g.drawOval(300, 300, 50, 50);
-    	//System.out.println("oval in intersectionview.java");
-    	
-    	//intersectionView.paintComponent(g);
-    	//segmentView.paintComponent(g);
-    	
-
+    	if (graphicalIntersection != null) {
+    		graphicalIntersection.drawIntersection(g, height, width);
+    	}
+    	if (graphicalSegment != null) {
+    		graphicalSegment.drawSegment(g, height, width);
+    	}
     }
-
-
+    
 }

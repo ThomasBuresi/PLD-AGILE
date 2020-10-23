@@ -26,14 +26,13 @@ public class GraphicalView extends JPanel implements Observer {
     public GraphicalView(Controller controller) {
     	this.setLayout(null);
     	this.setBounds(20,20,900,500);
-        //setBackground(Color.white);
+        setBackground(Color.white);
         //this.setOpaque(false);
     	System.out.println("view " + this.getWidth() + " " + this.getHeight());
         // add Observers here 
     	
     	graphicalCityMap = new GraphicalCityMap(controller);
     	
-    	this.add(graphicalCityMap);
     	repaint();
     }
     
@@ -43,9 +42,7 @@ public class GraphicalView extends JPanel implements Observer {
      */
     
     public void updateGraphicalCityMap(Controller controller) {
-    	this.remove(graphicalCityMap);
     	graphicalCityMap = new GraphicalCityMap(controller);
-    	this.add(graphicalCityMap);
     	repaint();
     }
     
@@ -58,7 +55,7 @@ public class GraphicalView extends JPanel implements Observer {
     public void paintComponent(Graphics g) 
     {     
     	super.paintComponent(g);
-    	//graphicalCityMap.paintComponent(g);
+    	graphicalCityMap.drawGraphicalCityMap(g, this.getHeight(), this.getWidth());
     }
     
      

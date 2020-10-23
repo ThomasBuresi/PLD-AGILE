@@ -32,15 +32,23 @@ public class Window extends JFrame{
 	private TextualView textualView;
 	
 	/**
-	 * Button to load the files and requests 
+	 * Button to load the map file 
 	 */
 	private JButton load_file;
+	/**
+	 * Button to load the file requests 
+	 */
 	private JButton load_requests_file;
 	
 	/**
 	 * Label to change the descriptions of the actions to perform, indications for the user 
 	 */
 	private JLabel indications;
+	
+	/**
+	 * Boolean to add the request file button only after adding a map file 
+	 */
+	public Boolean add_request_button = false;
 	
 	
 	/**
@@ -63,7 +71,7 @@ public class Window extends JFrame{
     public Window(Controller controller) { //, CityMap cityMap) { to be deleted
     	
     	graphicalView = new GraphicalView(controller);
-        textualView = new TextualView();
+        textualView = new TextualView(controller);
     	
     	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView);
     	
@@ -77,15 +85,19 @@ public class Window extends JFrame{
         
         
         // Load the files 
-        load_file = new JButton("Load File");
+        load_file = new JButton("Load Map");
         load_file.addActionListener(buttonListener);
+        load_file.setVisible(true);
+        load_file.setBounds(950,20,145,30);
         
         // Load requests file
-        load_requests_file = new JButton("Load Requests File");
+        load_requests_file = new JButton("Load Requests");
         load_requests_file.addActionListener(buttonListener);
+        load_requests_file.setVisible(false);
+        load_requests_file.setBounds(1105,20,145,30);
         
         //Indications for the user
-        indications = new JLabel("You may load a map file (XML). ");
+        indications = new JLabel("Please load a map file (XML). ");
         
         
         //JScrollPane scroll = new JScrollPane();
@@ -96,12 +108,10 @@ public class Window extends JFrame{
         //CityMap cityMap = controller.getCityMap();
 
         // to add the buttons in a complementary way to the textual view
-        JPanel right_panel = new JPanel();
-        right_panel.setBounds(950,20,300,500);
-        right_panel.add(load_file);
-        right_panel.add(load_requests_file);
-        
-        
+//        JPanel right_panel = new JPanel();
+//        right_panel.setBounds(950,100,300,500);
+//        right_panel.add(load_file);
+//        right_panel.add(load_requests_file);
         
         //For the bottom indication zone
         JPanel bottom_panel = new JPanel();
@@ -111,8 +121,10 @@ public class Window extends JFrame{
         
         add(graphicalView);
         add(textualView);
-        add(right_panel);
+       // add(right_panel);
         add(bottom_panel);
+        add(load_file);
+        add(load_requests_file);
         
         
     	
@@ -122,10 +134,10 @@ public class Window extends JFrame{
     	
     }
     
-//    @Override
-//    public void paint(Graphics g) {
-//        super.paint(g);	
-//    }
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);	
+    }
     
     public GraphicalView getGraphicalView () {
     	return graphicalView;
@@ -133,6 +145,10 @@ public class Window extends JFrame{
     
     public TextualView getTextualView () {
     	return textualView;
+    }
+    
+    public void setVisibleRequestButton() {
+    	load_requests_file.setVisible(true);
     }
 
 

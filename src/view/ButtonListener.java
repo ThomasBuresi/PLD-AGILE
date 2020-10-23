@@ -28,7 +28,7 @@ public class ButtonListener implements ActionListener {
 	/**
 	 * Repaint
 	 */
-	//private Window window;
+	private Window window;
 	
 	private GraphicalView graphicalView;
 	
@@ -37,7 +37,7 @@ public class ButtonListener implements ActionListener {
      */
     public ButtonListener(Controller controller, Window window, GraphicalView graphicalView) {
     	this.controller=controller;
-    	//this.window = window;
+    	this.window = window;
     	this.graphicalView = graphicalView;
     	fc = new JFileChooser();
     }
@@ -45,7 +45,7 @@ public class ButtonListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
-		case "Load File":
+		case "Load Map":
 			
 			int val_ret = fc.showOpenDialog(null);
 
@@ -55,18 +55,18 @@ public class ButtonListener implements ActionListener {
                //to print the absolute path of the file
                //System.out.println("Chemin absolu : "+file.getAbsolutePath()+"\n");
                
-               controller.loadFile(file.getAbsolutePath());
+               controller.loadMapFile(file.getAbsolutePath());
                
                graphicalView.updateGraphicalCityMap(controller);
                //window.repaint();
-               
+               window.setVisibleRequestButton();
             		   
             } else {
                  System.out.println("L'ouverture est annulée\n");
             }
 			break;
-		case "Load Requests File":
-			//
+		case "Load Requests":
+			
 			int val_ret_requests = fc.showOpenDialog(null);
 
             if (val_ret_requests == JFileChooser.APPROVE_OPTION) {

@@ -5,19 +5,34 @@ import java.util.*;
 
 import javax.swing.JPanel;
 
+import controller.Controller;
+import model.RequestList;
+
 /**
  * 
  */
 @SuppressWarnings("deprecation")
 public class TextualView extends JPanel implements Observer {
 
+	/**
+     * Default constructor
+     */
+	private RequestList requestList;
+	
     /**
      * Default constructor
      */
-    public TextualView() {
+    public TextualView(Controller controller) {
     	
-    	setBounds(950,20,300,500);
+    	setBounds(950,60,300,460);
         setBackground(Color.white);
+        
+        if (controller.getRequestList() != null) {
+    		requestList = controller.getRequestList();
+    	} else {
+    		requestList = null;
+    		System.err.println("RequestList is null");
+    	}
     }
 
 

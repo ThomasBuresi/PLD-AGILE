@@ -15,7 +15,7 @@ import model.Segment;
 /**
  * 
  */
-public class SegmentView extends JPanel {
+public class GraphicalSegment {
 
 	protected HashMap<Long, Intersection> listIntersection;
 	
@@ -42,13 +42,9 @@ public class SegmentView extends JPanel {
     /**
      * Default constructor
      */
-    public SegmentView(HashMap<Long, Intersection> listIntersection, float latMin, float latMax,
+    public GraphicalSegment(HashMap<Long, Intersection> listIntersection, float latMin, float latMax,
     		float longMin, float longMax) {
 
-    	this.setLayout(null);
-    	this.setBounds(0,0,900,500);
-    	this.setOpaque(false);
-    	this.setBackground(Color.white);
     	this.listIntersection = listIntersection; 
     	this.latMax = latMax;
     	this.latMin = latMin;
@@ -60,31 +56,28 @@ public class SegmentView extends JPanel {
     //    return new Dimension(900, 500);
     //}
     
-    @Override
-    public void paintComponent(Graphics g) 
+    public void drawSegment(Graphics g, int height, int width) 
     {     
-    	
-        super.paintComponent(g);
         //g.drawLine(0, 0, 900, 500);
-        System.out.println("hii " + this.getWidth() + " " + this.getHeight());
-        System.out.println(latMin + " "+ latMax + " " + longMin + " " + longMax);
+        // System.out.println("hii " + width + " " + height);
+        // System.out.println(latMin + " "+ latMax + " " + longMin + " " + longMax);
         int i = 0;
         for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
   		  i += entry.getValue().getListSegments().size();
   		  //System.out.println(i);
   		  List<Segment> seg = entry.getValue().getListSegments();
   		  for (Segment s : seg) {
-  			  int yOrig = this.getHeight() - (int)Math.round((s.getOrigin().getLatitude()-latMin)/(latMax-latMin)*this.getHeight());
-  			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMin)/(longMax-longMin)*this.getWidth());
-  			  int yDest = this.getHeight() - (int)Math.round((s.getDestination().getLatitude()-latMin)/(latMax-latMin)*this.getHeight());
-  			  int xDest = (int)Math.round((s.getDestination().getLongitude()-longMin)/(longMax-longMin)*this.getWidth());
+  			  int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMin)/(latMax-latMin)*height);
+  			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMin)/(longMax-longMin)*width);
+  			  int yDest = height - (int)Math.round((s.getDestination().getLatitude()-latMin)/(latMax-latMin)*height);
+  			  int xDest = (int)Math.round((s.getDestination().getLongitude()-longMin)/(longMax-longMin)*width);
   			  //System.out.println(xOrig + " "+ yOrig + " " + xDest + " " + yDest);
   			  //System.out.println(s.getOrigin().getLatitude());
   			  g.drawLine(xOrig, yOrig, xDest, yDest);
   		  }
   		  //System.out.println(entry.getKey() + "/" + entry.getValue().toString());
   	  	}
-        System.out.println(i);
+        //System.out.println(i);
     }
 
 }

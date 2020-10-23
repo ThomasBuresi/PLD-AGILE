@@ -51,6 +51,7 @@ public class Controller {
     	cityMap = new CityMap(absolute_path);
     	cityMap.fillMap();
     	System.out.println("map loaded");
+    	
     }
     
     public CityMap getCityMap() {

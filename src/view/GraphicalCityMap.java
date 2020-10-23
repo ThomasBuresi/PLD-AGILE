@@ -75,7 +75,9 @@ public class GraphicalCityMap extends JPanel {
     	//System.out.println("oval in graphicalcitymap.java");
     	
     	//intersectionView.paintComponent(g);
-    	segmentView.paintComponent(g);
+    	if(segmentView != null) {
+    		segmentView.paintComponent(g);
+    	}   	
     	
 
     }

@@ -77,7 +77,7 @@ public class SegmentView extends JPanel {
   			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMin)/(longMax-longMin)*this.getWidth());
   			  int yDest = (int)Math.round((s.getDestination().getLatitude()-latMin)/(latMax-latMin)*this.getHeight());
   			  int xDest = (int)Math.round((s.getDestination().getLongitude()-longMin)/(longMax-longMin)*this.getWidth());
-  			  System.out.println(xOrig + " "+ yOrig + " " + xDest + " " + yDest);
+  			  //System.out.println(xOrig + " "+ yOrig + " " + xDest + " " + yDest);
   			  //System.out.println(s.getOrigin().getLatitude());
   			  g.drawLine(xOrig, yOrig, xDest, yDest);
   		  }

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import controller.Controller;
 import model.CityMap;
 import model.Intersection;
+import model.RequestList;
 
 /**
  * 
@@ -19,7 +20,7 @@ import model.Intersection;
 public class GraphicalCityMap extends JPanel {
 	
 	private HashMap<Long, Intersection> listIntersection;
-	
+	private RequestList requestList;
 	/**
 	 * 
 	 */
@@ -37,27 +38,40 @@ public class GraphicalCityMap extends JPanel {
     		listIntersection = controller.getCityMap().getListIntersection();
     	} else {
     		listIntersection = null;
+    		requestList = null;
+    		System.err.println("listIntersection is null");
     	}
+    	if (controller.getRequestList() != null) {
+    		requestList = controller.getRequestList();
+    	} else {
+    		requestList = null;
+    		System.err.println("RequestList is null");
+    	}
+    	
     	this.setLayout(null);
     	this.setBounds(0,0,900,500);
-    	this.setBackground(Color.green);
+    	this.setBackground(Color.white);
+    	//this.setOpaque(false);
     	System.out.println("city view " + this.getWidth() + " " + this.getHeight());
         // to complete 
     	
-    	if (listIntersection != null) {
-    		intersectionView = new IntersectionView(listIntersection);            
+    	if (listIntersection != null) {   
+    		System.out.println("intersection List not null");
             segmentView=new SegmentView(listIntersection, controller.getCityMap().getLatMin(),
             		controller.getCityMap().getLatMax(), controller.getCityMap().getLongMin(),
             		controller.getCityMap().getLongMax());
-    		//add(intersectionView);
             this.add(segmentView);
             repaint();
-            
     	}
     	
-        
-    	
-    	
+    	if (requestList != null) {
+    		System.out.println("request List not null");
+    		intersectionView = new IntersectionView(listIntersection, requestList,  
+    				controller.getCityMap().getLatMin(), controller.getCityMap().getLatMax(), 
+    				controller.getCityMap().getLongMin(), controller.getCityMap().getLongMax());           
+            this.add(intersectionView);
+            repaint();
+    	}
     
     }
     
@@ -72,12 +86,10 @@ public class GraphicalCityMap extends JPanel {
     	super.paintComponent(g);
     	//g.drawLine(20, 20, 920, 520);
     	//g.drawOval(300, 300, 50, 50);
-    	//System.out.println("oval in graphicalcitymap.java");
+    	//System.out.println("oval in intersectionview.java");
     	
     	//intersectionView.paintComponent(g);
-    	if(segmentView != null) {
-    		segmentView.paintComponent(g);
-    	}   	
+    	//segmentView.paintComponent(g);
     	
 
     }

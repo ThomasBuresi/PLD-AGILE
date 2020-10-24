@@ -13,6 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.byteowls.jopencage.model.JOpenCageResponse;
+import com.byteowls.jopencage.model.JOpenCageReverseRequest;
+
 import controller.Controller;
 import model.CityMap;
 
@@ -134,6 +138,23 @@ public class Window extends JFrame{
         repaint();
     	setVisible(true);
     	// Graphical and Textual views & other attributes ?
+    	
+    	//Get Address from coordinates API
+    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
+
+    	JOpenCageReverseRequest request = new JOpenCageReverseRequest(45.760174, 4.877455); //latitude, longitude
+    	request.setLanguage("fr"); // prioritize results in a specific language using an IETF format language code
+    	request.setNoDedupe(true); // don't return duplicate results
+    	request.setLimit(5); // only return the first 5 results (default is 10)
+    	request.setNoAnnotations(true); // exclude additional info such as calling code, timezone, and currency
+    	request.setMinConfidence(3); // restrict to results with a confidence rating of at least 3 (out of 10)
+
+    	JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
+
+    	// get the formatted address of the first result:
+    	String formattedAddress = response.getResults().get(0).getFormatted(); 
+    	System.out.println(formattedAddress);
+    	// formattedAddress is now '12 Rue Frédéric Passy, 69100 Villeurbanne, France'
     	
     }
     

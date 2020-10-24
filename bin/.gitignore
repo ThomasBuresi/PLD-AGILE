@@ -20,14 +20,4 @@
 *.rar
 bin/utils/
 .DS_Store
-/.classpath
-/.gitignore
-/.project
-/.settings/
-/README.md
-/controller/
-/lib/
-/model/
-/resources/
-/tsp/
 /view/

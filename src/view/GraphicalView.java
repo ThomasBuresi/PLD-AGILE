@@ -69,6 +69,10 @@ public class GraphicalView extends JPanel implements Observer {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public GraphicalCityMap getGraphicalCityMap() {
+		return graphicalCityMap;
+	}
 	
 	
 	

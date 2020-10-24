@@ -69,7 +69,7 @@ public class ButtonListener implements ActionListener {
                window.setVisibleRequestButton();
             		   
             } else {
-                 System.out.println("L'ouverture est annulÃ©e\n");
+                 System.out.println("L'ouverture est annulée\n");
             }
 			break;
 		case "Load Requests":
@@ -87,7 +87,7 @@ public class ButtonListener implements ActionListener {
                System.out.println("requests path was : " + requests_file.getAbsolutePath());
             		   
             } else {
-                 System.out.println("L'ouverture est annulÃ©e\n");
+                 System.out.println("L'ouverture est annulée\n");
             }
 			break;
 			//

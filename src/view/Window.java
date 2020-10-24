@@ -74,7 +74,9 @@ public class Window extends JFrame{
         textualView = new TextualView(controller);
     	
     	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView, textualView);
+    	MouseListen mouseListen = new MouseListen(controller, graphicalView.getHeight(), graphicalView.getWidth());
     	
+    	graphicalView.addMouseListener(mouseListen);
     	// Main Frame
     	setTitle("Deliver'IF");
         setSize(1300,720);

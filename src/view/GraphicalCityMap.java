@@ -76,5 +76,13 @@ public class GraphicalCityMap {
     		graphicalSegment.drawSegment(g, height, width);
     	}
     }
+
+	public HashMap<Long, Intersection> getListIntersection() {
+		return listIntersection;
+	}
+
+	public RequestList getRequestList() {
+		return requestList;
+	}
     
 }

@@ -73,7 +73,7 @@ public class Window extends JFrame{
     	graphicalView = new GraphicalView(controller);
         textualView = new TextualView(controller);
     	
-    	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView);
+    	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView, textualView);
     	
     	// Main Frame
     	setTitle("Deliver'IF");

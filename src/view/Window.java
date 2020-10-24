@@ -97,7 +97,8 @@ public class Window extends JFrame{
         load_requests_file.setBounds(1105,20,145,30);
         
         //Indications for the user
-        indications = new JLabel("Please load a map file (XML). ");
+        indications = new JLabel("Your Next Step : \r\n"
+        		+ "Please load your City Map File (XML). \r\n");
         
         
         //JScrollPane scroll = new JScrollPane();
@@ -148,6 +149,8 @@ public class Window extends JFrame{
     }
     
     public void setVisibleRequestButton() {
+    	indications.setText("Your Next Step : \r\n"
+    			+ "Please load your Requests File (XML). ");
     	load_requests_file.setVisible(true);
     }
 

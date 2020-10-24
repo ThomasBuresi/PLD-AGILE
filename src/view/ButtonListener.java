@@ -43,6 +43,10 @@ public class ButtonListener implements ActionListener {
     	this.graphicalView = graphicalView;
     	this.textualView = textualView;
     	fc = new JFileChooser();
+    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
+    			System.getProperty("file.separator")+ "src" + 
+    			System.getProperty("file.separator")+ "resources"));
+    	
     }
 
 	@Override

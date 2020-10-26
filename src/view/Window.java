@@ -154,7 +154,7 @@ public class Window extends JFrame{
     	// get the formatted address of the first result:
     	String formattedAddress = response.getResults().get(0).getFormatted(); 
     	System.out.println(formattedAddress);
-    	// formattedAddress is now '12 Rue Frédéric Passy, 69100 Villeurbanne, France'
+    	// formattedAddress is now '12 Rue Frdric Passy, 69100 Villeurbanne, France'a
     	
     }
     

@@ -54,8 +54,6 @@ public class MouseListen implements MouseListener{
 				}
 			}
 		} 
-		
-		
 	}
 
 	@Override

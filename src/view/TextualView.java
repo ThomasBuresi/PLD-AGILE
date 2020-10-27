@@ -1,14 +1,19 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.*;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import com.byteowls.jopencage.JOpenCageGeocoder;
 
 import controller.Controller;
 import model.Request;
@@ -25,6 +30,7 @@ public class TextualView extends JPanel implements Observer {
      */
 	private RequestList requestList;
 	
+	
     /**
      * Default constructor
      */
@@ -32,6 +38,8 @@ public class TextualView extends JPanel implements Observer {
     	
     	setBounds(950,60,300,460);
         setBackground(Color.white);
+        //JScrollBar bar = new JScrollBar();
+        //this.setVerticalScrollBar(bar);
         
         if (controller.getRequestList() != null) {
     		requestList = controller.getRequestList();
@@ -54,22 +62,56 @@ public class TextualView extends JPanel implements Observer {
     	super.paintComponent(g);
     	if (requestList != null) {
     		List<Request> requests = requestList.getListRequests();
-    		DefaultTableModel tableModel = new DefaultTableModel();    		
+    		DefaultTableModel tableModel = new DefaultTableModel();   
     		tableModel.addColumn("Requests");
+    		String str ="";
+    		int i = 1;
     		for (Request res : requests) {
-    			tableModel.insertRow(tableModel.getRowCount(), new Object[] { res.toString() });
+    			//Get Address from coordinates API
+    	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
+
+    			String deliveryAddress = res.getDeliveryAddress().toAddress(jOpenCageGeocoder);
+    			String pickupAddress = res.getPickupAddress().toAddress(jOpenCageGeocoder);
+    			//str= "Request "+i+" : \n PICKUP - "+pickupAddress+"\n DELIVERY - "+deliveryAddress;
+    			str="<HTML>" + ("Request "+i+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
+    			
+    			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
+    			
+    			i++;
     		}
+    		
+    		//MyCellRenderer MyRenderer=new MyCellRenderer();
+    		
     		JTable requestTable = new JTable(tableModel);
-    		add(requestTable); // TABLE DOES NOT DISPLAY IN PANEL, HELP !! 
+    		//JScrollPane tableSP = new JScrollPane(requestTable);
+    		//tableSP.setPreferredSize(new Dimension(400,800));
+    		//requestTable.setAutoscrolls(true);
+    		//requestTable.setLayout(null);
+    		requestTable.getColumnModel().getColumn(0).setMinWidth(300);
+    		//requestTable.getColumnModel().getColumn(0).setCellRenderer(MyRenderer);
+    		int j = 0 ;
+    		while(j<=(i-1)) {
+    			requestTable.setRowHeight(j, 100);
+    			j++;
+    		}
+    		requestTable.setBounds(0, 0, 300,460);
+    		//requestTable.setPreferredScrollableViewportSize(new Dimension(300, 460));
+    		requestTable.setVisible(true);
+    		//add(new JScrollPane(requestTable));
+//    		requestTable.setAutoscrolls(this.getAutoscrolls());
+    		add(requestTable); 
+    		
     	}
     }
 
+    
+    
 
     /**
      * 
      */
     public void update(Controller controller) {
-        // TODO implement here
+        
     	System.out.println("update textual view");
     	if (controller.getRequestList() != null) {
     		requestList = controller.getRequestList();

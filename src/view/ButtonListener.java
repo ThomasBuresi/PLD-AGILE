@@ -79,18 +79,69 @@ public class ButtonListener implements ActionListener {
             if (val_ret_requests == JFileChooser.APPROVE_OPTION) {
                File requests_file = fc.getSelectedFile();
                
-               controller.loadRequestsFile(requests_file.getAbsolutePath());
+               boolean res = controller.loadRequestsFile(requests_file.getAbsolutePath());
                
-               graphicalView.updateGraphicalCityMap(controller);
-               textualView.update(controller);
-               //window.repaint();
-               System.out.println("requests path was : " + requests_file.getAbsolutePath());
-            		   
+               if(res) {
+            	   graphicalView.updateGraphicalCityMap(controller);
+                   textualView.update(controller);
+                   window.setVisibleCalculateButton();
+                   //window.repaint();
+                   //System.out.println("requests path was : " + requests_file.getAbsolutePath());
+               }else {
+            	   window.setErrorAtOpening();
+               }
+  	   
             } else {
                  System.out.println("L'ouverture est annulée\n");
             }
 			break;
-			//
+		case"Calculate Delivery Tour" : 
+			
+			//controller computation
+			
+			//case it ends 
+			
+			//display it on the map 
+			//order the request list 
+			//setVisibleAddExport in Window
+			//window.setVisibleAddExport();
+			
+			
+			//case computation is too long 
+			
+			//remember that we can continue the computation only one time
+			//setContinueVisible
+			window.setContinueCalculation();
+			
+			break;
+			
+		case "Continue calculation (20sec more)":
+			//controller computation
+			
+			//it ends 
+			//setVisibleAddExport in Window
+			window.setVisibleAddExport();
+			//it doesn't end
+			//set error mode ??  
+			
+			break;
+		
+		case "Add" :
+			break;
+		case "Remove" :
+			break;
+		case "Export Tour File" :
+			
+			//controller and delivery tour object 
+			
+			// no change in tg=he display ? or popup the export is complete ? 
+			
+			break;
+		case "Undo" :
+			break;
+		case "Redo" :
+			break;
+			
 		}
 			
 		

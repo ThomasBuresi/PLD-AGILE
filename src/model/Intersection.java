@@ -1,6 +1,10 @@
 package model;
 import java.util.*;
 
+import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.byteowls.jopencage.model.JOpenCageResponse;
+import com.byteowls.jopencage.model.JOpenCageReverseRequest;
+
 /**
  * 
  */
@@ -78,6 +82,24 @@ public class Intersection {
 	public String toString() {
 		return "Intersection [longitude=" + longitude + ", latitude=" + latitude + ", idIntersection=" + idIntersection
 				+ "]";
+	}
+	
+	/**
+	 * Intersection to corresponding address
+	 */
+	public String toAddress(JOpenCageGeocoder jOpenCageGeocoder) {
+		
+    	JOpenCageReverseRequest request = new JOpenCageReverseRequest((double)latitude, (double)longitude); //latitude, longitude
+    	request.setLanguage("fr"); // prioritize results in a specific language using an IETF format language code
+    	request.setNoDedupe(true); // don't return duplicate results
+    	request.setLimit(5); // only return the first 5 results (default is 10)
+    	request.setNoAnnotations(true); // exclude additional info such as calling code, timezone, and currency
+    	request.setMinConfidence(3); // restrict to results with a confidence rating of at least 3 (out of 10)
+
+    	JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
+
+    	// get the formatted address of the first result:
+    	return  response.getResults().get(0).getFormatted(); 
 	}
 
 	/**

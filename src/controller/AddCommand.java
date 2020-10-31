@@ -27,7 +27,7 @@ public class AddCommand implements Command {
      */
     public void doCommand() {
         // TODO implement here
-        return null;
+        //return null;
     }
 
     /**
@@ -35,7 +35,7 @@ public class AddCommand implements Command {
      */
     public void undoCommand() {
         // TODO implement here
-        return null;
+        //return null;
     }
 
     /**
@@ -45,18 +45,6 @@ public class AddCommand implements Command {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
-    public void doCommand():void() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void undoCommand():void() {
-        // TODO implement here
-    }
+ 
 
 }

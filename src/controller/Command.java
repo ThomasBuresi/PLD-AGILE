@@ -18,7 +18,7 @@ public class Command {
      */
     public void doCommand() {
         // TODO implement here
-        return null;
+        //return null;
     }
 
     /**
@@ -26,7 +26,7 @@ public class Command {
      */
     public void undoCommand() {
         // TODO implement here
-        return null;
+        //return null;
     }
 
 }

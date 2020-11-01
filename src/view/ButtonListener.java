@@ -67,6 +67,8 @@ public class ButtonListener implements ActionListener {
                graphicalView.updateGraphicalCityMap(controller);
                //window.repaint();
                window.setVisibleRequestButton();
+               window.removeLegend();
+               textualView.update(controller);
             		   
             } else {
                  System.out.println("L'ouverture est annulée\n");

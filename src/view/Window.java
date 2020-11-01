@@ -87,9 +87,14 @@ public class Window extends JFrame{
 	private JButton redo_button;
 	
 	/**
-	 * Label to change the descriptions of the actions to perform, indications for the user 
+	 * Text area to change the descriptions of the actions to perform (indications for the user)
 	 */
 	private JTextArea indications;
+	
+	/**
+	 * Text area to show the legend of the map
+	 */
+	private JTextArea legend;
 	
 	/**
 	 * Boolean to add the request file button only after adding a map file 
@@ -197,6 +202,8 @@ public class Window extends JFrame{
         indications.setBounds(10, 10, 540, 80);
         //indications.setBorder(BorderFactory.createLineBorder(Color.black));
         
+        legend = new JTextArea();
+        
 
         
         //JScrollPane scroll = new JScrollPane();
@@ -270,7 +277,7 @@ public class Window extends JFrame{
     @Override
     public void paint(Graphics g) {
         super.paint(g);	
-        if (bottom_panel.getComponentCount() == 2) {
+        if (bottom_panel.getComponentCount() > 1) {
         	g.fillRect(705, 611, 10, 10);
         	g.setColor(Color.red);
         	g.fillRect(705, 627, 10, 10);
@@ -331,13 +338,19 @@ public class Window extends JFrame{
     }
     
     public void addLegend() {
-    	JTextArea legend = new JTextArea("        LEGEND :\n"
+    	bottom_panel.remove(legend);
+    	legend = new JTextArea("        LEGEND :\n"
     			+ "-   Deposit (Start point)\n" 
     			+ "-   Pickup address\n"
     			+ "-   Delivery address");
     	legend.setBounds(700, 10, 200, 80);
     	legend.setEditable(false);
     	bottom_panel.add(legend);
+    	repaint();
+    }
+    
+    public void removeLegend() {
+    	bottom_panel.remove(legend);
     	repaint();
     }
 

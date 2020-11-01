@@ -19,8 +19,8 @@
 *.rar
 bin/utils/
 .DS_Store
+/tsp/
 /view/
-/model/
+/com/
 /controller/
-/.settings/
-/resources/
+/model/

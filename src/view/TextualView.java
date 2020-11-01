@@ -55,7 +55,7 @@ public class TextualView extends JPanel{ //implements Observer {
         
         if (controller.getRequestList() != null) {
     		requestList = controller.getRequestList();
-    		this.add(requestTable);
+    		//this.add(requestTable);
     		fillTable();
     		
     		requestTable.setVisible(true);
@@ -180,6 +180,7 @@ public class TextualView extends JPanel{ //implements Observer {
     		fillTable();
     	} else {
     		requestList = null;
+    		this.remove(scrollPane);
     		System.err.println("RequestList is null");
     	}
         

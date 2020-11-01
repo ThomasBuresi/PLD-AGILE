@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.byteowls.jopencage.model.JOpenCageResponse;
@@ -35,6 +37,11 @@ public class Window extends JFrame{
 	 * Containing the textual view and description of the points 
 	 */
 	private TextualView textualView;
+	
+	/**
+	 * Containing indications and legend
+	 */
+	private JPanel bottom_panel;
 	
 	/**
 	 * Button to load the map file 
@@ -184,7 +191,13 @@ public class Window extends JFrame{
         //Indications for the user
         indications = new JTextArea("Your Next Step : \r\n"
         		+ "Please load your City Map File (XML). \r\n");
+        indications.setEditable(false);
+        indications.setLineWrap(true);
+        indications.setWrapStyleWord(true);
+        indications.setBounds(10, 10, 540, 80);
+        //indications.setBorder(BorderFactory.createLineBorder(Color.black));
         
+
         
         //JScrollPane scroll = new JScrollPane();
         //for (int i = 0; i < 5; i++) {
@@ -200,8 +213,9 @@ public class Window extends JFrame{
 //        right_panel.add(load_requests_file);
         
         //For the bottom indication zone
-        JPanel bottom_panel = new JPanel();
-        bottom_panel.setBounds(20,520,900,100);
+        bottom_panel = new JPanel();
+        bottom_panel.setLayout(null);
+        bottom_panel.setBounds(20,550,900,100);
         bottom_panel.setBackground(Color.white);
         bottom_panel.add(indications);
         
@@ -227,12 +241,13 @@ public class Window extends JFrame{
         add(undo_button);
         add(redo_button);
         
-        
+
     	
         repaint();
     	setVisible(true);
     	// Graphical and Textual views & other attributes ?
     	
+    	/*
     	//Get Address from coordinates API
     	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
 
@@ -249,12 +264,19 @@ public class Window extends JFrame{
     	String formattedAddress = response.getResults().get(0).getFormatted(); 
     	System.out.println(formattedAddress);
     	// formattedAddress is now '12 Rue Frédéric Passy, 69100 Villeurbanne, France'
-    	
+    	*/
     }
     
     @Override
     public void paint(Graphics g) {
         super.paint(g);	
+        if (bottom_panel.getComponentCount() == 2) {
+        	g.fillRect(705, 611, 10, 10);
+        	g.setColor(Color.red);
+        	g.fillRect(705, 627, 10, 10);
+        	g.fillOval(705, 643, 10, 10);
+        }
+        
     }
     
     public GraphicalView getGraphicalView () {
@@ -306,6 +328,17 @@ public class Window extends JFrame{
     	export_tour.setVisible(true);
     	undo_button.setVisible(true);
     	redo_button.setVisible(true);
+    }
+    
+    public void addLegend() {
+    	JTextArea legend = new JTextArea("        LEGEND :\n"
+    			+ "-   Deposit (Start point)\n" 
+    			+ "-   Pickup address\n"
+    			+ "-   Delivery address");
+    	legend.setBounds(700, 10, 200, 80);
+    	legend.setEditable(false);
+    	bottom_panel.add(legend);
+    	repaint();
     }
 
 

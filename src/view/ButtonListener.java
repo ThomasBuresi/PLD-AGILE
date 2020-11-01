@@ -85,6 +85,7 @@ public class ButtonListener implements ActionListener {
             	   graphicalView.updateGraphicalCityMap(controller);
                    textualView.update(controller);
                    window.setVisibleCalculateButton();
+                   window.addLegend();
                    //window.repaint();
                    //System.out.println("requests path was : " + requests_file.getAbsolutePath());
                }else {

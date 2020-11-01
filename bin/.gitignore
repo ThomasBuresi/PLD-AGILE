@@ -22,3 +22,5 @@ bin/utils/
 /view/
 /model/
 /controller/
+/.settings/
+/resources/

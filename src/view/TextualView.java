@@ -1,8 +1,10 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 import com.byteowls.jopencage.JOpenCageGeocoder;
 
@@ -32,17 +34,24 @@ public class TextualView extends JPanel{ //implements Observer {
 	
 	private JTable requestTable;
 	
+	private JScrollPane scrollPane;
+	
 	
     /**
      * Default constructor
      */
     public TextualView(Controller controller) {
-    	
+    	super(new GridLayout(1,0));
     	setBounds(950,60,300,460);
         setBackground(Color.white);
-        requestTable = new JTable();
-        //JScrollBar bar = new JScrollBar();
-        //this.setVerticalScrollBar(bar);
+        //requestTable = new JTable();
+    	//super(new GridLayout(1,0));
+        
+    	requestTable = new JTable();
+    	requestTable.setPreferredScrollableViewportSize(new Dimension(300, 460));
+    	requestTable.setFillsViewportHeight(true);
+    	scrollPane = new JScrollPane(requestTable);
+        this.add(scrollPane);
         
         if (controller.getRequestList() != null) {
     		requestList = controller.getRequestList();
@@ -64,7 +73,8 @@ public class TextualView extends JPanel{ //implements Observer {
 //	}
     
     public void fillTable() {
-    	this.remove(requestTable);
+    	//this.remove(requestTable);
+    	this.remove(scrollPane);
     	List<Request> requests = requestList.getListRequests();
 		DefaultTableModel tableModel = new DefaultTableModel();   
 		tableModel.addColumn("Requests");
@@ -98,12 +108,14 @@ public class TextualView extends JPanel{ //implements Observer {
 			requestTable.setRowHeight(j, 100);
 			j++;
 		}
-		requestTable.setBounds(0, 0, 300,460);
+		//requestTable.setBounds(0, 0, 300,460);
 		//requestTable.setPreferredScrollableViewportSize(new Dimension(300, 460));
-		requestTable.setVisible(true);
+		//requestTable.setVisible(true);
 		//add(new JScrollPane(requestTable));
 //		requestTable.setAutoscrolls(this.getAutoscrolls());
-		add(requestTable); 
+		//add(requestTable);
+		scrollPane = new JScrollPane(requestTable);
+        this.add(scrollPane);
     }
     /*
     @Override

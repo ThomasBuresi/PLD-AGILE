@@ -65,7 +65,7 @@ public class testxml {
 	  
 	  System.out.println("\n************TEST OF CITYMAP****************");
 	  
-	  CityMap map = new CityMap("src/resources/smallMap.xml");
+	  CityMap map = new CityMap("src/resources/largeMap.xml");
 	  map.fillMap();
 	  
 	  System.out.println("\n"+map.getIntersection(25175791).toString());

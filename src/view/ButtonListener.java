@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -24,18 +25,34 @@ public class ButtonListener implements ActionListener {
 	 */
 	private Controller controller; 
 	
+	/**
+	 * Repaint
+	 */
+	private Window window;
+	
+	private GraphicalView graphicalView;
+	
+	private TextualView textualView;
+	
     /**
      * Default constructor
      */
-    public ButtonListener(Controller controller) {
+    public ButtonListener(Controller controller, Window window, GraphicalView graphicalView, TextualView textualView) {
     	this.controller=controller;
+    	this.window = window;
+    	this.graphicalView = graphicalView;
+    	this.textualView = textualView;
     	fc = new JFileChooser();
+    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
+    			System.getProperty("file.separator")+ "src" + 
+    			System.getProperty("file.separator")+ "resources"));
+    	
     }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
-		case "Load File":
+		case "Load Map":
 			
 			int val_ret = fc.showOpenDialog(null);
 
@@ -45,13 +62,37 @@ public class ButtonListener implements ActionListener {
                //to print the absolute path of the file
                //System.out.println("Chemin absolu : "+file.getAbsolutePath()+"\n");
                
-               controller.loadFile(file.getAbsolutePath());
+               controller.loadMapFile(file.getAbsolutePath());
+               
+               graphicalView.updateGraphicalCityMap(controller);
+               //window.repaint();
+               window.setVisibleRequestButton();
             		   
             } else {
-                 System.out.println("L'ouverture est annulÃ©e\n");
+                 System.out.println("L'ouverture est annulée\n");
             }
 			break;
-		}	
+		case "Load Requests":
+			
+			int val_ret_requests = fc.showOpenDialog(null);
+
+            if (val_ret_requests == JFileChooser.APPROVE_OPTION) {
+               File requests_file = fc.getSelectedFile();
+               
+               controller.loadRequestsFile(requests_file.getAbsolutePath());
+               
+               graphicalView.updateGraphicalCityMap(controller);
+               textualView.update(controller);
+               //window.repaint();
+               System.out.println("requests path was : " + requests_file.getAbsolutePath());
+            		   
+            } else {
+                 System.out.println("L'ouverture est annulée\n");
+            }
+			break;
+			//
+		}
+			
 		
 		
 	}

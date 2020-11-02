@@ -54,6 +54,22 @@ public class Segment {
 		return "Segment [name=" + name + ", origin=" + origin + ", destination=" + destination + ", length=" + length
 				+ "]";
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Intersection getOrigin() {
+		return origin;
+	}
+
+	public Intersection getDestination() {
+		return destination;
+	}
+
+	public float getLength() {
+		return length;
+	}
     
 
 }

@@ -127,4 +127,12 @@ public class RequestList {
 		return filePath;
 	}
 
+	public CityMap getCityMap() {
+		return cityMap;
+	}
+
+	public List<Request> getListRequests() {
+		return listRequests;
+	}
+
 }

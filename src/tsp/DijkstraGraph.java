@@ -76,20 +76,34 @@ public class DijkstraGraph implements Graph {
 	}
 	
 	private void fillGraph() {
-		edges = new float[2*requestList.getListRequests().size()][2*requestList.getListRequests().size()];
-		segmentPaths = new List[2*requestList.getListRequests().size()][2*requestList.getListRequests().size()];
+		edges = new float[1+2*requestList.getListRequests().size()][1+2*requestList.getListRequests().size()];
+		segmentPaths = new List[1+2*requestList.getListRequests().size()][1+2*requestList.getListRequests().size()];
 		// (2*n, 2*n+1) : pickup and delivery points for request n
 		int requestNb = requestList.getListRequests().size();
-		for(int i = 0; i < 2*requestNb; i++) {
-			for(int j = 0; j < 2*requestNb; j++) {
+		for(int i = 0; i < 1+2*requestNb; i++) {
+			for(int j = 0; j < 1+2*requestNb; j++) {
 				if(i == j) {
 					edges[i][j] = 0;
 				} else {
-					Request originRequest = requestList.getListRequests().get(i/2);
-					Request destinationRequest = requestList.getListRequests().get(j/2);
-					Intersection origin = (i % 2 == 0) ? originRequest.getPickupAddress() : originRequest.getDeliveryAddress();
-					Intersection destination = (j % 2 == 0) ? destinationRequest.getPickupAddress() : destinationRequest.getDeliveryAddress();
+					Intersection origin, destination;
+					i--;
+					j--;
+					if(i != -1) {
+						Request originRequest = requestList.getListRequests().get(i/2);
+						origin = (i % 2 == 0) ? originRequest.getPickupAddress() : originRequest.getDeliveryAddress();
+					} else {
+						origin = requestList.getDeparture();
+					}
+					
+					if (j != -1) {
+						Request destinationRequest = requestList.getListRequests().get(j/2);
+						destination = (j % 2 == 0) ? destinationRequest.getPickupAddress() : destinationRequest.getDeliveryAddress();
+					} else {
+						destination = requestList.getDeparture();
+					}
 					DijkstraState finalState = computeDistance(origin, destination);
+					i++;
+					j++;
 					if(finalState == null) {
 						edges[i][j] = -1;
 						segmentPaths[i][j] = null;

@@ -97,8 +97,8 @@ public class testxml {
 	  
 	  DijkstraGraph g = new DijkstraGraph(map, reqlist);
 	  
-	  for(int j = 0; j < 2*reqlist.getListRequests().size(); j++) {
-		  for(int k = 0; k < 2*reqlist.getListRequests().size(); k++) {
+	  for(int j = 0; j < 1+2*reqlist.getListRequests().size(); j++) {
+		  for(int k = 0; k < 1+2*reqlist.getListRequests().size(); k++) {
 			  System.out.print(g.getCost(j, k) + " ");
 		  }
 		  System.out.println();
@@ -106,9 +106,10 @@ public class testxml {
 	TSP tsp = new TSP1();
 	tsp.searchSolution(20000, g);
 	System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
-	for(int m = 0; m < 2*reqlist.getListRequests().size(); m++) {
+	for(int m = 0; m < 1+2*reqlist.getListRequests().size(); m++) {
 		System.out.print(" " + tsp.getSolution(m));
 	}
+	System.out.println(" 0");
     //Bienvenue sur le projet AGILE 
   }
   

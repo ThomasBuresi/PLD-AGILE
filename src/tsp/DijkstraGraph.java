@@ -4,13 +4,17 @@
 package tsp;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
 import model.CityMap;
 import model.Intersection;
+import model.Request;
 import model.RequestList;
 import model.Segment;
+import tsp.DijkstraState;
 
 /**
  * @author sylvain
@@ -21,11 +25,17 @@ public class DijkstraGraph implements Graph {
 	private CityMap cityMap;
 	private RequestList requestList;
 	private float[][] edges;
+	private List<Segment>[][] segmentPaths;
 	
+
 	public DijkstraGraph(CityMap cityMap, RequestList requestList) {
 		this.cityMap = cityMap;
 		this.requestList = requestList;
 		fillGraph();
+	}
+	
+	public List<Segment>[][] getSegmentPaths() {
+		return segmentPaths;
 	}
 	
 	@Override
@@ -36,8 +46,8 @@ public class DijkstraGraph implements Graph {
 
 	@Override
 	public int getCost(int i, int j) {
-		// TODO Auto-generated method stub
-		return edges[i][j];
+		// TODO improve int conversion
+		return (int) edges[i][j];
 	}
 
 	@Override
@@ -46,26 +56,28 @@ public class DijkstraGraph implements Graph {
 		return edges[i][j] != -1;
 	}
 	
-	private float computeDistance(Intersection origin, Intersection destination) {
-		PriorityQueue<DijkstraState> pq = new PriorityQueue<DijkstraState>();
+	private DijkstraState computeDistance(Intersection origin, Intersection destination) {
+		PriorityQueue<DijkstraState> pq = new PriorityQueue<DijkstraState>(1, new DijkstraState());
 		Set<Long> visitedIntersections = new HashSet<Long>();
+		pq.add(new DijkstraState(0, origin, null, null));
 		while (!pq.isEmpty()) {
 			DijkstraState curState = pq.poll();
 			if(curState.getPosition().getIdIntersection() == destination.getIdIntersection()) {
-				return curState.getDistance();
+				return curState;
 			}
 			for(Segment s : curState.getPosition().getListSegments()) {
 				if(!visitedIntersections.contains(s.getDestination().getIdIntersection())) {
 					visitedIntersections.add(s.getDestination().getIdIntersection());
-					pq.add(new DijkstraState(curState.getDistance() + s.getLength(), s.getDestination()));
+					pq.add(new DijkstraState(curState.getDistance() + s.getLength(), s.getDestination(), curState, s));
 				}
 			}
 		}
-		return NO_EDGE;
+		return null;
 	}
 	
 	private void fillGraph() {
-		edges = new int[2*requestList.getListRequests().size()][2*requestList.getListRequests().size()];
+		edges = new float[2*requestList.getListRequests().size()][2*requestList.getListRequests().size()];
+		segmentPaths = new List[2*requestList.getListRequests().size()][2*requestList.getListRequests().size()];
 		// (2*n, 2*n+1) : pickup and delivery points for request n
 		int requestNb = requestList.getListRequests().size();
 		for(int i = 0; i < 2*requestNb; i++) {
@@ -77,7 +89,19 @@ public class DijkstraGraph implements Graph {
 					Request destinationRequest = requestList.getListRequests().get(j/2);
 					Intersection origin = (i % 2 == 0) ? originRequest.getPickupAddress() : originRequest.getDeliveryAddress();
 					Intersection destination = (j % 2 == 0) ? destinationRequest.getPickupAddress() : destinationRequest.getDeliveryAddress();
-					edges[i][j] = computeDistance(origin, destination);
+					DijkstraState finalState = computeDistance(origin, destination);
+					if(finalState == null) {
+						edges[i][j] = -1;
+						segmentPaths[i][j] = null;
+					}
+					else {
+						edges[i][j] = finalState.getDistance();
+						segmentPaths[i][j] = new LinkedList<Segment>();
+						while(finalState != null) {
+							segmentPaths[i][j].add(0, finalState.getPreviousSegment());
+							finalState = finalState.getPreviousState();
+						}
+					}
 				}
 			}
 		}

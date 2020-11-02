@@ -10,6 +10,9 @@ import java.io.File;
 import model.CityMap;
 import model.Intersection;
 import model.Segment;
+import tsp.DijkstraGraph;
+import tsp.TSP;
+import tsp.TSP1;
 import model.RequestList;
 
 import java.util.*;
@@ -86,15 +89,26 @@ public class testxml {
 	  
 	  System.out.println("\n************TEST OF REQUESTLIST****************");
 	  
-	  RequestList reqlist = new RequestList("src/resources/requestsSmall1.xml", map);
+	  RequestList reqlist = new RequestList("src/resources/requestsSmall2.xml", map);
 	  
 	  reqlist.fillRequests();
 	  
 	  System.out.println(reqlist);
 	  
-	  DijkstraGraph = new DijkstraGraph(cityMap, requestList);
-
+	  DijkstraGraph g = new DijkstraGraph(map, reqlist);
 	  
+	  for(int j = 0; j < 2*reqlist.getListRequests().size(); j++) {
+		  for(int k = 0; k < 2*reqlist.getListRequests().size(); k++) {
+			  System.out.print(g.getCost(j, k) + " ");
+		  }
+		  System.out.println();
+	  }
+	TSP tsp = new TSP1();
+	tsp.searchSolution(20000, g);
+	System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
+	for(int m = 0; m < 2*reqlist.getListRequests().size(); m++) {
+		System.out.print(" " + tsp.getSolution(m));
+	}
     //Bienvenue sur le projet AGILE 
   }
   

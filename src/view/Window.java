@@ -102,6 +102,7 @@ public class Window extends JFrame{
 	public Boolean add_request_button = false;
 	
 	
+	
 	/**
 	 * Main to test the window 
 	 * @param args
@@ -123,7 +124,7 @@ public class Window extends JFrame{
     	
     	graphicalView = new GraphicalView(controller);
         textualView = new TextualView(controller);
-    	
+        
     	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView, textualView);
     	MouseListen mouseListen = new MouseListen(controller, graphicalView.getHeight(), graphicalView.getWidth());
     	
@@ -278,6 +279,7 @@ public class Window extends JFrame{
     public void paint(Graphics g) {
         super.paint(g);	
         if (bottom_panel.getComponentCount() > 1) {
+        	g.setColor(Color.black);
         	g.fillRect(705, 611, 10, 10);
         	g.setColor(Color.red);
         	g.fillRect(705, 627, 10, 10);
@@ -321,6 +323,7 @@ public class Window extends JFrame{
     			+ "Click on Continue to a more optimized tour since it will be calculated for 20 additional seconds. ");
     	calculate_tour.setVisible(false);
     	continue_calculation.setVisible(true);
+    	this.repaint();
     }
     
     public void setVisibleAddExport () {
@@ -335,6 +338,7 @@ public class Window extends JFrame{
     	export_tour.setVisible(true);
     	undo_button.setVisible(true);
     	redo_button.setVisible(true);
+    	this.repaint();
     }
     
     public void addLegend() {

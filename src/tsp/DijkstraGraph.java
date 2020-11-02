@@ -21,6 +21,8 @@ import tsp.DijkstraState;
  *
  */
 public class DijkstraGraph implements Graph {
+	
+
 	private final int NO_EDGE = -1;
 	private CityMap cityMap;
 	private RequestList requestList;
@@ -55,7 +57,13 @@ public class DijkstraGraph implements Graph {
 		// TODO Auto-generated method stub
 		return edges[i][j] != -1;
 	}
-	
+	public RequestList getRequestList() {
+		return requestList;
+	}
+
+	public void setRequestList(RequestList requestList) {
+		this.requestList = requestList;
+	}
 	private DijkstraState computeDistance(Intersection origin, Intersection destination) {
 		PriorityQueue<DijkstraState> pq = new PriorityQueue<DijkstraState>(1, new DijkstraState());
 		Set<Long> visitedIntersections = new HashSet<Long>();

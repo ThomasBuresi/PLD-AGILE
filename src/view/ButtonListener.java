@@ -98,6 +98,19 @@ public class ButtonListener implements ActionListener {
                  System.out.println("L'ouverture est annulée\n");
             }
 			break;
+			
+		case "-" :
+			if (graphicalView.graphicalCityMap.graphicalSegment != null) {
+				
+				graphicalView.graphicalCityMap.graphicalSegment.resetCoord();
+				if (graphicalView.graphicalCityMap.graphicalIntersection != null) {
+					graphicalView.graphicalCityMap.graphicalIntersection.resetCoord();
+				}
+			}
+			window.repaint();
+
+			
+			break;
 		case"Calculate Delivery Tour" : 
 			
 			//controller computation

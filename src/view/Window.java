@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.*;
@@ -87,6 +88,11 @@ public class Window extends JFrame{
 	private JButton redo_button;
 	
 	/**
+	 * Button to zoom out the map to the initial state
+	 */
+	private JButton zoomOut;
+	
+	/**
 	 * Text area to change the descriptions of the actions to perform (indications for the user)
 	 */
 	private JTextArea indications;
@@ -126,7 +132,7 @@ public class Window extends JFrame{
         textualView = new TextualView(controller);
         
     	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView, textualView);
-    	MouseListen mouseListen = new MouseListen(controller, graphicalView.getHeight(), graphicalView.getWidth());
+    	MouseListen mouseListen = new MouseListen(controller, graphicalView, this);
     	
     	graphicalView.addMouseListener(mouseListen);
     	// Main Frame
@@ -227,18 +233,18 @@ public class Window extends JFrame{
         bottom_panel.setBackground(Color.white);
         bottom_panel.add(indications);
         
-        
+        zoomOut = new JButton("-");
+        zoomOut.setBounds(860, 0, 40, 30);
+        zoomOut.addActionListener(buttonListener);
+        zoomOut.setVisible(false);
+        graphicalView.add(zoomOut);
         
         
         
         add(graphicalView);
-        //intents to add a qcroll bar 
-//        JScrollPane scrollpane = new JScrollPane(textualView);
-//        getContentPane().add(scrollpane);
         add(textualView);
-        
-       // add(right_panel);
         add(bottom_panel);
+        
         add(load_file);
         add(load_requests_file);
         add(calculate_tour);
@@ -300,6 +306,8 @@ public class Window extends JFrame{
     	indications.setText("Your Next Step : \r\n"
     			+ "Please load your Requests File (XML). ");
     	load_requests_file.setVisible(true);
+    	zoomOut.setVisible(true);
+    	this.repaint();
     	
     }
     
@@ -350,12 +358,12 @@ public class Window extends JFrame{
     	legend.setBounds(700, 10, 200, 80);
     	legend.setEditable(false);
     	bottom_panel.add(legend);
-    	repaint();
+    	this.repaint();
     }
     
     public void removeLegend() {
     	bottom_panel.remove(legend);
-    	repaint();
+    	this.repaint();
     }
 
 

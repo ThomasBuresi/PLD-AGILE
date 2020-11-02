@@ -92,7 +92,7 @@ public class testxml {
 	  
 	  System.out.println(reqlist);
 	  
-	  
+	  DijkstraGraph = new DijkstraGraph(cityMap, requestList);
 
 	  
     //Bienvenue sur le projet AGILE 

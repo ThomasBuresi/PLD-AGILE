@@ -153,7 +153,7 @@ public class ButtonListener implements ActionListener {
 				}
 			}
 			controller.setDeliveryTour(d);
-			System.out.println("hello");
+			
 			for (Pair<Intersection, List<Segment>> pair: d.getTour()) {
 				//Intersection i = pair.getFirst();
 				//System.out.println("hello");
@@ -165,8 +165,6 @@ public class ButtonListener implements ActionListener {
 					}
 				}
 			}
-			
-			System.out.println("Size ******* : " + d.getTour().size());
 			
 			//controller computation
 			

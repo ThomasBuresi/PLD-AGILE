@@ -76,32 +76,21 @@ public class GraphicalSegment {
     	this.longMaxMap = longMax;
     }
     
-    //public Dimension getPreferredSize() {
-    //    return new Dimension(900, 500);
-    //}
     
     public void drawSegment(Graphics g, int height, int width) 
     {     
-        //g.drawLine(0, 0, 900, 500);
-        // System.out.println("hii " + width + " " + height);
-        // System.out.println(latMin + " "+ latMax + " " + longMin + " " + longMax);
         int i = 0;
         for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
   		  i += entry.getValue().getListSegments().size();
-  		  //System.out.println(i);
   		  List<Segment> seg = entry.getValue().getListSegments();
   		  for (Segment s : seg) {
   			  int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
   			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);
   			  int yDest = height - (int)Math.round((s.getDestination().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
   			  int xDest = (int)Math.round((s.getDestination().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);
-  			  //System.out.println(xOrig + " "+ yOrig + " " + xDest + " " + yDest);
-  			  //System.out.println(s.getOrigin().getLatitude());
   			  g.drawLine(xOrig, yOrig, xDest, yDest);
   		  }
-  		  //System.out.println(entry.getKey() + "/" + entry.getValue().toString());
   	  	}
-        //System.out.println(i);
     }
     
     public void setLatMinMap(float latMinMap) {

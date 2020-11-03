@@ -5,40 +5,12 @@ import java.util.*;
 /**
  * 
  */
-public class SegmentState2 implements State {
+public class InitialState implements State {
 
     /**
      * Default constructor
      */
-    public SegmentState2() {
-    }
-
-    /**
-     * 
-     */
-    public void SegmentState2() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void leftClick() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void mouseMoved() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void rightClick() {
-        // TODO implement here
+    public InitialState() {
     }
 
     /**
@@ -52,6 +24,13 @@ public class SegmentState2 implements State {
      * 
      */
     public void addSegment() {
+        // TODO implement here
+    }
+
+    /**
+     * 
+     */
+    public void InitialState() {
         // TODO implement here
     }
 
@@ -96,6 +75,9 @@ public class SegmentState2 implements State {
     public void load() {
         // TODO implement here
     }
+
+
+
 
     /**
      * 

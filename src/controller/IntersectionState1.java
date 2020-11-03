@@ -104,11 +104,6 @@ public class IntersectionState1 implements State {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
-    public void leftClick() {
-        // TODO implement here
-    }
+
 
 }

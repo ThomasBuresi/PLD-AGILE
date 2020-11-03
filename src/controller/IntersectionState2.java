@@ -97,12 +97,6 @@ public class IntersectionState2 implements State {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
-    public void mouseMoved() {
-        // TODO implement here
-    }
 
     /**
      * 
@@ -111,18 +105,5 @@ public class IntersectionState2 implements State {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
-    public void rightClick() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void leftClick() {
-        // TODO implement here
-    }
 
 }

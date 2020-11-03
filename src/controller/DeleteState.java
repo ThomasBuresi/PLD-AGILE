@@ -104,11 +104,6 @@ public class DeleteState implements State {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
-    public void leftClick() {
-        // TODO implement here
-    }
+
 
 }

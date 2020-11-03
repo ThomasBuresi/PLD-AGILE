@@ -94,9 +94,9 @@ public class MouseListen implements MouseListener{
 			float longMax = graphicalView.graphicalCityMap.graphicalSegment.getLongMaxMap();
 			//System.out.println(latMax + " " + latMin + " " + longMax + " " + longMin);
 			longMin = longMin + (float)pressedX/panelWidth*(longMax - longMin);
-			longMax = longMax - (panelWidth - (float)relX)/panelWidth*(longMax - longMin);
+			longMax = longMax - ((float)(panelWidth - relX))/panelWidth*(longMax - longMin);
 			latMin = latMin + (float)pressedY/panelHeight*(latMax - latMin);
-			latMax = latMax - (panelHeight-(float)relY)/panelHeight*(latMax - latMin);
+			latMax = latMax - ((float)(panelHeight-relY))/panelHeight*(latMax - latMin);
 			//System.out.println(latMax + " " + latMin + " " + longMax + " " + longMin);
 			graphicalView.graphicalCityMap.graphicalSegment.setLatMaxMap(latMax);
 			graphicalView.graphicalCityMap.graphicalSegment.setLatMinMap(latMin);

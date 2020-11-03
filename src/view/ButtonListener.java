@@ -64,105 +64,17 @@ public class ButtonListener implements ActionListener {
 		case "Load Map":
 			controller.loadMapFile();
 			break;
-		case "Load Requests":
 			
-			int val_ret_requests = fc.showOpenDialog(null);
-
-            if (val_ret_requests == JFileChooser.APPROVE_OPTION) {
-               File requests_file = fc.getSelectedFile();
-               
-               boolean res = controller.loadRequestsFile(requests_file.getAbsolutePath());
-               
-               if(res) {
-            	   graphicalView.updateGraphicalCityMap(controller);
-                   textualView.update(controller);
-                   window.setVisibleCalculateButton();
-                   window.addLegend();
-                   //window.repaint();
-                   //System.out.println("requests path was : " + requests_file.getAbsolutePath());
-               }else {
-            	   window.setErrorAtOpening();
-               }
-  	   
-            } else {
-                 System.out.println("L'ouverture est annul�e\n");
-            }
+		case "Load Requests":
+			controller.loadRequestsFile();
 			break;
 			
 		case "-" :
-			if (graphicalView.graphicalCityMap.graphicalSegment != null) {
-				
-				graphicalView.graphicalCityMap.graphicalSegment.resetCoord();
-				if (graphicalView.graphicalCityMap.graphicalIntersection != null) {
-					graphicalView.graphicalCityMap.graphicalIntersection.resetCoord();
-				}
-			}
-			window.repaint();
-
-			
+			controller.zoomOut();
 			break;
+			
 		case"Calculate Delivery Tour" : 
-			CityMap map = controller.getCityMap();
-			RequestList reqlist = controller.getRequestList();
-			DijkstraGraph g = new DijkstraGraph(map, reqlist);
-			  
-		  	for(int j = 0; j < 1+2*reqlist.getListRequests().size(); j++) {
-			  for(int k = 0; k < 1+2*reqlist.getListRequests().size(); k++) {
-				  System.out.print(g.getCost(j, k) + " ");
-			  }
-			  System.out.println();
-		  	}
-			TSP tsp = new TSP1();
-			tsp.searchSolution(20000, g);
-			System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
-			for(int m = 0; m < 1+2*reqlist.getListRequests().size(); m++) {
-				System.out.print(" " + tsp.getSolution(m));
-			}
-			System.out.println(" 0");
-			DeliveryTour d = new DeliveryTour();
-			d.addDeparture(reqlist.getDeparture());
-			// on commence � un car on a d�j� trait� le cas du d�part
-			for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
-			//ajouter au delivery tour l'intersection qui correspond au numero de la requ�te ->
-				int currentsolution=tsp.getSolution(l);
-				if (currentsolution%2!=0) {
-					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
-				}
-				else {
-					
-					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
-				}
-			}
-			controller.setDeliveryTour(d);
-			
-			for (Pair<Intersection, List<Segment>> pair: d.getTour()) {
-				//Intersection i = pair.getFirst();
-				//System.out.println("hello");
-				System.out.println(pair.fst.toString());
-				List<Segment> seg = pair.snd;
-				if (seg != null) {
-					for (Segment s : seg) {
-						System.out.println(s.toString());
-					}
-				}
-			}
-			
-			//controller computation
-			
-			//case it ends 
-			
-			//display it on the map 
-			//order the request list 
-			//setVisibleAddExport in Window
-			//window.setVisibleAddExport();
-			
-			
-			//case computation is too long 
-			
-			//remember that we can continue the computation only one time
-			//setContinueVisible
-			window.setContinueCalculation();
-			
+			controller.computeDeliveryTour();			
 			break;
 			
 		case "Continue calculation (20sec more)":

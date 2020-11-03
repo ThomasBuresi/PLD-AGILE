@@ -60,47 +60,22 @@ public class Controller {
 	 * Method called by window after a click on the button "Load Map"
 	 */
     public void loadMapFile() {
-    		currentState.loadMap(this, window);
+   		currentState.loadMap(this, window);
     	
     }
     
-    public boolean loadRequestsFile(String absolute_path) {
-    	requestList = new RequestList(absolute_path, cityMap);
-    	boolean res = requestList.fillRequests();
-    	if(res) {
-    		System.out.println("requests loaded");
-    	}else {
-    		System.out.println("requests didn't correspond");
-    	}
-    	return res;
-    	
+    public void loadRequestsFile() {
+    	currentState.loadRequestsFile(this, window);
     }
     
-    public CityMap getCityMap() {
-    	return cityMap;
-    }
-    public void setCityMap(CityMap m) {
-    	cityMap=m;
-    }
+    public void zoomOut() {
+		currentState.zoomOut(this, window);		
+	}
     
-    public RequestList getRequestList() {
-    	return requestList;
-    }
-
-
-
-	public void setDeliveryTour(DeliveryTour d) {
-		this.deliveryTour = d;
-		
+    public void computeDeliveryTour() {
+		currentState.computeDeliveryTour(this, window);
 	}
-
-
-
-	public DeliveryTour getDeliveryTour() {
-		return deliveryTour;
-	}
-	
-
+    
     /**
      * @return
      */
@@ -116,5 +91,30 @@ public class Controller {
         // TODO implement here
         
     }
+
+    
+    
+    public CityMap getCityMap() {
+    	return cityMap;
+    }
+    public void setCityMap(CityMap m) {
+    	cityMap=m;
+    }
+    
+    public RequestList getRequestList() {
+    	return requestList;
+    }
+    
+    public void setRequestList(RequestList requestList) {
+		this.requestList = requestList;
+	}
+    
+    public DeliveryTour getDeliveryTour() {
+		return deliveryTour;
+	}
+
+	public void setDeliveryTour(DeliveryTour d) {
+		this.deliveryTour = d;
+	}
     
 }

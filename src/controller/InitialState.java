@@ -19,8 +19,8 @@ public class InitialState implements State {
 	 * To open a dialog window to load the files 
 	 */
 	private JFileChooser fc;
-
-	@Override 
+	
+	@Override
 	public void loadMap(Controller c,  Window w) {
 		fc = new JFileChooser();
     	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
@@ -58,5 +58,6 @@ public class InitialState implements State {
 		
 	}
 
+	
 
 }

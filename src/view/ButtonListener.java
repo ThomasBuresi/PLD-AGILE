@@ -143,12 +143,13 @@ public class ButtonListener implements ActionListener {
 			// on commence à un car on a déjà traité le cas du départ
 			for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
 			//ajouter au delivery tour l'intersection qui correspond au numero de la requête ->
-				if (tsp.getSolution(l)%2==0) {
-					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)-2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+				int currentsolution=tsp.getSolution(l);
+				if (currentsolution%2!=0) {
+					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 				}
 				else {
-					System.out.println("hellllllo");
-					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)-1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+					
+					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 				}
 			}
 			controller.setDeliveryTour(d);
@@ -160,8 +161,7 @@ public class ButtonListener implements ActionListener {
 				List<Segment> seg = pair.snd;
 				if (seg != null) {
 					for (Segment s : seg) {
-						if (s!= null)
-							System.out.println(s.toString());
+						System.out.println(s.toString());
 					}
 				}
 			}

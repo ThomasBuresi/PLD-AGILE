@@ -130,8 +130,10 @@ public class testxml {
 			
 			d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 		}
+		//retour au point de départ :
+		d.addStep(reqlist.getDeparture(), g.getSegmentPaths()[tsp.getSolution(2*reqlist.getListRequests().size())][tsp.getSolution(0)]); // inverser l'ordre??
 	}
-	//d.affiche();
+	d.affiche();
     //Bienvenue sur le projet AGILE 
   }
   

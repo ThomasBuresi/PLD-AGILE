@@ -36,20 +36,23 @@ public class DeliveryTour {
 
 	public void affiche() {
 		
-		for (int i =0; i< tour.size(); i++) {
-			System.out.println(tour.get(i).fst.toString());
-			if (tour.get(i).snd != null) {
-				for (int j =0; j< tour.get(i).snd.size(); i++) {
-					if (tour.get(i).snd.get(j)!=null) {
-						
-						System.out.println( tour.get(i).snd.get(j).toString());
-
-					}
+		for (Pair<Intersection, List<Segment>> pair: tour) {
+			//Intersection i = pair.getFirst();
+			//System.out.println("hello");
+			System.out.println(pair.fst.toString());
+			List<Segment> seg = pair.snd;
+			if (seg != null) {
+				for (Segment s : seg) {
+					System.out.println(s.toString());
 				}
 			}
-
 		}
 	}
+				
+			
+
+		
+	
 
 
 

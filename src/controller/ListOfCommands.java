@@ -10,11 +10,11 @@ import java.util.LinkedList;
  *
  */
 
-public class ListofCommands {
+public class ListOfCommands {
 	private LinkedList<Command> list;
 	private int currentIndex;
 	
-	public ListofCommands(){
+	public ListOfCommands(){
 		currentIndex = -1;
 		list = new LinkedList<Command>();
 	}

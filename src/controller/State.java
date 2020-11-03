@@ -2,69 +2,22 @@ package controller;
 
 import java.util.*;
 
+
+import view.Window;
+
 /**
  * 
  */
 public interface State {
 
-    /**
-     * 
-     */
-    public void addIntersection();
+    
+	
+	/**
+	 * Method called by the controller after a click on the button "Load map"
+	 * @param c controller
+	 * @param w the window
+	 */
+	public default void loadMap(Controller c, Window w){};
 
-    /**
-     * 
-     */
-    public void addSegment();
-
-    /**
-     * 
-     */
-    public void delete();
-
-    /**
-     * 
-     */
-    public void move();
-
-    /**
-     * 
-     */
-    public void undo();
-
-    /**
-     * 
-     */
-    public void redo();
-
-    /**
-     * 
-     */
-    public void save();
-
-    /**
-     * 
-     */
-    public void load();
-
-    /**
-     * 
-     */
-    public void mouseMoved();
-
-    /**
-     * 
-     */
-    public void keystroke();
-
-    /**
-     * 
-     */
-    public void rightClick();
-
-    /**
-     * 
-     */
-    public void leftClick();
 
 }

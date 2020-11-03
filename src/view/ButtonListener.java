@@ -24,11 +24,11 @@ import tsp.TSP1;
  * 
  */
 public class ButtonListener implements ActionListener {
+	
 	/**
 	 * To open a dialog window to load the files 
 	 */
 	private JFileChooser fc;
-	
 	/**
 	 * Controller to perform the actions that require some processing 
 	 */
@@ -62,26 +62,7 @@ public class ButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
 		case "Load Map":
-			
-			int val_ret = fc.showOpenDialog(null);
-
-            if (val_ret == JFileChooser.APPROVE_OPTION) {
-               File file = fc.getSelectedFile();
-               
-               //to print the absolute path of the file
-               //System.out.println("Chemin absolu : "+file.getAbsolutePath()+"\n");
-               
-               controller.loadMapFile(file.getAbsolutePath());
-               
-               graphicalView.updateGraphicalCityMap(controller);
-               //window.repaint();
-               window.setVisibleRequestButton();
-               window.removeLegend();
-               textualView.update(controller);
-            		   
-            } else {
-                 System.out.println("L'ouverture est annulée\n");
-            }
+			controller.loadMapFile();
 			break;
 		case "Load Requests":
 			
@@ -104,7 +85,7 @@ public class ButtonListener implements ActionListener {
                }
   	   
             } else {
-                 System.out.println("L'ouverture est annulée\n");
+                 System.out.println("L'ouverture est annulï¿½e\n");
             }
 			break;
 			
@@ -140,9 +121,9 @@ public class ButtonListener implements ActionListener {
 			System.out.println(" 0");
 			DeliveryTour d = new DeliveryTour();
 			d.addDeparture(reqlist.getDeparture());
-			// on commence à un car on a déjà traité le cas du départ
+			// on commence ï¿½ un car on a dï¿½jï¿½ traitï¿½ le cas du dï¿½part
 			for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
-			//ajouter au delivery tour l'intersection qui correspond au numero de la requête ->
+			//ajouter au delivery tour l'intersection qui correspond au numero de la requï¿½te ->
 				int currentsolution=tsp.getSolution(l);
 				if (currentsolution%2!=0) {
 					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??

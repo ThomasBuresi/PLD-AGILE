@@ -1,3 +1,6 @@
+/controller/
+/view/
+/model/
 # Compiled class file
 *.class
 

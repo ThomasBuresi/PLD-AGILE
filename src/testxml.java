@@ -65,7 +65,7 @@ public class testxml {
 	  	}   		
 		  catch (Exception e){  
 		  e.printStackTrace(); 
-		  }  
+		}  
 	  
 	  System.out.println("\n************TEST OF CITYMAP****************");
 	  
@@ -98,24 +98,24 @@ public class testxml {
 	  
 	  DijkstraGraph g = new DijkstraGraph(map, reqlist);
 	  
-	  for(int j = 0; j < 1+2*reqlist.getListRequests().size(); j++) {
+	  	for(int j = 0; j < 1+2*reqlist.getListRequests().size(); j++) {
 		  for(int k = 0; k < 1+2*reqlist.getListRequests().size(); k++) {
 			  System.out.print(g.getCost(j, k) + " ");
 		  }
 		  System.out.println();
-	  }
-	TSP tsp = new TSP1();
-	tsp.searchSolution(20000, g);
-	System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
-	for(int m = 0; m < 1+2*reqlist.getListRequests().size(); m++) {
-		System.out.print(" " + tsp.getSolution(m));
-	}
-	System.out.println(" 0");
-	DeliveryTour d = new DeliveryTour();
-	d.addDeparture(reqlist.getDeparture());
-	// on commence à un car on a déjà traité le cas du départ
-	for(int l = 1; l < 2*reqlist.getListRequests().size(); l++) {
-		//ajouter au delivery tour l'intersection qui correspond au numero de la requête ->
+	  	}
+		TSP tsp = new TSP1();
+		tsp.searchSolution(20000, g);
+		System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
+		for(int m = 0; m < 1+2*reqlist.getListRequests().size(); m++) {
+			System.out.print(" " + tsp.getSolution(m));
+		}
+		System.out.println(" 0");
+		DeliveryTour d = new DeliveryTour();
+		d.addDeparture(reqlist.getDeparture());
+		// on commence ï¿½ un car on a dï¿½jï¿½ traitï¿½ le cas du dï¿½part
+		for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
+		//ajouter au delivery tour l'intersection qui correspond au numero de la requï¿½te ->
 		int currentsolution=tsp.getSolution(l);
 		System.out.println(currentsolution);
 //		List <Segment> segs = g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)];

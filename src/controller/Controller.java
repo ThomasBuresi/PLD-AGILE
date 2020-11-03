@@ -3,6 +3,7 @@ package controller;
 import java.util.*;
 
 import model.CityMap;
+import model.DeliveryTour;
 import model.RequestList;
 
 /**
@@ -15,6 +16,7 @@ public class Controller {
 	 */
 	private CityMap cityMap;
 	private RequestList requestList;
+	private DeliveryTour deliveryTour;
 	
 	
     /**
@@ -54,7 +56,6 @@ public class Controller {
     	cityMap.fillMap();
     	requestList = null;
     	System.out.println("map loaded");
-    	
     }
     
     public boolean loadRequestsFile(String absolute_path) {
@@ -76,5 +77,18 @@ public class Controller {
     public RequestList getRequestList() {
     	return requestList;
     }
+
+
+
+	public void setDeliveryTour(DeliveryTour d) {
+		this.deliveryTour = d;
+		
+	}
+
+
+
+	public DeliveryTour getDeliveryTour() {
+		return deliveryTour;
+	}
     
 }

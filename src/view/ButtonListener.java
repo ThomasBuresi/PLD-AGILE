@@ -8,8 +8,17 @@ import java.util.*;
 
 import javax.swing.JFileChooser;
 
+import com.sun.tools.javac.util.Pair;
+
 import controller.Controller;
 import model.CityMap;
+import model.DeliveryTour;
+import model.Intersection;
+import model.RequestList;
+import model.Segment;
+import tsp.DijkstraGraph;
+import tsp.TSP;
+import tsp.TSP1;
 
 /**
  * 
@@ -112,6 +121,52 @@ public class ButtonListener implements ActionListener {
 			
 			break;
 		case"Calculate Delivery Tour" : 
+			CityMap map = controller.getCityMap();
+			RequestList reqlist = controller.getRequestList();
+			DijkstraGraph g = new DijkstraGraph(map, reqlist);
+			  
+		  	for(int j = 0; j < 1+2*reqlist.getListRequests().size(); j++) {
+			  for(int k = 0; k < 1+2*reqlist.getListRequests().size(); k++) {
+				  System.out.print(g.getCost(j, k) + " ");
+			  }
+			  System.out.println();
+		  	}
+			TSP tsp = new TSP1();
+			tsp.searchSolution(20000, g);
+			System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
+			for(int m = 0; m < 1+2*reqlist.getListRequests().size(); m++) {
+				System.out.print(" " + tsp.getSolution(m));
+			}
+			System.out.println(" 0");
+			DeliveryTour d = new DeliveryTour();
+			d.addDeparture(reqlist.getDeparture());
+			// on commence à un car on a déjà traité le cas du départ
+			for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
+			//ajouter au delivery tour l'intersection qui correspond au numero de la requête ->
+				if (tsp.getSolution(l)%2==0) {
+					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)-2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+				}
+				else {
+					System.out.println("hellllllo");
+					d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)-1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+				}
+			}
+			controller.setDeliveryTour(d);
+			System.out.println("hello");
+			for (Pair<Intersection, List<Segment>> pair: d.getTour()) {
+				//Intersection i = pair.getFirst();
+				//System.out.println("hello");
+				System.out.println(pair.fst.toString());
+				List<Segment> seg = pair.snd;
+				if (seg != null) {
+					for (Segment s : seg) {
+						if (s!= null)
+							System.out.println(s.toString());
+					}
+				}
+			}
+			
+			System.out.println("Size ******* : " + d.getTour().size());
 			
 			//controller computation
 			

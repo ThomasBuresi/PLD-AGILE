@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import controller.Controller;
 import model.CityMap;
+import model.DeliveryTour;
 import model.Intersection;
 import model.RequestList;
 
@@ -21,6 +22,7 @@ public class GraphicalCityMap {
 	
 	private HashMap<Long, Intersection> listIntersection;
 	private RequestList requestList;
+	private DeliveryTour deliveryTour;
 	/**
 	 * 
 	 */
@@ -28,6 +30,8 @@ public class GraphicalCityMap {
 	
 	public GraphicalSegment graphicalSegment;
 	public GraphicalIntersection graphicalIntersection;
+	
+	
 
     /**
      * Default constructor
@@ -47,6 +51,15 @@ public class GraphicalCityMap {
     		requestList = null;
     		System.err.println("RequestList is null");
     	}
+    	
+    	if (controller.getDeliveryTour() != null) {
+    		deliveryTour = controller.getDeliveryTour();
+    	} else {
+    		deliveryTour = null;
+    		System.err.println("DeliveryTour is null");
+    	}
+    	
+    	
     	
     	// System.out.println("city view " + width + " " + height);
         // to complete 
@@ -83,6 +96,11 @@ public class GraphicalCityMap {
 
 	public RequestList getRequestList() {
 		return requestList;
+	}
+
+
+	public DeliveryTour getDeliveryTour() {
+		return deliveryTour;
 	}
     
 }

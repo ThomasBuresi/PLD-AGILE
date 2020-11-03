@@ -1,6 +1,6 @@
 package model;
 import java.util.*;
-import com.google.common.collect;
+//import com.google.common.collect;
 import com.sun.tools.javac.util.Pair;
 
 /**
@@ -28,6 +28,10 @@ public class DeliveryTour {
     public void addDeparture(Intersection i) {
     	tour.add(new Pair<>(i, null));
     }
+
+	public List<Pair<Intersection, List<Segment>>> getTour() {
+		return tour;
+	}
 
 
 	public void affiche() {

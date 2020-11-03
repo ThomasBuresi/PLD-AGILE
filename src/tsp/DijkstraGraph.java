@@ -78,7 +78,7 @@ public class DijkstraGraph implements Graph {
 	 * @param destination the target intersection
 	 * @return the final state of the shortest path search from origin to destination
 	 */
-	public DijkstraState computeShortestPath(Intersection origin, Intersection destination) {
+	public static DijkstraState computeShortestPath(Intersection origin, Intersection destination) {
 		PriorityQueue<DijkstraState> pq = new PriorityQueue<DijkstraState>(1, new DijkstraState());
 		Set<Long> visitedIntersections = new HashSet<Long>();
 		pq.add(new DijkstraState(0, origin, null, null));

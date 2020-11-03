@@ -1,6 +1,8 @@
 package tsp;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 import model.Intersection;
 import model.Segment;
@@ -55,6 +57,19 @@ public class DijkstraState implements Comparator<DijkstraState> {
 		return position;
 	}
 
+	/**
+	 * @returns a list of all previous segments in chronological order
+	 */
+	public List<Segment> getAllPreviousSegments() {
+		LinkedList<Segment> res = new LinkedList<Segment>();
+		DijkstraState curState = this;
+		while(curState.getPreviousSegment() != null) {
+			res.addFirst(curState.getPreviousSegment());
+			curState = curState.getPreviousState();
+		}
+		return res;
+	}
+	
 	@Override
 	public int compare(DijkstraState o1, DijkstraState o2) {
 		if (o1.getDistance() < o2.getDistance()) {

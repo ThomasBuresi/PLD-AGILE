@@ -19,7 +19,7 @@
 *.rar
 bin/utils/
 .DS_Store
-
+bin/
 bin/.classpath
 
 .classpath

@@ -5,22 +5,16 @@ import java.util.Comparator;
 import model.Intersection;
 import model.Segment;
 
+/**
+ * This class represents each intermediate state of a Dijkstra search
+ */
 public class DijkstraState implements Comparator<DijkstraState> {
 
 	private float distance;
 	private Intersection position;
 	private DijkstraState previousState;
-
-	public DijkstraState getPreviousState() {
-		return previousState;
-	}
-
-	public Segment getPreviousSegment() {
-		return previousSegment;
-	}
-
 	private Segment previousSegment;
-
+	
 	public DijkstraState(float distance, Intersection position, DijkstraState previousState, Segment previousSegment) {
 		super();
 		this.distance = distance;
@@ -28,14 +22,35 @@ public class DijkstraState implements Comparator<DijkstraState> {
 		this.previousState = previousState;
 		this.previousSegment = previousSegment;
 	}
-
+	
 	public DijkstraState() {
 	}
+	
+	/**
+	 * @return the previous state, or <code>null</null> if this is the initial state
+	 */
+	public DijkstraState getPreviousState() {
+		return previousState;
+	}
+	
+	/**
+	 * @return the segment taken between the previous state and this one, or <code>null</null> if this is the inital state
+	 */
+	public Segment getPreviousSegment() {
+		return previousSegment;
+	}
 
+	
+	/**
+	 * @return the total travel distance in meters between the initial step and this one
+	 */
 	public float getDistance() {
 		return distance;
 	}
 
+	/**
+	 * @return the current position on the city map
+	 */
 	public Intersection getPosition() {
 		return position;
 	}

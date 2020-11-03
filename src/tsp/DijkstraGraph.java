@@ -36,35 +36,49 @@ public class DijkstraGraph implements Graph {
 		fillGraph();
 	}
 	
+	/**
+	 * Returns all shortest paths between pairs of interest points (depot, pickup and delivery points)
+	 * @return a 2D array P in which P[i][j] contains the shortest path from i to j
+	 */
 	public List<Segment>[][] getSegmentPaths() {
 		return segmentPaths;
 	}
 	
 	@Override
 	public int getNbVertices() {
-		// TODO Auto-generated method stub
 		return edges.length;
 	}
 
+	/**
+	 * Returns the minimal travel distance from interest point i to point j
+	 * @param i the origin interest point
+	 * @param j the destination interest point
+	 * @returns the minimum travel distance, in meters
+	 */
 	@Override
 	public int getCost(int i, int j) {
-		// TODO improve int conversion
 		return (int) edges[i][j];
 	}
 
 	@Override
 	public boolean isArc(int i, int j) {
-		// TODO Auto-generated method stub
-		return edges[i][j] != -1;
+		return edges[i][j] != NO_EDGE;
 	}
+	
+	/**
+	 * @return the request list associated to the graph
+	 */
 	public RequestList getRequestList() {
 		return requestList;
 	}
 
-	public void setRequestList(RequestList requestList) {
-		this.requestList = requestList;
-	}
-	private DijkstraState computeDistance(Intersection origin, Intersection destination) {
+	/**
+	 * Performs a Dijkstra search between a point of origin and a destination
+	 * @param origin the intersection of origin
+	 * @param destination the target intersection
+	 * @return the final state of the shortest path search from origin to destination
+	 */
+	public DijkstraState computeShortestPath(Intersection origin, Intersection destination) {
 		PriorityQueue<DijkstraState> pq = new PriorityQueue<DijkstraState>(1, new DijkstraState());
 		Set<Long> visitedIntersections = new HashSet<Long>();
 		pq.add(new DijkstraState(0, origin, null, null));
@@ -83,6 +97,9 @@ public class DijkstraGraph implements Graph {
 		return null;
 	}
 	
+	/**
+	 * Creates a graph to be used later by the TSP calculator, based on a specific list of requests
+	 */
 	private void fillGraph() {
 		edges = new float[1+2*requestList.getListRequests().size()][1+2*requestList.getListRequests().size()];
 		segmentPaths = new List[1+2*requestList.getListRequests().size()][1+2*requestList.getListRequests().size()];
@@ -109,7 +126,7 @@ public class DijkstraGraph implements Graph {
 					} else {
 						destination = requestList.getDeparture();
 					}
-					DijkstraState finalState = computeDistance(origin, destination);
+					DijkstraState finalState = computeShortestPath(origin, destination);
 					i++;
 					j++;
 					if(finalState == null) {
@@ -119,7 +136,7 @@ public class DijkstraGraph implements Graph {
 					else {
 						edges[i][j] = finalState.getDistance();
 						segmentPaths[i][j] = new LinkedList<Segment>();
-						while(finalState != null) {
+						while(finalState.getPreviousSegment() != null) {
 							segmentPaths[i][j].add(0, finalState.getPreviousSegment());
 							finalState = finalState.getPreviousState();
 						}

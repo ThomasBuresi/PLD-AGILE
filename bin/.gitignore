@@ -19,10 +19,7 @@
 *.rar
 bin/utils/
 .DS_Store
-/com/
-/controller/
-/lib/
+bin/
+bin/.classpath
 
-/model/
-/tsp/
-/view/
+.classpath

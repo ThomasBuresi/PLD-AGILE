@@ -114,15 +114,24 @@ public class testxml {
 	DeliveryTour d = new DeliveryTour();
 	d.addDeparture(reqlist.getDeparture());
 	// on commence à un car on a déjà traité le cas du départ
-	for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
+	for(int l = 1; l < 2*reqlist.getListRequests().size(); l++) {
 		//ajouter au delivery tour l'intersection qui correspond au numero de la requête ->
-		if (tsp.getSolution(l)%2==0) {
-			d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)-2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+		int currentsolution=tsp.getSolution(l);
+		System.out.println(currentsolution);
+//		List <Segment> segs = g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)];
+//		for (int i1 =1; i1<segs.size();i1++) {
+//			System.out.println(segs.get(i1).toString());
+//		}
+		
+		if (currentsolution%2!=0) {
+			d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 		}
 		else {
-			d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)-1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+			
+			d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 		}
 	}
+	//d.affiche();
     //Bienvenue sur le projet AGILE 
   }
   

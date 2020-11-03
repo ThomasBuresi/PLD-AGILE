@@ -57,10 +57,16 @@ public class Controller {
     	
     }
     
-    public void loadRequestsFile(String absolute_path) {
+    public boolean loadRequestsFile(String absolute_path) {
     	requestList = new RequestList(absolute_path, cityMap);
-    	requestList.fillRequests();
-    	System.out.println("requests loaded");
+    	boolean res = requestList.fillRequests();
+    	if(res) {
+    		System.out.println("requests loaded");
+    	}else {
+    		System.out.println("requests didn't correspond");
+    	}
+    	return res;
+    	
     }
     
     public CityMap getCityMap() {

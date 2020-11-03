@@ -1,69 +1,32 @@
 package controller;
 
-import java.util.*;
 
 /**
+ * Exporter from PlaCos
  * 
+ * @author Christine Solnon
+ *
  */
-public class ReverseCommand implements Command, Command {
 
-    /**
-     * Default constructor
-     */
-    public ReverseCommand() {
-    }
+public class ReverseCommand implements Command{
+	private Command cmd;
+	
+	/**
+	 * Create the command reverse to cmd (so that cmd.doCommand corresponds to this.undoCommand, and vice-versa) 
+	 * @param cmd the command to reverse
+	 */
+	public ReverseCommand(Command cmd){
+		this.cmd = cmd;
+	}
 
+	@Override
+	public void doCommand() {
+		cmd.undoCommand();
+	}
 
-
-    /**
-     * @param Command
-     */
-    public void ReverseCommand(void Command) {
-        // TODO implement here
-    }
-
-    /**
-     * @return
-     */
-    public void doCommand() {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public void undoCommand() {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * 
-     */
-    public void doCommand():void() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void undoCommand():void() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void doCommand():void() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void undoCommand():void() {
-        // TODO implement here
-    }
+	@Override
+	public void undoCommand() {
+		cmd.doCommand();
+	}
 
 }

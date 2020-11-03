@@ -78,7 +78,7 @@ public class DijkstraGraph implements Graph {
 	 * @param destination the target intersection
 	 * @return the final state of the shortest path search from origin to destination
 	 */
-	private DijkstraState computeDistance(Intersection origin, Intersection destination) {
+	public DijkstraState computeShortestPath(Intersection origin, Intersection destination) {
 		PriorityQueue<DijkstraState> pq = new PriorityQueue<DijkstraState>(1, new DijkstraState());
 		Set<Long> visitedIntersections = new HashSet<Long>();
 		pq.add(new DijkstraState(0, origin, null, null));
@@ -126,7 +126,7 @@ public class DijkstraGraph implements Graph {
 					} else {
 						destination = requestList.getDeparture();
 					}
-					DijkstraState finalState = computeDistance(origin, destination);
+					DijkstraState finalState = computeShortestPath(origin, destination);
 					i++;
 					j++;
 					if(finalState == null) {
@@ -136,7 +136,7 @@ public class DijkstraGraph implements Graph {
 					else {
 						edges[i][j] = finalState.getDistance();
 						segmentPaths[i][j] = new LinkedList<Segment>();
-						while(finalState != null) {
+						while(finalState.getPreviousSegment() != null) {
 							segmentPaths[i][j].add(0, finalState.getPreviousSegment());
 							finalState = finalState.getPreviousState();
 						}

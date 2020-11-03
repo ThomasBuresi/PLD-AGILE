@@ -68,7 +68,8 @@ public class RequestList {
 	 * intersection and the <code>departureTime</code>, and also adds all the requests
 	 * in <code>listRequests>
 	 */
-	public void fillRequests() {
+	public boolean fillRequests() {
+		// TODO : improve the code by reducing the number of returns 
 		try {
 			File file = new File(filePath);
 			System.err.println("Loading requests file " + filePath);
@@ -80,10 +81,14 @@ public class RequestList {
 			NodeList depotList = doc.getElementsByTagName("depot");
 			if(depotList.getLength() != 1) {
 				System.err.println("Error : found " + depotList.getLength() + " depots instead of one");
-				return;
+				return false;
 			}
 			Element depot = (Element) depotList.item(0);
 			departure = cityMap.listIntersection.get(Long.parseLong(depot.getAttribute("address")));
+			// would return null if no corresponding intersection
+			if(departure==null) {
+				return false;
+			}
 			departureTime = TimeUtils.timeToSeconds(depot.getAttribute("departureTime"));
 			NodeList nodeList = doc.getElementsByTagName("request");
 			for (int i = 0; i < nodeList.getLength(); i++) {
@@ -91,7 +96,13 @@ public class RequestList {
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) node;
 					Intersection pickupAddress = cityMap.getIntersection(Long.valueOf(eElement.getAttribute("pickupAddress")));
+					if(pickupAddress==null) {
+						return false;
+					}
 					Intersection deliveryAddress = cityMap.getIntersection(Long.valueOf(eElement.getAttribute("deliveryAddress")));
+					if(deliveryAddress==null) {
+						return false;
+					}
 					int pickupDuration = Integer.valueOf(eElement.getAttribute("pickupDuration"));
 					int deliveryDuration = Integer.valueOf(eElement.getAttribute("deliveryDuration"));
 					Request request = new Request(deliveryDuration, deliveryAddress, pickupAddress, pickupDuration);
@@ -102,6 +113,7 @@ public class RequestList {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return true ; 
 	}
 	
 	@Override

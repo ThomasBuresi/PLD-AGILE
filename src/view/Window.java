@@ -2,16 +2,20 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.byteowls.jopencage.model.JOpenCageResponse;
@@ -36,6 +40,11 @@ public class Window extends JFrame{
 	private TextualView textualView;
 	
 	/**
+	 * Containing indications and legend
+	 */
+	private JPanel bottom_panel;
+	
+	/**
 	 * Button to load the map file 
 	 */
 	private JButton load_file;
@@ -43,16 +52,61 @@ public class Window extends JFrame{
 	 * Button to load the file requests 
 	 */
 	private JButton load_requests_file;
+	/**
+	 * Button to start the calculation of the delivery tour 
+	 */
+	private JButton calculate_tour;
 	
 	/**
-	 * Label to change the descriptions of the actions to perform, indications for the user 
+	 * Button to continue the calculation if it's not over
 	 */
-	private JLabel indications;
+	private JButton continue_calculation;
+	
+	/**
+	 * Button to add a request to the tour
+	 */
+	private JButton add_request;
+	
+	/**
+	 * Button to remove a request to the tour
+	 */
+	private JButton remove_request;
+	
+	/**
+	 * Button to export the delivery tour
+	 */
+	private JButton export_tour;
+	
+	/**
+	 * Button to undo the add/remove
+	 */
+	private JButton undo_button;
+	
+	/**
+	 * Button to redo the add/remove
+	 */
+	private JButton redo_button;
+	
+	/**
+	 * Button to zoom out the map to the initial state
+	 */
+	private JButton zoomOut;
+	
+	/**
+	 * Text area to change the descriptions of the actions to perform (indications for the user)
+	 */
+	private JTextArea indications;
+	
+	/**
+	 * Text area to show the legend of the map
+	 */
+	private JTextArea legend;
 	
 	/**
 	 * Boolean to add the request file button only after adding a map file 
 	 */
 	public Boolean add_request_button = false;
+	
 	
 	
 	/**
@@ -76,9 +130,9 @@ public class Window extends JFrame{
     	
     	graphicalView = new GraphicalView(controller);
         textualView = new TextualView(controller);
-    	
+        
     	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView, textualView);
-    	MouseListen mouseListen = new MouseListen(controller, graphicalView.getHeight(), graphicalView.getWidth());
+    	MouseListen mouseListen = new MouseListen(controller, graphicalView, this);
     	
     	graphicalView.addMouseListener(mouseListen);
     	// Main Frame
@@ -102,10 +156,62 @@ public class Window extends JFrame{
         load_requests_file.setVisible(false);
         load_requests_file.setBounds(1105,20,145,30);
         
-        //Indications for the user
-        indications = new JLabel("Your Next Step : \r\n"
-        		+ "Please load your City Map File (XML). \r\n");
+     // Calculate the delivery tour 
+        calculate_tour = new JButton("Calculate Delivery Tour");
+        calculate_tour.addActionListener(buttonListener);
+        calculate_tour.setVisible(false);
+        calculate_tour.setBounds(950,550,290,30);
         
+     // Continue to calculate the delivery tour for 20sec
+        continue_calculation = new JButton("Continue calculation (20sec more)");
+        continue_calculation.addActionListener(buttonListener);
+        continue_calculation.setVisible(false);
+        continue_calculation.setBounds(950,550,290,30);
+     
+     // add requests to the tour
+        add_request = new JButton("Add");
+        add_request.addActionListener(buttonListener);
+        add_request.setVisible(false);
+        add_request.setBounds(950,550,290,30);
+        
+     // remove requests to the tour
+        remove_request = new JButton("Remove");
+        remove_request.addActionListener(buttonListener);
+        remove_request.setVisible(false);
+        remove_request.setBounds(950,550,290,30);
+        
+     // export the tour
+        export_tour = new JButton("Export Tour File");
+        export_tour.addActionListener(buttonListener);
+        export_tour.setVisible(false);
+        export_tour.setBounds(950,590,290,30);
+        
+     // undo
+        undo_button = new JButton("Undo");
+        undo_button.addActionListener(buttonListener);
+        undo_button.setVisible(false);
+        undo_button.setBounds(950,630,145,30);
+        
+     // redo
+        redo_button = new JButton("Redo");
+        redo_button.addActionListener(buttonListener);
+        redo_button.setVisible(false);
+        redo_button.setBounds(1105,630,145,30);
+        
+        
+        
+        //Indications for the user
+        indications = new JTextArea("Your Next Step : \r\n"
+        		+ "Please load your City Map File (XML). \r\n");
+        indications.setEditable(false);
+        indications.setLineWrap(true);
+        indications.setWrapStyleWord(true);
+        indications.setBounds(10, 10, 540, 80);
+        //indications.setBorder(BorderFactory.createLineBorder(Color.black));
+        
+        legend = new JTextArea();
+        
+
         
         //JScrollPane scroll = new JScrollPane();
         //for (int i = 0; i < 5; i++) {
@@ -121,24 +227,41 @@ public class Window extends JFrame{
 //        right_panel.add(load_requests_file);
         
         //For the bottom indication zone
-        JPanel bottom_panel = new JPanel();
+        bottom_panel = new JPanel();
+        bottom_panel.setLayout(null);
         bottom_panel.setBounds(20,550,900,100);
         bottom_panel.setBackground(Color.white);
         bottom_panel.add(indications);
         
+        zoomOut = new JButton("-");
+        zoomOut.setBounds(860, 0, 40, 30);
+        zoomOut.addActionListener(buttonListener);
+        zoomOut.setVisible(false);
+        graphicalView.add(zoomOut);
+        
+        
+        
         add(graphicalView);
         add(textualView);
-       // add(right_panel);
         add(bottom_panel);
+        
         add(load_file);
         add(load_requests_file);
+        add(calculate_tour);
+        add(continue_calculation);
+        add(add_request);
+        add(remove_request);
+        add(export_tour);
+        add(undo_button);
+        add(redo_button);
         
-        
+
     	
         repaint();
     	setVisible(true);
     	// Graphical and Textual views & other attributes ?
     	
+    	/*
     	//Get Address from coordinates API
     	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
 
@@ -154,14 +277,21 @@ public class Window extends JFrame{
     	// get the formatted address of the first result:
     	String formattedAddress = response.getResults().get(0).getFormatted(); 
     	System.out.println(formattedAddress);
-    	// formattedAddress is now '12 Rue Frdric Passy, 69100 Villeurbanne, France'a
-    	// formattedAddress is now '12 Rue Frdric Passy, 69100 Villeurbanne, France'
-    	
+    	// formattedAddress is now '12 Rue Fr�d�ric Passy, 69100 Villeurbanne, France'
+    	*/
     }
     
     @Override
     public void paint(Graphics g) {
         super.paint(g);	
+        if (bottom_panel.getComponentCount() > 1) {
+        	g.setColor(Color.black);
+        	g.fillRect(705, 611, 10, 10);
+        	g.setColor(Color.red);
+        	g.fillRect(705, 627, 10, 10);
+        	g.fillOval(705, 643, 10, 10);
+        }
+        
     }
     
     public GraphicalView getGraphicalView () {
@@ -176,6 +306,64 @@ public class Window extends JFrame{
     	indications.setText("Your Next Step : \r\n"
     			+ "Please load your Requests File (XML). ");
     	load_requests_file.setVisible(true);
+    	zoomOut.setVisible(true);
+    	this.repaint();
+    	
+    }
+    
+    public void setErrorAtOpening() {
+    	indications.setText(indications.getText()+ " Please load a compatible file");
+    }
+    
+    public void setVisibleCalculateButton() {
+    	indications.setText("Your Next Step : \r\n"
+    			+ "Click on Calculate Delivery Tour to run the algorithm and get an optimized delivery tour on the map. ");
+    	calculate_tour.setVisible(true);
+    	continue_calculation.setVisible(false);
+    	add_request.setVisible(false);
+    	export_tour.setVisible(false);
+    	undo_button.setVisible(false);
+    	redo_button.setVisible(false);
+    }
+    
+    public void setContinueCalculation() {
+    	indications.setText("Your Next Step : \r\n"
+    			+ "Click on Continue to a more optimized tour since it will be calculated for 20 additional seconds. ");
+    	calculate_tour.setVisible(false);
+    	continue_calculation.setVisible(true);
+    	this.repaint();
+    }
+    
+    public void setVisibleAddExport () {
+    	indications.setText("Your Next Step : \r\n"
+    			+ "Your Delivery Tour has been computed, you have 3 options : \r\n"
+    			+"1. You can export the Delivery Tour.\r\n"
+    			+"2. You can go add request by clickin on Add.\r\n " //we have to design the corres
+    			+"3. You can remove a request by selecting one of its elements on the map or in the list.\r\n");
+    	calculate_tour.setVisible(false);
+    	continue_calculation.setVisible(false);
+    	add_request.setVisible(true);
+    	export_tour.setVisible(true);
+    	undo_button.setVisible(true);
+    	redo_button.setVisible(true);
+    	this.repaint();
+    }
+    
+    public void addLegend() {
+    	bottom_panel.remove(legend);
+    	legend = new JTextArea("        LEGEND :\n"
+    			+ "-   Deposit (Start point)\n" 
+    			+ "-   Pickup address\n"
+    			+ "-   Delivery address");
+    	legend.setBounds(700, 10, 200, 80);
+    	legend.setEditable(false);
+    	bottom_panel.add(legend);
+    	this.repaint();
+    }
+    
+    public void removeLegend() {
+    	bottom_panel.remove(legend);
+    	this.repaint();
     }
 
 

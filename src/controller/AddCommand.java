@@ -8,25 +8,17 @@ import java.util.*;
 public class AddCommand implements Command {
 
     /**
-     * Default constructor
+     *
      */
-    public AddCommand() {
-    }
-
-
-    /**
-     * @param Plan 
-     * @param Shape
-     */
-    public void AddCommand(void Plan, void Shape) {
-        // TODO implement here
+    public void AddCommand() {
+        // TODO add request ? or 4 points here 
     }
 
     /**
      * @return
      */
     public void doCommand() {
-        // TODO implement here
+        // TODO add request to the list and update textual and graph view
         //return null;
     }
 
@@ -34,7 +26,7 @@ public class AddCommand implements Command {
      * @return
      */
     public void undoCommand() {
-        // TODO implement here
+        // TODO remove the request to the list
         //return null;
     }
 

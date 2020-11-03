@@ -39,6 +39,26 @@ public class GraphicalSegment {
 	 */
 	protected float longMax;
 	
+	/**
+	 * 
+	 */
+	protected float latMinMap;
+	
+	/**
+	 * 
+	 */
+	protected float latMaxMap;
+	
+	/**
+	 * 
+	 */
+	protected float longMinMap;
+	
+	/**
+	 * 
+	 */
+	protected float longMaxMap;
+	
     /**
      * Default constructor
      */
@@ -50,6 +70,10 @@ public class GraphicalSegment {
     	this.latMin = latMin;
     	this.longMax = longMax;
     	this.longMin = longMin;
+    	this.latMinMap = latMin;
+    	this.latMaxMap = latMax;
+    	this.longMinMap = longMin;
+    	this.longMaxMap = longMax;
     }
     
     //public Dimension getPreferredSize() {
@@ -67,10 +91,10 @@ public class GraphicalSegment {
   		  //System.out.println(i);
   		  List<Segment> seg = entry.getValue().getListSegments();
   		  for (Segment s : seg) {
-  			  int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMin)/(latMax-latMin)*height);
-  			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMin)/(longMax-longMin)*width);
-  			  int yDest = height - (int)Math.round((s.getDestination().getLatitude()-latMin)/(latMax-latMin)*height);
-  			  int xDest = (int)Math.round((s.getDestination().getLongitude()-longMin)/(longMax-longMin)*width);
+  			  int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
+  			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);
+  			  int yDest = height - (int)Math.round((s.getDestination().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
+  			  int xDest = (int)Math.round((s.getDestination().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);
   			  //System.out.println(xOrig + " "+ yOrig + " " + xDest + " " + yDest);
   			  //System.out.println(s.getOrigin().getLatitude());
   			  g.drawLine(xOrig, yOrig, xDest, yDest);
@@ -79,5 +103,44 @@ public class GraphicalSegment {
   	  	}
         //System.out.println(i);
     }
+    
+    public void setLatMinMap(float latMinMap) {
+		this.latMinMap = latMinMap;
+	}
+
+	public void setLatMaxMap(float latMaxMap) {
+		this.latMaxMap = latMaxMap;
+	}
+
+	public void setLongMinMap(float longMinMap) {
+		this.longMinMap = longMinMap;
+	}
+
+	public void setLongMaxMap(float longMaxMap) {
+		this.longMaxMap = longMaxMap;
+	}
+
+	public float getLatMinMap() {
+		return latMinMap;
+	}
+
+	public float getLatMaxMap() {
+		return latMaxMap;
+	}
+
+	public float getLongMinMap() {
+		return longMinMap;
+	}
+
+	public float getLongMaxMap() {
+		return longMaxMap;
+	}
+
+	public void resetCoord() {
+		this.latMinMap = this.latMin;
+		this.latMaxMap = this.latMax;
+		this.longMinMap = this.longMin;
+		this.longMaxMap = this.longMax;
+	}
 
 }

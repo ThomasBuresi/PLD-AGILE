@@ -49,8 +49,8 @@ public class Request {
 
 	@Override
 	public String toString() {
-		return "Request [deliveryDuration=" + deliveryDuration + ", deliveryAddress=" + deliveryAddress
-				+ ", pickupAddress=" + pickupAddress + ", pickupDuration=" + pickupDuration + "]";
+		return "Request [deliveryDuration=" + deliveryDuration + ",\n deliveryAddress=" + deliveryAddress
+				+ ",\n pickupAddress=" + pickupAddress + ",\n pickupDuration=" + pickupDuration + "]";
 	}
     
 

@@ -45,6 +45,7 @@ public class MapRequestsLoadedState implements State{
         	   System.out.println("requests loaded");
         	   
         	   controller.setRequestList(requestList);
+        	   controller.setDeliveryTour(null);
         	   GraphicalView graphicalView = window.getGraphicalView();
                TextualView textualView = window.getTextualView();
         	   graphicalView.updateGraphicalCityMap(controller);
@@ -82,6 +83,7 @@ public class MapRequestsLoadedState implements State{
        	   
        	   c.setCityMap(cityMap);
        	   c.setRequestList(null);
+       	   c.setDeliveryTour(null);
        	   System.out.println("map loaded");
            
            GraphicalView graphicalView = w.getGraphicalView();
@@ -162,7 +164,7 @@ public class MapRequestsLoadedState implements State{
 			}
 			
 		}
-		//retour au point de départ :
+		//retour au point de dï¿½part :
 		d.addStep(reqlist.getDeparture(), g.getSegmentPaths()[tsp.getSolution(2*reqlist.getListRequests().size())][tsp.getSolution(0)]); // inverser l'ordre??
 		
 		controller.setDeliveryTour(d);
@@ -178,7 +180,13 @@ public class MapRequestsLoadedState implements State{
 				}
 			}
 		}
+		// print the delivery tour 
 		
+		GraphicalView graphicalView = window.getGraphicalView();
+        TextualView textualView = window.getTextualView();
+ 	    
+        graphicalView.updateGraphicalCityMap(controller);
+        textualView.update(controller);
 		
 		window.setContinueCalculation();
 	}

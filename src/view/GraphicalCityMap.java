@@ -88,6 +88,9 @@ public class GraphicalCityMap {
     	if (graphicalSegment != null) {
     		graphicalSegment.drawSegment(g, height, width);
     	}
+    	if(deliveryTour!=null) {
+    		graphicalSegment.drawTour(g,height,width,deliveryTour);
+    	}
     }
 
 	public HashMap<Long, Intersection> getListIntersection() {

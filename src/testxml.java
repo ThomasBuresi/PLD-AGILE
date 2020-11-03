@@ -8,8 +8,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;  
 import java.io.File; 
 import model.CityMap;
+import model.DeliveryTour;
 import model.Intersection;
 import model.Segment;
+import tsp.DijkstraGraph;
+import tsp.TSP;
+import tsp.TSP1;
 import model.RequestList;
 
 import java.util.*;
@@ -86,15 +90,39 @@ public class testxml {
 	  
 	  System.out.println("\n************TEST OF REQUESTLIST****************");
 	  
-	  RequestList reqlist = new RequestList("src/resources/requestsSmall1.xml", map);
+	  RequestList reqlist = new RequestList("src/resources/requestsSmall2.xml", map);
 	  
 	  reqlist.fillRequests();
 	  
 	  System.out.println(reqlist);
 	  
+	  DijkstraGraph g = new DijkstraGraph(map, reqlist);
 	  
-
-	  
+	  for(int j = 0; j < 1+2*reqlist.getListRequests().size(); j++) {
+		  for(int k = 0; k < 1+2*reqlist.getListRequests().size(); k++) {
+			  System.out.print(g.getCost(j, k) + " ");
+		  }
+		  System.out.println();
+	  }
+	TSP tsp = new TSP1();
+	tsp.searchSolution(20000, g);
+	System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
+	for(int m = 0; m < 1+2*reqlist.getListRequests().size(); m++) {
+		System.out.print(" " + tsp.getSolution(m));
+	}
+	System.out.println(" 0");
+	DeliveryTour d = new DeliveryTour();
+	d.addDeparture(reqlist.getDeparture());
+	// on commence à un car on a déjà traité le cas du départ
+	for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
+		//ajouter au delivery tour l'intersection qui correspond au numero de la requête ->
+		if (tsp.getSolution(l)%2==0) {
+			d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)-2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+		}
+		else {
+			d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)-1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+		}
+	}
     //Bienvenue sur le projet AGILE 
   }
   

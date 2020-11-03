@@ -17,8 +17,10 @@ public class SeqIter implements Iterator<Integer> {
 	 */
 	public SeqIter(Collection<Integer> unvisited, int currentVertex, Graph g){
 		this.candidates = new Integer[unvisited.size()];
-		for (Integer s : unvisited){
-			if (g.isArc(currentVertex, s))
+		for (Integer s : unvisited) {
+			// 2*n-1 : pickup points (for n>0)
+			// 2*n : delivery points (for n>0)
+			if ((s == 0 || s % 2 == 1 || !unvisited.contains(s-1)) && g.isArc(currentVertex, s))
 				candidates[nbCandidates++] = s;
 		}
 	}

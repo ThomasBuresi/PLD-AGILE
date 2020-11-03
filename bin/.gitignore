@@ -21,6 +21,8 @@ bin/utils/
 .DS_Store
 /com/
 /controller/
+/lib/
+
 /model/
 /tsp/
 /view/

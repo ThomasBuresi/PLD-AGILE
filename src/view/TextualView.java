@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -134,7 +135,7 @@ public class TextualView extends JPanel{ //implements Observer {
     	this.remove(scrollPane);
     	
     	List<Request> requestsNotOrdered = requestList.getListRequests();
-    	List<Request> requests = null;
+    	List<Request> requests = new ArrayList();
     	
     	//Re order the requests corresponding to the tour 
     	//go through the tour once and through the request to order them as many times as necessary 

@@ -78,6 +78,7 @@ public class ButtonListener implements ActionListener {
 			break;
 			
 		case "Continue calculation (20sec more)":
+			controller.continueCalculation();
 			//controller computation
 			
 			//it ends 

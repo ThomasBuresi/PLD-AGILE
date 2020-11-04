@@ -44,10 +44,11 @@ public class MouseListen implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(e.getX() + " " + e.getY());
+		//System.out.println(e.getX() + " " + e.getY());
 		int xCoord = e.getX();
 		int yCoord = e.getY();
-		HashMap<Long, Intersection> listIntersection;
+		controller.addRequest(xCoord, yCoord);
+		/*HashMap<Long, Intersection> listIntersection;
 		if (controller.getCityMap() != null) {
 			listIntersection = controller.getCityMap().getListIntersection();
 			if (listIntersection != null) {
@@ -63,7 +64,7 @@ public class MouseListen implements MouseListener{
 					}
 				}
 			}
-		} 
+		} */
 	}
 
 	@Override
@@ -74,7 +75,6 @@ public class MouseListen implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		pressedX = e.getX();
 		pressedY = e.getY();
 		
@@ -82,35 +82,11 @@ public class MouseListen implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		int relX = e.getX();
 		int relY = e.getY();
-		
-		if (graphicalView.graphicalCityMap.graphicalSegment != null && Math.abs(relX - pressedX)>20 && Math.abs(relY - pressedY) > 20) {
-			System.out.println(pressedX + " " + pressedY + " " + relX + " " + relY);
-			float latMax = graphicalView.graphicalCityMap.graphicalSegment.getLatMaxMap();
-			float latMin = graphicalView.graphicalCityMap.graphicalSegment.getLatMinMap();
-			float longMin = graphicalView.graphicalCityMap.graphicalSegment.getLongMinMap();
-			float longMax = graphicalView.graphicalCityMap.graphicalSegment.getLongMaxMap();
-			//System.out.println(latMax + " " + latMin + " " + longMax + " " + longMin);
-			longMin = longMin + (float)pressedX/panelWidth*(longMax - longMin);
-			longMax = longMax - ((float)(panelWidth - relX))/panelWidth*(longMax - longMin);
-			latMin = latMin + (float)pressedY/panelHeight*(latMax - latMin);
-			latMax = latMax - ((float)(panelHeight-relY))/panelHeight*(latMax - latMin);
-			//System.out.println(latMax + " " + latMin + " " + longMax + " " + longMin);
-			graphicalView.graphicalCityMap.graphicalSegment.setLatMaxMap(latMax);
-			graphicalView.graphicalCityMap.graphicalSegment.setLatMinMap(latMin);
-			graphicalView.graphicalCityMap.graphicalSegment.setLongMaxMap(longMax);
-			graphicalView.graphicalCityMap.graphicalSegment.setLongMinMap(longMin);
-			if (graphicalView.graphicalCityMap.graphicalIntersection != null) {
-				//System.out.println("updating...");
-				graphicalView.graphicalCityMap.graphicalIntersection.setLatMaxMap(latMax);
-				graphicalView.graphicalCityMap.graphicalIntersection.setLatMinMap(latMin);
-				graphicalView.graphicalCityMap.graphicalIntersection.setLongMaxMap(longMax);
-				graphicalView.graphicalCityMap.graphicalIntersection.setLongMinMap(longMin);
-			}
+		if (Math.abs(relX - pressedX)>20 && Math.abs(relY - pressedY) > 20) {
+			controller.zoomIn(pressedX, pressedY, relX, relY);
 		}
-		window.repaint();
 	}
 
 

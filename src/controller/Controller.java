@@ -72,9 +72,22 @@ public class Controller {
 		currentState.zoomOut(this, window);		
 	}
     
+    public void zoomIn(int pressedX, int pressedY, int relX, int relY) {
+    	currentState.zoomIn(this, window, pressedX, pressedY, relX, relY);
+    }
+    
     public void computeDeliveryTour() {
 		currentState.computeDeliveryTour(this, window);
 	}
+    
+    public void continueCalculation() {
+    	//TODO
+    	currentState.continueCalculation(this, window);
+    }
+    
+    public void addRequest(int xCoord, int yCoord) {
+    	currentState.addRequest(this, window, xCoord, yCoord);
+    }
     
     /**
      * @return

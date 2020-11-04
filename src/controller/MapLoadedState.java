@@ -101,5 +101,36 @@ public class MapLoadedState implements State{
 		}
 		window.repaint();
 	}
+	
+	@Override
+	public void zoomIn(Controller controller, Window window, int pressedX, int pressedY, int relX, int relY) {
+		GraphicalView graphicalView = window.getGraphicalView();
+		int panelHeight = graphicalView.getHeight();
+    	int panelWidth = graphicalView.getWidth();
+    	//Get the coordinates of the map at the moment
+		float latMax = graphicalView.graphicalCityMap.graphicalSegment.getLatMaxMap();
+		float latMin = graphicalView.graphicalCityMap.graphicalSegment.getLatMinMap();
+		float longMin = graphicalView.graphicalCityMap.graphicalSegment.getLongMinMap();
+		float longMax = graphicalView.graphicalCityMap.graphicalSegment.getLongMaxMap();
+		//Calculate the new coordinates of the zone to zoom in
+		longMin = longMin + (float)pressedX/panelWidth*(longMax - longMin);
+		longMax = longMax - ((float)(panelWidth - relX))/panelWidth*(longMax - longMin);
+		latMin = latMin + (float)pressedY/panelHeight*(latMax - latMin);
+		latMax = latMax - ((float)(panelHeight-relY))/panelHeight*(latMax - latMin);
+		//Set the new coordinates for the segments of the map
+		graphicalView.graphicalCityMap.graphicalSegment.setLatMaxMap(latMax);
+		graphicalView.graphicalCityMap.graphicalSegment.setLatMinMap(latMin);
+		graphicalView.graphicalCityMap.graphicalSegment.setLongMaxMap(longMax);
+		graphicalView.graphicalCityMap.graphicalSegment.setLongMinMap(longMin);
+		if (graphicalView.graphicalCityMap.graphicalIntersection != null) {
+			//Set the new coordinates for the points from the requests of the map
+			graphicalView.graphicalCityMap.graphicalIntersection.setLatMaxMap(latMax);
+			graphicalView.graphicalCityMap.graphicalIntersection.setLatMinMap(latMin);
+			graphicalView.graphicalCityMap.graphicalIntersection.setLongMaxMap(longMax);
+			graphicalView.graphicalCityMap.graphicalIntersection.setLongMinMap(longMin);
+		}
+		
+		window.repaint();
+	}
 
 }

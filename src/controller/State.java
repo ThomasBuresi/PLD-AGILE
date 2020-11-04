@@ -18,6 +18,7 @@ public interface State {
 	
 	/**
 	 * Method called by the controller after a click on the button "Load map"
+	 * 
 	 * @param c controller
 	 * @param w the window
 	 */
@@ -27,7 +28,13 @@ public interface State {
 	
 	public default void zoomOut(Controller c, Window w) {};
 	
+	public default void zoomIn(Controller c, Window w, int pressedX, int pressedY, int relX, int relY) {};
+	
 	public default void computeDeliveryTour(Controller c, Window w) {};
+	
+	public default void continueCalculation(Controller c, Window w) {};
+	
+	public default void addRequest(Controller c, Window w, int xCoord, int yCoord) {};
 
 
 }

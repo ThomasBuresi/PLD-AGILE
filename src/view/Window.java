@@ -113,14 +113,14 @@ public class Window extends JFrame{
 	 * Main to test the window 
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		//CityMap cityMap=new CityMap(); //useful citymap is created in Controller.java
 		Controller controller = new Controller();
 		//controller.loadFile("src/resources/largeMap.xml");
 		//Frame
         Window  test = new Window(controller); //,cityMap); to be deleted
         test.setVisible(true);
-    }
+    }*/
 	
 	
 	/**
@@ -160,31 +160,31 @@ public class Window extends JFrame{
         calculate_tour = new JButton("Calculate Delivery Tour");
         calculate_tour.addActionListener(buttonListener);
         calculate_tour.setVisible(false);
-        calculate_tour.setBounds(950,550,290,30);
+        calculate_tour.setBounds(950,550,300,30);
         
      // Continue to calculate the delivery tour for 20sec
         continue_calculation = new JButton("Continue calculation (20sec more)");
         continue_calculation.addActionListener(buttonListener);
         continue_calculation.setVisible(false);
-        continue_calculation.setBounds(950,550,290,30);
+        continue_calculation.setBounds(950,550,300,30);
      
      // add requests to the tour
         add_request = new JButton("Add");
         add_request.addActionListener(buttonListener);
         add_request.setVisible(false);
-        add_request.setBounds(950,550,290,30);
+        add_request.setBounds(950,550,300,30);
         
      // remove requests to the tour
         remove_request = new JButton("Remove");
         remove_request.addActionListener(buttonListener);
         remove_request.setVisible(false);
-        remove_request.setBounds(950,550,290,30);
+        remove_request.setBounds(950,550,300,30);
         
      // export the tour
         export_tour = new JButton("Export Tour File");
         export_tour.addActionListener(buttonListener);
         export_tour.setVisible(false);
-        export_tour.setBounds(950,590,290,30);
+        export_tour.setBounds(950,590,300,30);
         
      // undo
         undo_button = new JButton("Undo");

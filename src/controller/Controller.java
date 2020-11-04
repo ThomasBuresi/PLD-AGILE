@@ -43,6 +43,7 @@ public class Controller {
     	window = new Window(this);
     	cityMap=null; 
     	requestList=null;
+    	deliveryTour=null;
     }
     
     

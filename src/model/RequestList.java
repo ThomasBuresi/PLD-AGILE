@@ -19,7 +19,7 @@ import utils.TimeUtils;
 public class RequestList {
 	
 	/**
-     * <code>Intersection</code> of departure of the delivery person
+     * Intersection of departure of the delivery person
      * (Starting point)
      */
     protected Intersection departure;
@@ -66,7 +66,7 @@ public class RequestList {
 	/**
 	 * Method that parses the XML Requests file and affects the <code>departure</code>
 	 * intersection and the <code>departureTime</code>, and also adds all the requests
-	 * in <code>listRequests>
+	 * in <code>listRequests</code>
 	 */
 	public boolean fillRequests() {
 		// TODO : improve the code by reducing the number of returns 

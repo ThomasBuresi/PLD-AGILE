@@ -28,33 +28,36 @@ public class ButtonListener implements ActionListener {
 	/**
 	 * To open a dialog window to load the files 
 	 */
-	private JFileChooser fc;
+//	private JFileChooser fc;
+	
 	/**
 	 * Controller to perform the actions that require some processing 
 	 */
 	private Controller controller; 
 	
 	/**
-	 * Repaint
+	 * Associated window
 	 */
-	private Window window;
+	private Window window; //won't be needed normally
 	
-	private GraphicalView graphicalView;
-	
-	private TextualView textualView;
-	
+//	private GraphicalView graphicalView;
+//	
+//	private TextualView textualView;
+//	
     /**
-     * Default constructor
+     * Constructor of ButtonListener
+     * 
+     * @param controller
      */
     public ButtonListener(Controller controller, Window window, GraphicalView graphicalView, TextualView textualView) {
     	this.controller=controller;
     	this.window = window;
-    	this.graphicalView = graphicalView;
-    	this.textualView = textualView;
-    	fc = new JFileChooser();
-    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
-    			System.getProperty("file.separator")+ "src" + 
-    			System.getProperty("file.separator")+ "resources"));
+//    	this.graphicalView = graphicalView;
+//    	this.textualView = textualView;
+//    	fc = new JFileChooser();
+//    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
+//    			System.getProperty("file.separator")+ "src" + 
+//    			System.getProperty("file.separator")+ "resources"));
     	
     }
 
@@ -78,23 +81,24 @@ public class ButtonListener implements ActionListener {
 			break;
 			
 		case "Continue calculation (20sec more)":
-			controller.continueCalculation();
+			controller.continueCalculation(); //TODO
 			//controller computation
 			
 			//it ends 
 			//setVisibleAddExport in Window
-			window.setVisibleAddExport();
+			window.setVisibleAddExport(); //TODO delete when controller done
 			//it doesn't end
 			//set error mode ??  
 			
 			break;
 		
 		case "Add" :
+			// TODO controller.changeToAddRequestMode();
 			break;
 		case "Remove" :
 			break;
 		case "Export Tour File" :
-			
+			//TODO controller.exportTour();
 			//controller and delivery tour object 
 			
 			// no change in tg=he display ? or popup the export is complete ? 

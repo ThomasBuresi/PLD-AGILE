@@ -16,11 +16,11 @@ public class MouseListen implements MouseListener{
 	
 	private GraphicalView graphicalView;
 	
-	private Window window;
-	
-	private int panelWidth;
-	
-	private int panelHeight;
+//	private Window window;
+//	
+//	private int panelWidth;
+//	
+//	private int panelHeight;
 	
 	private int pressedX;
 	
@@ -30,11 +30,11 @@ public class MouseListen implements MouseListener{
      * Default constructor
      */
     public MouseListen(Controller controller, GraphicalView graphicalView, Window window) {
-    	this.window = window;
+//    	this.window = window;
     	this.graphicalView = graphicalView;
     	this.controller = controller;
-    	this.panelHeight = this.graphicalView.getHeight();
-    	this.panelWidth = this.graphicalView.getWidth();
+//    	this.panelHeight = this.graphicalView.getHeight();
+//    	this.panelWidth = this.graphicalView.getWidth();
     }
 
     @Override

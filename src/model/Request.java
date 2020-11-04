@@ -12,12 +12,12 @@ public class Request {
     protected int deliveryDuration;
 
     /**
-     * <code>Intersection</code> of delivery
+     * Intersection of delivery
      */
     protected Intersection deliveryAddress;
     
     /**
-     * <code>Intersection</code> of pickup
+     * Intersection of pickup
      */
     protected Intersection pickupAddress;
     

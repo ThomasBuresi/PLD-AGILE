@@ -135,7 +135,7 @@ public class TextualView extends JPanel{ //implements Observer {
     	this.remove(scrollPane);
     	
     	List<Request> requestsNotOrdered = requestList.getListRequests();
-    	List<Request> requests = new ArrayList();
+    	List<Request> requests = new ArrayList<Request>();
     	
     	//Re order the requests corresponding to the tour 
     	//go through the tour once and through the request to order them as many times as necessary 

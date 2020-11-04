@@ -34,7 +34,8 @@ public class GraphicalCityMap {
 	
 
     /**
-     * Default constructor
+     * Constructor of GraphicalCityMap
+     * @param controller
      */
     public GraphicalCityMap(Controller controller) {
     	//super();

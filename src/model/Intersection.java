@@ -42,8 +42,9 @@ public class Intersection {
     
     /**
      * Constructor of Intersection
-     * @param longitude
+     * 
      * @param latitude
+     * @param longitude
      * @param idIntersection
      */
     public Intersection(float latitude, float longitude, long idIntersection) {
@@ -53,8 +54,42 @@ public class Intersection {
     	this.listSegments = new ArrayList<Segment>();
     			
     }
+	
+	/**
+	 * Method to return the exact address of an intersection
+	 * from an API using its coordinates
+	 * 
+	 * @param jOpenCageGeocoder class used by the API
+	 */
+	public String toAddress(JOpenCageGeocoder jOpenCageGeocoder) {
+		
+    	JOpenCageReverseRequest request = new JOpenCageReverseRequest((double)latitude, (double)longitude); //latitude, longitude
+    	request.setLanguage("fr"); // prioritize results in a specific language using an IETF format language code
+    	request.setNoDedupe(true); // don't return duplicate results
+    	request.setLimit(5); // only return the first 5 results (default is 10)
+    	request.setNoAnnotations(true); // exclude additional info such as calling code, timezone, and currency
+    	request.setMinConfidence(3); // restrict to results with a confidence rating of at least 3 (out of 10)
 
-    public float getLongitude() {
+    	JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
+
+    	// get the formatted address of the first result:
+    	return  response.getResults().get(0).getFormatted(); 
+	}
+
+	/**
+	 * Add a <code>Segment</code> to the list of Segments of the Intersection
+	 * (<code>listSegments</code>)
+	 * @param s Segment to add
+	 */
+	public void addSegment(Segment s) {
+		listSegments.add(s);
+	}
+
+	public List<Segment> getListSegments() {
+		return listSegments;
+	}
+	
+	public float getLongitude() {
 		return longitude;
 	}
 
@@ -82,37 +117,6 @@ public class Intersection {
 	public String toString() {
 		return "Intersection [longitude=" + longitude + ", latitude=" + latitude + ", idIntersection=" + idIntersection
 				+ "]";
-	}
-	
-	/**
-	 * Intersection to corresponding address
-	 */
-	public String toAddress(JOpenCageGeocoder jOpenCageGeocoder) {
-		
-    	JOpenCageReverseRequest request = new JOpenCageReverseRequest((double)latitude, (double)longitude); //latitude, longitude
-    	request.setLanguage("fr"); // prioritize results in a specific language using an IETF format language code
-    	request.setNoDedupe(true); // don't return duplicate results
-    	request.setLimit(5); // only return the first 5 results (default is 10)
-    	request.setNoAnnotations(true); // exclude additional info such as calling code, timezone, and currency
-    	request.setMinConfidence(3); // restrict to results with a confidence rating of at least 3 (out of 10)
-
-    	JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
-
-    	// get the formatted address of the first result:
-    	return  response.getResults().get(0).getFormatted(); 
-	}
-
-	/**
-	 * Add a <code>Segment</code> to the list of Segments of the Intersection
-	 * (<code>listSegments</code>)
-	 * @param s
-	 */
-	public void addSegment(Segment s) {
-		listSegments.add(s);
-	}
-
-	public List<Segment> getListSegments() {
-		return listSegments;
 	}
    
 }

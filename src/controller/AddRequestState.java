@@ -19,10 +19,10 @@ public class AddRequestState implements State{
 
 		listIntersection = controller.getCityMap().getListIntersection();
 		//Get coordinates of the zone shown on the map at the moment
-		float latMax = graphicalView.graphicalCityMap.graphicalSegment.getLatMaxMap();
-		float latMin = graphicalView.graphicalCityMap.graphicalSegment.getLatMinMap();
-		float longMin = graphicalView.graphicalCityMap.graphicalSegment.getLongMinMap();
-		float longMax = graphicalView.graphicalCityMap.graphicalSegment.getLongMaxMap();
+		float latMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMaxMap();
+		float latMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMinMap();
+		float longMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMinMap();
+		float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
 		
 		for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
 			int xInter = (int)Math.round((entry.getValue().getLongitude()-longMin)/(longMax-longMin)*panelWidth);

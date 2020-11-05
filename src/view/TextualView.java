@@ -93,8 +93,8 @@ public class TextualView extends JPanel{ //implements Observer {
 			//Get Address from coordinates API
 	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
 
-			String deliveryAddress = res.getDeliveryAddress().toAddress(jOpenCageGeocoder);
-			String pickupAddress = res.getPickupAddress().toAddress(jOpenCageGeocoder);
+			String deliveryAddress = res.getDeliveryAddress().setAddress(jOpenCageGeocoder);
+			String pickupAddress = res.getPickupAddress().setAddress(jOpenCageGeocoder);
 			//str= "Request "+i+" : \n PICKUP - "+pickupAddress+"\n DELIVERY - "+deliveryAddress;
 			str="<HTML>" + ("Request "+i+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
 			
@@ -163,10 +163,12 @@ public class TextualView extends JPanel{ //implements Observer {
 		int j = 1;
 		for (Request res : requests) {
 			//Get Address from coordinates API
-	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
-
-			String deliveryAddress = res.getDeliveryAddress().toAddress(jOpenCageGeocoder);
-			String pickupAddress = res.getPickupAddress().toAddress(jOpenCageGeocoder);
+//	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
+//
+//			String deliveryAddress = res.getDeliveryAddress().toAddress(jOpenCageGeocoder);
+//			String pickupAddress = res.getPickupAddress().toAddress(jOpenCageGeocoder);
+			String deliveryAddress = res.getDeliveryAddress().getName();
+			String pickupAddress = res.getPickupAddress().getName();
 			//str= "Request "+i+" : \n PICKUP - "+pickupAddress+"\n DELIVERY - "+deliveryAddress;
 			str="<HTML>" + ("Request "+j+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
 			

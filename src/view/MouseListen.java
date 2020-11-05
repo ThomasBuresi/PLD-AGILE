@@ -1,16 +1,21 @@
 package view;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
+import controller.AddRequestState;
 import controller.Controller;
+import controller.DeliveryTourState;
+import controller.RemoveRequestState;
+import controller.State;
 import model.Intersection;
 
 /**
  * 
  */
-public class MouseListen implements MouseListener{
+public class MouseListen extends MouseAdapter{
 
 	private Controller controller;
 	
@@ -45,9 +50,24 @@ public class MouseListen implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//System.out.println(e.getX() + " " + e.getY());
-		int xCoord = e.getX();
-		int yCoord = e.getY();
-		controller.addRequest(xCoord, yCoord);
+		
+		State currentState = controller.getCurrentState();
+		if(currentState instanceof DeliveryTourState) {
+			int xCoord = e.getX();
+			int yCoord = e.getY();
+			//only the clicks to remove are detected in this state 
+			
+			controller.leftClick(xCoord,yCoord);
+		} else if(currentState instanceof RemoveRequestState){
+				
+	    
+			
+		} else if (currentState instanceof AddRequestState) {
+			//4 points to detect ? how ? 
+		}
+		
+		
+		//controller.addRequest(xCoord, yCoord);
 		/*HashMap<Long, Intersection> listIntersection;
 		if (controller.getCityMap() != null) {
 			listIntersection = controller.getCityMap().getListIntersection();

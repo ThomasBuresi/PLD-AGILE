@@ -34,7 +34,15 @@ public interface State {
 	
 	public default void continueCalculation(Controller c, Window w) {};
 	
-	public default void addRequest(Controller c, Window w, int xCoord, int yCoord) {};
+	public default void skipContinueCalculation(Controller c, Window w) {};
+	
+	public default void changeToAddRequestMode(Controller c, Window w) {};
+	
+	public default void addRequest(Controller c, Window w, int [] xCoord, int[] yCoord) {};
+	
+	public default void exportTourFile(Controller c,Window w) {};
+	
+	public default void leftClick(Controller c, Window w,int xCoord,int yCoord) {};
 
 
 }

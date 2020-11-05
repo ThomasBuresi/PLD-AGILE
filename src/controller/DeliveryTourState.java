@@ -26,6 +26,34 @@ public class DeliveryTourState implements State {
 	 */
 	private JFileChooser fc;
 	
+	
+	@Override
+	public void changeToAddRequestMode(Controller c, Window w) {
+		w.setVisibleAddMode();
+		c.setCurrentState(c.addRequestState);
+	}
+	
+	@Override 
+	public void exportTourFile(Controller c, Window w) {
+		
+		
+		// when the merge will be donne call the DeliveryTour method here 
+		
+		//pop up to confirm the export 
+		//w.setPopUpExport()
+	}
+	
+	
+	@Override 
+	public void leftClick(Controller c, Window w,int xCoord,int yCoord) {
+		//mettre en mode remove et highlight dans la request list la requête à supprimer la 
+		//plus proche 
+		
+		w.setVisibleRemove();
+		
+		
+	}
+	
 	@Override
 	public void loadRequestsFile(Controller controller, Window window) {
 		fc = new JFileChooser();
@@ -144,6 +172,10 @@ public class DeliveryTourState implements State {
 		
 		window.repaint();
 	}
+	
+	
+	
+	
 	
 	
 }

@@ -63,9 +63,21 @@ public class Window extends JFrame{
 	private JButton continue_calculation;
 	
 	/**
-	 * Button to add a request to the tour
+	 * Button to skip to continue the calculation if it's not over
+	 */
+	private JButton skip_continue_calculation;
+	
+	
+	/**
+	 * Button to switch to add mode 
 	 */
 	private JButton add_request;
+	
+	/**
+	 * Button to confirm the add of a request to the tour
+	 */
+	private JButton add_confirm;
+	
 	
 	/**
 	 * Button to remove a request to the tour
@@ -168,11 +180,24 @@ public class Window extends JFrame{
         continue_calculation.setVisible(false);
         continue_calculation.setBounds(950,550,300,30);
      
-     // add requests to the tour
+     // Skip to continue to calculate the delivery tour for 20sec
+        skip_continue_calculation = new JButton("Skip");
+        skip_continue_calculation.addActionListener(buttonListener);
+        skip_continue_calculation.setVisible(false);
+        skip_continue_calculation.setBounds(950,600,300,30);  
+        
+     
+     // add mode on
         add_request = new JButton("Add");
         add_request.addActionListener(buttonListener);
         add_request.setVisible(false);
         add_request.setBounds(950,550,300,30);
+        
+     // add request to the tour
+        add_confirm = new JButton("Confirm Add");
+        add_confirm.addActionListener(buttonListener);
+        add_confirm.setVisible(false);
+        add_confirm.setBounds(950,550,300,30);
         
      // remove requests to the tour
         remove_request = new JButton("Remove");
@@ -249,7 +274,9 @@ public class Window extends JFrame{
         add(load_requests_file);
         add(calculate_tour);
         add(continue_calculation);
+        add(skip_continue_calculation);
         add(add_request);
+        add(add_confirm);
         add(remove_request);
         add(export_tour);
         add(undo_button);
@@ -306,6 +333,11 @@ public class Window extends JFrame{
     	indications.setText("Your Next Step : \r\n"
     			+ "Please load your Requests File (XML). ");
     	load_requests_file.setVisible(true);
+    	skip_continue_calculation.setVisible(false);
+    	add_request.setVisible(false);
+    	export_tour.setVisible(false);
+    	undo_button.setVisible(false);
+    	redo_button.setVisible(false);
     	zoomOut.setVisible(true);
     	this.repaint();
     	
@@ -320,6 +352,7 @@ public class Window extends JFrame{
     			+ "Click on Calculate Delivery Tour to run the algorithm and get an optimized delivery tour on the map. ");
     	calculate_tour.setVisible(true);
     	continue_calculation.setVisible(false);
+    	skip_continue_calculation.setVisible(false);
     	add_request.setVisible(false);
     	export_tour.setVisible(false);
     	undo_button.setVisible(false);
@@ -331,6 +364,7 @@ public class Window extends JFrame{
     			+ "Click on Continue to a more optimized tour since it will be calculated for 20 additional seconds. ");
     	calculate_tour.setVisible(false);
     	continue_calculation.setVisible(true);
+    	skip_continue_calculation.setVisible(true);
     	this.repaint();
     }
     
@@ -338,15 +372,58 @@ public class Window extends JFrame{
     	indications.setText("Your Next Step : \r\n"
     			+ "Your Delivery Tour has been computed, you have 3 options : \r\n"
     			+"1. You can export the Delivery Tour.\r\n"
-    			+"2. You can go add request by clickin on Add.\r\n " //we have to design the corres
+    			+"2. You can go add request by clickin on Add.\r\n" 
     			+"3. You can remove a request by selecting one of its elements on the map or in the list.\r\n");
     	calculate_tour.setVisible(false);
     	continue_calculation.setVisible(false);
+    	skip_continue_calculation.setVisible(false);
     	add_request.setVisible(true);
     	export_tour.setVisible(true);
     	undo_button.setVisible(true);
     	redo_button.setVisible(true);
     	this.repaint();
+    }
+    
+    public void setVisibleRemove () {
+    	indications.setText("Your Next Step : \r\n"
+    			+ "You can click on a point and its request elements are highlighted.\r\n"
+    			+"If you wish to cancel your selection reclick on one of its elements, otherwise click on \"Remove\" to delete the request from the Delivery Tour. \r\n"
+    			);
+    	remove_request.setVisible(true);
+    	add_request.setVisible(false);
+    	export_tour.setVisible(false);
+    	undo_button.setVisible(false);
+    	redo_button.setVisible(false);
+    	this.repaint();
+    }
+    
+    
+    public void setVisibleAddMode() {
+    	indications.setText("Your Next Step : \r\n"
+    			+ "To add a request, please select 4 points in the following order : \r\n"
+    			+"1. The new pickup point.         "
+    			+"2. The point in the Tour preceding this pickup.\r\n" 
+    			+"3. The new delivery point.       "
+    			+"4. The point in the Tour preceding this delivery.\r\n"
+    			+"Then confirm addition by clicking \"Confirm Add\".\r\n");
+    	
+    	calculate_tour.setVisible(false);
+    	continue_calculation.setVisible(false);
+    	skip_continue_calculation.setVisible(false);
+    	add_request.setVisible(false);
+    	export_tour.setVisible(false);
+    	undo_button.setVisible(false);
+    	redo_button.setVisible(false);
+    	
+    	//button to confirm the Add 
+    	add_confirm.setVisible(true);
+    	
+    	//can't load when adding 
+    	load_file.setVisible(false);
+    	load_requests_file.setVisible(false);
+    	
+    	repaint();
+    
     }
     
     public void addLegend() {

@@ -174,11 +174,18 @@ public class MapRequestsLoadedState implements State{
 		  System.out.println();
 	  	}
 		TSP tsp = new TSP1();
-		tsp.searchSolution(20000, g);
+		//20000 for the 20sec but with our data set we test with shorter time limits
+		tsp.searchSolution(5000, g);
 		System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
 		for(int m = 0; m < 1+2*reqlist.getListRequests().size(); m++) {
 			System.out.print(" " + tsp.getSolution(m));
 		}
+		
+		//add the result of tsp to the controller in case we continue the computation
+		// and also thhe corresponding graph 
+		controller.setDijkstraGraph(g);
+		controller.setTsp(tsp);
+		
 		System.out.println(" 0");
 		DeliveryTour d = new DeliveryTour();
 		d.addDeparture(reqlist.getDeparture());
@@ -220,7 +227,7 @@ public class MapRequestsLoadedState implements State{
         textualView.update(controller);
 		
 		window.setContinueCalculation();
-		controller.setCurrentState(controller.deliveryTourState);
+		controller.setCurrentState(controller.continueComputationState);
 	}
 
 }

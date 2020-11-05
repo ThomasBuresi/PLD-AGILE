@@ -82,8 +82,8 @@ public class TextualView extends JPanel{ //implements Observer {
 //	}
     
     public void fillTable() {
-    	//this.remove(requestTable);
     	this.remove(scrollPane);
+    	
     	List<Request> requests = requestList.getListRequests();
 		DefaultTableModel tableModel = new DefaultTableModel();   
 		tableModel.addColumn("Requests");
@@ -92,10 +92,10 @@ public class TextualView extends JPanel{ //implements Observer {
 		for (Request res : requests) {
 			//Get Address from coordinates API
 	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
-
+	    	//Set the address in the intersection to later not call the API again and get it back to show it in the table
 			String deliveryAddress = res.getDeliveryAddress().setAddress(jOpenCageGeocoder);
 			String pickupAddress = res.getPickupAddress().setAddress(jOpenCageGeocoder);
-			//str= "Request "+i+" : \n PICKUP - "+pickupAddress+"\n DELIVERY - "+deliveryAddress;
+
 			str="<HTML>" + ("Request "+i+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
 			
 			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
@@ -113,8 +113,8 @@ public class TextualView extends JPanel{ //implements Observer {
 		requestTable.getColumnModel().getColumn(0).setMinWidth(300);
 		//requestTable.getColumnModel().getColumn(0).setCellRenderer(MyRenderer);
 		int j = 0 ;
-		while(j<=(i-1)) {
-			requestTable.setRowHeight(j, 100);
+		while(j < tableModel.getRowCount()) {
+			requestTable.setRowHeight(j, 110);
 			j++;
 		}
 		//requestTable.setBounds(0, 0, 300,460);
@@ -128,34 +128,29 @@ public class TextualView extends JPanel{ //implements Observer {
     }
     
     public void orderTable() {
-    	
-    	List <Pair<Intersection, List<Segment>>> tour=deliveryTour.getTour();
-    	
-    	
     	this.remove(scrollPane);
     	
+    	List <Pair<Intersection, List<Segment>>> tour=deliveryTour.getTour();
     	List<Request> requestsNotOrdered = requestList.getListRequests();
-    	List<Request> requests = new ArrayList<Request>();
-    	List<Pair<Integer, Intersection>> intersections = new ArrayList<Pair<Integer, Intersection>>();
+    	
+    	//Boolean which is false if it's a pickup, true if it's a delivery
+    	List<Pair<Pair<Integer, Boolean>, Intersection>> intersections = new ArrayList<Pair<Pair<Integer, Boolean>, Intersection>>();
     	
     	//Re order the requests corresponding to the tour 
-    	//go through the tour once and through the request to order them as many times as necessary 
+    	//go through the tour once and through the request list as many times as necessary to order them 
     	int i=0;
     	for(Pair<Intersection, List<Segment>> pair : tour) {
     		//we don't want to process the intersections corresponding to the warehouse
     		//we assume that the requests can't have the same pick up point/delivery point
-    		if((i!=0) && (i!=tour.size())) {
+    		if((i!=0) && (i!=tour.size()-1)) {
     			long intersectionId = pair.fst.getIdIntersection();
-    			//for(Request r:requestsNotOrdered) {
-    				/*if(r.getPickupAddress().getIdIntersection()==intersectionId) {
-    					requests.add(r);
-    					//requestsNotOrdered.remove(r); //that way it can't be add many times
-    				}*/
+
     			for (int j=0; j<requestsNotOrdered.size(); ++j) {
-    				if(requestsNotOrdered.get(j).getPickupAddress().getIdIntersection()==intersectionId || 
-    						requestsNotOrdered.get(j).getDeliveryAddress().getIdIntersection()==intersectionId) {
-    					intersections.add(new Pair<Integer, Intersection>(i,pair.fst));
-    					//requestsNotOrdered.remove(r); //that way it can't be add many times
+    				if(requestsNotOrdered.get(j).getPickupAddress().getIdIntersection()==intersectionId) {
+    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, false),pair.fst));
+    				}
+    				if(requestsNotOrdered.get(j).getDeliveryAddress().getIdIntersection()==intersectionId) {
+    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, true),pair.fst));
     				}
     			}
     		}
@@ -166,31 +161,20 @@ public class TextualView extends JPanel{ //implements Observer {
     	  	
 		DefaultTableModel tableModel = new DefaultTableModel();   
 		tableModel.addColumn("Requests");
-		String str ="";
+		String str;
 		
-		for (Pair<Integer, Intersection> pair : intersections) {
+		for (Pair<Pair<Integer, Boolean>, Intersection> pair : intersections) {
 			String address = pair.snd.getName();
-			str="<HTML>" + ("Request "+j+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
+			str="<HTML>" + ("Request " + (pair.fst.fst+1) +" : ") + "<br>";
+			if (!pair.fst.snd) {
+				str += "PICKUP - " + address + "</HTML>"; 
+			} else {
+				str+= "DELIVERY - " + address + "</HTML>"; 
+			}
+			
 			
 			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
 		}
-		
-		/*int j = 1;
-		for (Request res : requests) {
-			//Get Address from coordinates API
-//	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
-//
-//			String deliveryAddress = res.getDeliveryAddress().toAddress(jOpenCageGeocoder);
-//			String pickupAddress = res.getPickupAddress().toAddress(jOpenCageGeocoder);
-			String deliveryAddress = res.getDeliveryAddress().getName();
-			String pickupAddress = res.getPickupAddress().getName();
-			//str= "Request "+i+" : \n PICKUP - "+pickupAddress+"\n DELIVERY - "+deliveryAddress;
-			str="<HTML>" + ("Request "+j+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
-			
-			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
-			
-			j++;
-		}*/
 		
 		//MyCellRenderer MyRenderer=new MyCellRenderer();
 		
@@ -202,8 +186,8 @@ public class TextualView extends JPanel{ //implements Observer {
 		requestTable.getColumnModel().getColumn(0).setMinWidth(300);
 		//requestTable.getColumnModel().getColumn(0).setCellRenderer(MyRenderer);
 		int k = 0 ;
-		while(k<=(j-1)) {
-			requestTable.setRowHeight(k, 100);
+		while(k < tableModel.getRowCount()) {
+			requestTable.setRowHeight(k, 80);
 			k++;
 		}
 		//requestTable.setBounds(0, 0, 300,460);
@@ -216,56 +200,6 @@ public class TextualView extends JPanel{ //implements Observer {
         this.add(scrollPane);
     }
     
-    /*
-    @Override
-    public void paintComponent(Graphics g) 
-    {     
-    	super.paintComponent(g);
-    	if (requestList != null) {
-    		List<Request> requests = requestList.getListRequests();
-    		DefaultTableModel tableModel = new DefaultTableModel();   
-    		tableModel.addColumn("Requests");
-    		String str ="";
-    		int i = 1;
-    		for (Request res : requests) {
-    			//Get Address from coordinates API
-    	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
-
-    			String deliveryAddress = res.getDeliveryAddress().toAddress(jOpenCageGeocoder);
-    			String pickupAddress = res.getPickupAddress().toAddress(jOpenCageGeocoder);
-    			//str= "Request "+i+" : \n PICKUP - "+pickupAddress+"\n DELIVERY - "+deliveryAddress;
-    			str="<HTML>" + ("Request "+i+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
-    			
-    			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
-    			
-    			i++;
-    		}
-    		
-    		//MyCellRenderer MyRenderer=new MyCellRenderer();
-    		
-    		requestTable = new JTable(tableModel);
-    		//JScrollPane tableSP = new JScrollPane(requestTable);
-    		//tableSP.setPreferredSize(new Dimension(400,800));
-    		//requestTable.setAutoscrolls(true);
-    		//requestTable.setLayout(null);
-    		requestTable.getColumnModel().getColumn(0).setMinWidth(300);
-    		//requestTable.getColumnModel().getColumn(0).setCellRenderer(MyRenderer);
-    		int j = 0 ;
-    		while(j<=(i-1)) {
-    			requestTable.setRowHeight(j, 100);
-    			j++;
-    		}
-    		requestTable.setBounds(0, 0, 300,460);
-    		//requestTable.setPreferredScrollableViewportSize(new Dimension(300, 460));
-    		requestTable.setVisible(true);
-    		//add(new JScrollPane(requestTable));
-//    		requestTable.setAutoscrolls(this.getAutoscrolls());
-    		add(requestTable); 
-    		
-    	}
-    }
-
-    */
     
 
     /**
@@ -289,8 +223,6 @@ public class TextualView extends JPanel{ //implements Observer {
     		this.remove(scrollPane);
     		System.err.println("RequestList is null");
     	}
-    	
-    	
         
         repaint();
     }

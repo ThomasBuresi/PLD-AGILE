@@ -139,6 +139,7 @@ public class GraphicalSegment {
   		  //i += entry.getValue().getListSegments().size();
   		  List<Segment> seg =  pair.snd;
   		  if(seg!=null) {
+  			  System.out.println(pair.fst.getName());
   			for (Segment s : seg) {
     			  int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
     			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);

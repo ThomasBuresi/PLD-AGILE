@@ -26,6 +26,11 @@ public class Intersection {
     protected long idIntersection;
     
     /**
+     * Exact address name of the intersection
+     */
+    protected String name;
+    
+    /**
      * List of all the segments that have as origin this
      * intersection
      */
@@ -56,12 +61,12 @@ public class Intersection {
     }
 	
 	/**
-	 * Method to return the exact address of an intersection
+	 * Method to set and return the exact address of an intersection
 	 * from an API using its coordinates
 	 * 
 	 * @param jOpenCageGeocoder class used by the API
 	 */
-	public String toAddress(JOpenCageGeocoder jOpenCageGeocoder) {
+	public String setAddress(JOpenCageGeocoder jOpenCageGeocoder) {
 		
     	JOpenCageReverseRequest request = new JOpenCageReverseRequest((double)latitude, (double)longitude); //latitude, longitude
     	request.setLanguage("fr"); // prioritize results in a specific language using an IETF format language code
@@ -73,7 +78,8 @@ public class Intersection {
     	JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
 
     	// get the formatted address of the first result:
-    	return  response.getResults().get(0).getFormatted(); 
+    	this.name = response.getResults().get(0).getFormatted(); 
+    	return this.name;
 	}
 
 	/**
@@ -117,6 +123,10 @@ public class Intersection {
 	public String toString() {
 		return "Intersection [longitude=" + longitude + ", latitude=" + latitude + ", idIntersection=" + idIntersection
 				+ "]";
+	}
+
+	public String getName() {
+		return name;
 	}
    
 }

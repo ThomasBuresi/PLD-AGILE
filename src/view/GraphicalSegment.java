@@ -24,6 +24,8 @@ public class GraphicalSegment {
 
 	protected HashMap<Long, Intersection> listIntersection;
 	
+	protected DeliveryTour deliveryTour;
+	
 	/**
 	 * 
 	 */
@@ -71,6 +73,22 @@ public class GraphicalSegment {
     		float longMin, float longMax) {
 
     	this.listIntersection = listIntersection; 
+    	this.deliveryTour = null;
+    	this.latMax = latMax;
+    	this.latMin = latMin;
+    	this.longMax = longMax;
+    	this.longMin = longMin;
+    	this.latMinMap = latMin;
+    	this.latMaxMap = latMax;
+    	this.longMinMap = longMin;
+    	this.longMaxMap = longMax;
+    }
+    
+    public GraphicalSegment(HashMap<Long, Intersection> listIntersection, DeliveryTour deliveryTour, 
+    		float latMin, float latMax, float longMin, float longMax) {
+
+    	this.listIntersection = listIntersection;
+    	this.deliveryTour = deliveryTour;
     	this.latMax = latMax;
     	this.latMin = latMin;
     	this.longMax = longMax;
@@ -98,7 +116,7 @@ public class GraphicalSegment {
   	  	}
     }
     
-    public void drawTour(Graphics g, int height, int width, DeliveryTour deliveryTour) 
+    public void drawTour(Graphics g, int height, int width) 
     {     
     	Graphics2D g2d = (Graphics2D) g;
     	g2d.setStroke(new BasicStroke(2f)); 
@@ -115,7 +133,7 @@ public class GraphicalSegment {
     	
     	
     	                          
-    	List <Pair<Intersection, List<Segment>>> tour=deliveryTour.getTour();
+    	List <Pair<Intersection, List<Segment>>> tour = deliveryTour.getTour();
     	int i = 0;
         for (Pair<Intersection, List<Segment>> pair : tour) {
   		  //i += entry.getValue().getListSegments().size();

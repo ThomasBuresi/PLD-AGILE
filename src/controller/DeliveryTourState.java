@@ -81,6 +81,7 @@ public class DeliveryTourState implements State {
         	   System.out.println("requests loaded");
         	   
         	   controller.setRequestList(requestList);
+        	   controller.setDeliveryTour(null);
         	   GraphicalView graphicalView = window.getGraphicalView();
                TextualView textualView = window.getTextualView();
         	   graphicalView.updateGraphicalCityMap(controller);
@@ -118,6 +119,7 @@ public class DeliveryTourState implements State {
        	   
        	   c.setCityMap(cityMap);
        	   c.setRequestList(null);
+       	   c.setDeliveryTour(null);
        	   System.out.println("map loaded");
            
            GraphicalView graphicalView = w.getGraphicalView();
@@ -139,10 +141,10 @@ public class DeliveryTourState implements State {
 	@Override
 	public void zoomOut(Controller controller, Window window) {
 		GraphicalView graphicalView = window.getGraphicalView();
-		if (graphicalView.graphicalCityMap.graphicalSegment != null) {
-			graphicalView.graphicalCityMap.graphicalSegment.resetCoord();
-			if (graphicalView.graphicalCityMap.graphicalIntersection != null) {
-				graphicalView.graphicalCityMap.graphicalIntersection.resetCoord();
+		if (graphicalView.graphicalCityMap.getGraphicalSegment() != null) {
+			graphicalView.graphicalCityMap.getGraphicalSegment().resetCoord();
+			if (graphicalView.graphicalCityMap.getGraphicalIntersection() != null) {
+				graphicalView.graphicalCityMap.getGraphicalIntersection().resetCoord();
 			}
 		}
 		window.repaint();
@@ -154,26 +156,26 @@ public class DeliveryTourState implements State {
 		int panelHeight = graphicalView.getHeight();
     	int panelWidth = graphicalView.getWidth();
     	//Get the coordinates of the map at the moment
-		float latMax = graphicalView.graphicalCityMap.graphicalSegment.getLatMaxMap();
-		float latMin = graphicalView.graphicalCityMap.graphicalSegment.getLatMinMap();
-		float longMin = graphicalView.graphicalCityMap.graphicalSegment.getLongMinMap();
-		float longMax = graphicalView.graphicalCityMap.graphicalSegment.getLongMaxMap();
+		float latMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMaxMap();
+		float latMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMinMap();
+		float longMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMinMap();
+		float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
 		//Calculate the new coordinates of the zone to zoom in
 		longMin = longMin + (float)pressedX/panelWidth*(longMax - longMin);
 		longMax = longMax - ((float)(panelWidth - relX))/panelWidth*(longMax - longMin);
 		latMin = latMin + (float)pressedY/panelHeight*(latMax - latMin);
 		latMax = latMax - ((float)(panelHeight-relY))/panelHeight*(latMax - latMin);
 		//Set the new coordinates for the segments of the map
-		graphicalView.graphicalCityMap.graphicalSegment.setLatMaxMap(latMax);
-		graphicalView.graphicalCityMap.graphicalSegment.setLatMinMap(latMin);
-		graphicalView.graphicalCityMap.graphicalSegment.setLongMaxMap(longMax);
-		graphicalView.graphicalCityMap.graphicalSegment.setLongMinMap(longMin);
-		if (graphicalView.graphicalCityMap.graphicalIntersection != null) {
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMaxMap(latMax);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMinMap(latMin);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLongMaxMap(longMax);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLongMinMap(longMin);
+		if (graphicalView.graphicalCityMap.getGraphicalIntersection() != null) {
 			//Set the new coordinates for the points from the requests of the map
-			graphicalView.graphicalCityMap.graphicalIntersection.setLatMaxMap(latMax);
-			graphicalView.graphicalCityMap.graphicalIntersection.setLatMinMap(latMin);
-			graphicalView.graphicalCityMap.graphicalIntersection.setLongMaxMap(longMax);
-			graphicalView.graphicalCityMap.graphicalIntersection.setLongMinMap(longMin);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLatMaxMap(latMax);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLatMinMap(latMin);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLongMaxMap(longMax);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLongMinMap(longMin);
 		}
 		
 		window.repaint();

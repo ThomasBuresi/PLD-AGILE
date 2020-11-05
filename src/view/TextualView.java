@@ -136,6 +136,7 @@ public class TextualView extends JPanel{ //implements Observer {
     	
     	List<Request> requestsNotOrdered = requestList.getListRequests();
     	List<Request> requests = new ArrayList<Request>();
+    	List<Pair<Integer, Intersection>> intersections = new ArrayList<Pair<Integer, Intersection>>();
     	
     	//Re order the requests corresponding to the tour 
     	//go through the tour once and through the request to order them as many times as necessary 
@@ -145,9 +146,15 @@ public class TextualView extends JPanel{ //implements Observer {
     		//we assume that the requests can't have the same pick up point/delivery point
     		if((i!=0) && (i!=tour.size())) {
     			long intersectionId = pair.fst.getIdIntersection();
-    			for(Request r:requestsNotOrdered) {
-    				if(r.getPickupAddress().getIdIntersection()==intersectionId) {
+    			//for(Request r:requestsNotOrdered) {
+    				/*if(r.getPickupAddress().getIdIntersection()==intersectionId) {
     					requests.add(r);
+    					//requestsNotOrdered.remove(r); //that way it can't be add many times
+    				}*/
+    			for (int j=0; j<requestsNotOrdered.size(); ++j) {
+    				if(requestsNotOrdered.get(j).getPickupAddress().getIdIntersection()==intersectionId || 
+    						requestsNotOrdered.get(j).getDeliveryAddress().getIdIntersection()==intersectionId) {
+    					intersections.add(new Pair<Integer, Intersection>(i,pair.fst));
     					//requestsNotOrdered.remove(r); //that way it can't be add many times
     				}
     			}
@@ -160,7 +167,15 @@ public class TextualView extends JPanel{ //implements Observer {
 		DefaultTableModel tableModel = new DefaultTableModel();   
 		tableModel.addColumn("Requests");
 		String str ="";
-		int j = 1;
+		
+		for (Pair<Integer, Intersection> pair : intersections) {
+			String address = pair.snd.getName();
+			str="<HTML>" + ("Request "+j+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
+			
+			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
+		}
+		
+		/*int j = 1;
 		for (Request res : requests) {
 			//Get Address from coordinates API
 //	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
@@ -175,7 +190,7 @@ public class TextualView extends JPanel{ //implements Observer {
 			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
 			
 			j++;
-		}
+		}*/
 		
 		//MyCellRenderer MyRenderer=new MyCellRenderer();
 		

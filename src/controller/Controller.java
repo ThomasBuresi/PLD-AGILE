@@ -6,6 +6,8 @@ import java.util.*;
 import model.CityMap;
 import model.DeliveryTour;
 import model.RequestList;
+import tsp.DijkstraGraph;
+import tsp.TSP;
 import view.Window;
 
 /**
@@ -19,6 +21,8 @@ public class Controller {
 	private CityMap cityMap;
 	private RequestList requestList;
 	private DeliveryTour deliveryTour;
+	private DijkstraGraph dijkstraGraph;
+	private TSP tsp;
 	private Window window;
 	private ListOfCommands listOfCommands;
 	private State currentState; 
@@ -44,6 +48,8 @@ public class Controller {
     	cityMap=null; 
     	requestList=null;
     	deliveryTour=null;
+    	tsp=null;
+    	dijkstraGraph=null;
     }
     
     
@@ -86,9 +92,28 @@ public class Controller {
     	currentState.continueCalculation(this, window);
     }
     
-    public void addRequest(int xCoord, int yCoord) {
+    public void skipContinueCalculation() {
+    	currentState.skipContinueCalculation(this,window);
+    }
+    
+    public void changeToAddRequestMode() {
+    	currentState.changeToAddRequestMode(this,window);
+    }
+    
+    public void addRequest(int [] xCoord, int [] yCoord) { //AddCommand 
     	currentState.addRequest(this, window, xCoord, yCoord);
     }
+    
+    public void exportTour() {
+    	currentState.exportTourFile(this, window);
+    }
+    
+    public void leftClick (int xCoord,int yCoord) {
+    	currentState.leftClick(this,window,xCoord,yCoord);
+    }
+    
+    
+    
     
     /**
      * @return
@@ -106,7 +131,10 @@ public class Controller {
         
     }
 
-    
+    /**
+     * Getters and setters 
+     * @return
+     */
     
     public CityMap getCityMap() {
     	return cityMap;
@@ -130,5 +158,33 @@ public class Controller {
 	public void setDeliveryTour(DeliveryTour d) {
 		this.deliveryTour = d;
 	}
+	
+	public TSP getTsp() {
+		return tsp;
+	}
+	
+	public void setTsp(TSP tsp) {
+		this.tsp=tsp;
+	}
+	
+	public DijkstraGraph getDijkstraGraph () {
+		return dijkstraGraph;
+	}
     
+	public void setDijkstraGraph (DijkstraGraph g) {
+		this.dijkstraGraph=g;
+	}
+	
+	public State getCurrentState() {
+		return currentState;
+	}
+	
+	public ListOfCommands getListOfCommands() {
+		return listOfCommands;
+	}
+	
+	public void setListOfCommands(ListOfCommands list) {
+		listOfCommands=list;
+	}
+	
 }

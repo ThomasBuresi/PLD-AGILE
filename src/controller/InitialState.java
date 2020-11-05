@@ -41,8 +41,11 @@ public class InitialState implements State {
        	   c.setCityMap(cityMap);
        	   System.out.println("map loaded");
        	   c.setDeliveryTour(null);
+       	   
            GraphicalView graphicalView = w.getGraphicalView();
            TextualView textualView = w.getTextualView();
+           
+           
            
            graphicalView.updateGraphicalCityMap(c);
            //window.repaint();

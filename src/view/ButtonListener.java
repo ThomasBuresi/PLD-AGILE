@@ -81,24 +81,34 @@ public class ButtonListener implements ActionListener {
 			break;
 			
 		case "Continue calculation (20sec more)":
-			controller.continueCalculation(); //TODO
-			//controller computation
+			controller.continueCalculation(); //TODO 
 			
-			//it ends 
-			//setVisibleAddExport in Window
-			window.setVisibleAddExport(); //TODO delete when controller done
-			//it doesn't end
-			//set error mode ??  
+			break;
+		case "Skip":
+			controller.skipContinueCalculation();
 			
 			break;
 		
 		case "Add" :
-			// TODO controller.changeToAddRequestMode();
+			// TODO 
+			controller.changeToAddRequestMode();
 			break;
+			
+		case "Confirm Add":
+			//4 coordinates to share 
+			//where to we get them ? before or at the controller level
+			int [] xCoord; //4 x coord in order 
+			int [] yCoord; //4 y coord in order
+			//controller.addRequest(xCoord, yCoord);
+			break;
+			
 		case "Remove" :
+			
 			break;
+			
 		case "Export Tour File" :
-			//TODO controller.exportTour();
+			//TODO 
+			controller.exportTour();
 			//controller and delivery tour object 
 			
 			// no change in tg=he display ? or popup the export is complete ? 

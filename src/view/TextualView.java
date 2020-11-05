@@ -142,24 +142,21 @@ public class TextualView extends JPanel{ //implements Observer {
     	int i=0;
     	for(Pair<Intersection, List<Segment>> pair : tour) {
     		//we don't want to process the intersections corresponding to the warehouse
-    		//we process only one over the two intersections in a request and 
-    		//then check if the two correspond to add it in the request list ordered
-    		if((i!=0) && (i!=tour.size())&&(i%2==0)) {
+    		//we assume that the requests can't have the same pick up point/delivery point
+    		if((i!=0) && (i!=tour.size())) {
     			long intersectionId = pair.fst.getIdIntersection();
     			for(Request r:requestsNotOrdered) {
-    				if(r.getDeliveryAddress().getIdIntersection()==intersectionId) {
-    					if(r.getPickupAddress().getIdIntersection()==tour.get(i-1).fst.getIdIntersection()) {
-    						requests.add(r);
-    						requestsNotOrdered.remove(r);
-    					}
+    				if(r.getPickupAddress().getIdIntersection()==intersectionId) {
+    					requests.add(r);
+    					//requestsNotOrdered.remove(r); //that way it can't be add many times
     				}
     			}
     		}
     		
     		i++;
     	}
-    	
-    	
+
+    	  	
 		DefaultTableModel tableModel = new DefaultTableModel();   
 		tableModel.addColumn("Requests");
 		String str ="";

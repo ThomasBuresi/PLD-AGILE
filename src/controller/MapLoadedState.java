@@ -35,6 +35,7 @@ public class MapLoadedState implements State{
         	   System.out.println("requests loaded");
         	   
         	   controller.setRequestList(requestList);
+        	   controller.setDeliveryTour(null);
         	   GraphicalView graphicalView = window.getGraphicalView();
                TextualView textualView = window.getTextualView();
         	   graphicalView.updateGraphicalCityMap(controller);
@@ -72,7 +73,7 @@ public class MapLoadedState implements State{
        	   
        	   c.setCityMap(cityMap);
        	   System.out.println("map loaded");
-           
+       	   c.setDeliveryTour(null);
            GraphicalView graphicalView = w.getGraphicalView();
            TextualView textualView = w.getTextualView();
            

@@ -49,8 +49,16 @@ public class DeliveryTourState implements State {
 		//mettre en mode remove et highlight dans la request list la requête à supprimer la 
 		//plus proche 
 		
-		w.setVisibleRemove();
+		// how to check that the point is in the map ? or is on a request ? 
+		//if on a request : 
 		
+		w.setVisibleRemove();
+		//update the table to highlight the corresponding request 
+		c.setCurrentState(c.removeRequestState);
+		//TODO find a mean to save these coordinates to compare them with the next click
+		//or which request is in the state clicked 
+		
+		//otherwise don't do anything
 		
 	}
 	

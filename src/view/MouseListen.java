@@ -60,7 +60,14 @@ public class MouseListen extends MouseAdapter{
 			controller.leftClick(xCoord,yCoord);
 		} else if(currentState instanceof RemoveRequestState){
 				
-	    
+			int xCoord = e.getX();
+			int yCoord = e.getY();
+			//only the clicks to remove are detected in this state 
+			
+			//on the click if it's on the same point or not different actions
+			// go bakc to other state if on the same 
+			// other changes the display 
+			controller.leftClick(xCoord,yCoord);
 			
 		} else if (currentState instanceof AddRequestState) {
 			//4 points to detect ? how ? 

@@ -80,9 +80,14 @@ public class Window extends JFrame{
 	
 	
 	/**
-	 * Button to remove a request to the tour
+	 * Button to remove a request from the tour
 	 */
 	private JButton remove_request;
+	
+	/**
+	 * Button to cancel the removal a request to the tour
+	 */
+	private JButton cancel_remove_request;
 	
 	/**
 	 * Button to export the delivery tour
@@ -168,56 +173,63 @@ public class Window extends JFrame{
         load_requests_file.setVisible(false);
         load_requests_file.setBounds(1105,20,145,30);
         
-     // Calculate the delivery tour 
+        // Calculate the delivery tour 
         calculate_tour = new JButton("Calculate Delivery Tour");
         calculate_tour.addActionListener(buttonListener);
         calculate_tour.setVisible(false);
         calculate_tour.setBounds(950,550,300,30);
         
-     // Continue to calculate the delivery tour for 20sec
+        // Continue to calculate the delivery tour for 20sec
         continue_calculation = new JButton("Continue calculation (20sec more)");
         continue_calculation.addActionListener(buttonListener);
         continue_calculation.setVisible(false);
         continue_calculation.setBounds(950,550,300,30);
      
-     // Skip to continue to calculate the delivery tour for 20sec
+        // Skip to continue to calculate the delivery tour for 20sec
         skip_continue_calculation = new JButton("Skip");
         skip_continue_calculation.addActionListener(buttonListener);
         skip_continue_calculation.setVisible(false);
-        skip_continue_calculation.setBounds(950,600,300,30);  
+        skip_continue_calculation.setBounds(950,590,300,30);  
         
      
-     // add mode on
+        // add mode on
         add_request = new JButton("Add");
         add_request.addActionListener(buttonListener);
         add_request.setVisible(false);
         add_request.setBounds(950,550,300,30);
         
-     // add request to the tour
+        // add request to the tour
         add_confirm = new JButton("Confirm Add");
         add_confirm.addActionListener(buttonListener);
         add_confirm.setVisible(false);
         add_confirm.setBounds(950,550,300,30);
         
-     // remove requests to the tour
+        // remove requests from the tour
         remove_request = new JButton("Remove");
         remove_request.addActionListener(buttonListener);
         remove_request.setVisible(false);
         remove_request.setBounds(950,550,300,30);
         
-     // export the tour
+        // cancel remove requests from the tour
+        cancel_remove_request = new JButton("Cancel removal");
+        cancel_remove_request.addActionListener(buttonListener);
+        cancel_remove_request.setVisible(false);
+        cancel_remove_request.setBounds(950,590,300,30);
+        
+        
+        // export the tour
         export_tour = new JButton("Export Tour File");
         export_tour.addActionListener(buttonListener);
         export_tour.setVisible(false);
         export_tour.setBounds(950,590,300,30);
         
-     // undo
+        // undo
         undo_button = new JButton("Undo");
         undo_button.addActionListener(buttonListener);
         undo_button.setVisible(false);
         undo_button.setBounds(950,630,145,30);
         
-     // redo
+        // redo
         redo_button = new JButton("Redo");
         redo_button.addActionListener(buttonListener);
         redo_button.setVisible(false);
@@ -254,7 +266,7 @@ public class Window extends JFrame{
         //For the bottom indication zone
         bottom_panel = new JPanel();
         bottom_panel.setLayout(null);
-        bottom_panel.setBounds(20,550,900,100);
+        bottom_panel.setBounds(20,550,900,110);
         bottom_panel.setBackground(Color.white);
         bottom_panel.add(indications);
         
@@ -266,26 +278,27 @@ public class Window extends JFrame{
         
         
         
-        add(graphicalView);
-        add(textualView);
-        add(bottom_panel);
+        this.add(graphicalView);
+        this.add(textualView);
+        this.add(bottom_panel);
         
-        add(load_file);
-        add(load_requests_file);
-        add(calculate_tour);
-        add(continue_calculation);
-        add(skip_continue_calculation);
-        add(add_request);
-        add(add_confirm);
-        add(remove_request);
-        add(export_tour);
-        add(undo_button);
-        add(redo_button);
+        this.add(load_file);
+        this.add(load_requests_file);
+        this.add(calculate_tour);
+        this.add(continue_calculation);
+        this.add(skip_continue_calculation);
+        this.add(add_request);
+        this.add(add_confirm);
+        this.add(remove_request);
+        this.add(cancel_remove_request);
+        this.add(export_tour);
+        this.add(undo_button);
+        this.add(redo_button);
         
 
     	
-        repaint();
-    	setVisible(true);
+        this.repaint();
+    	this.setVisible(true);
     	// Graphical and Textual views & other attributes ?
     	
     	/*
@@ -377,6 +390,8 @@ public class Window extends JFrame{
     	calculate_tour.setVisible(false);
     	continue_calculation.setVisible(false);
     	skip_continue_calculation.setVisible(false);
+    	remove_request.setVisible(false);
+    	cancel_remove_request.setVisible(false);
     	add_request.setVisible(true);
     	export_tour.setVisible(true);
     	undo_button.setVisible(true);
@@ -390,6 +405,7 @@ public class Window extends JFrame{
     			+"If you wish to cancel your selection reclick on one of its elements, otherwise click on \"Remove\" to delete the request from the Delivery Tour. \r\n"
     			);
     	remove_request.setVisible(true);
+    	cancel_remove_request.setVisible(true);
     	add_request.setVisible(false);
     	export_tour.setVisible(false);
     	undo_button.setVisible(false);

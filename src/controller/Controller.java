@@ -75,8 +75,8 @@ public class Controller {
 		currentState.zoomOut(this, window);		
 	}
     
-    public void zoomIn(int pressedX, int pressedY, int relX, int relY) {
-    	currentState.zoomIn(this, window, pressedX, pressedY, relX, relY);
+    public void zoomIn(int pressedX, int pressedY, float longMin, float longMax, float latMin, float latMax) {
+    	currentState.zoomIn(this, window, longMin, longMax, latMin, latMax);
     }
     
     public void computeDeliveryTour() {
@@ -96,7 +96,7 @@ public class Controller {
     	currentState.changeToAddRequestMode(this,window);
     }
     
-    public void addRequest(int [] xCoord, int [] yCoord) { //AddCommand 
+    public void addRequest(int [] xCoord, int [] yCoord) { //AddCommand , pass 4 Intersections as parameter
     	currentState.addRequest(this, window, xCoord, yCoord);
     }
     
@@ -104,8 +104,14 @@ public class Controller {
     	currentState.exportTourFile(this, window);
     }
     
-    public void leftClick (int xCoord,int yCoord) {
+    public void leftClick (int xCoord,int yCoord) { //pass the id as parameter
     	currentState.leftClick(this,window,xCoord,yCoord);
+    }
+    
+    public void cancelRemove() {
+    	window.getGraphicalView().updateHighlight(-1);
+    	window.setVisibleAddExport();
+    	this.setCurrentState(deliveryTourState);
     }
     
     

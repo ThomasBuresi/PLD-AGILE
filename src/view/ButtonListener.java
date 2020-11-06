@@ -97,7 +97,10 @@ public class ButtonListener implements ActionListener {
 			break;
 			
 		case "Remove" :
+			break;
 			
+		case "Cancel removal":
+			controller.cancelRemove();
 			break;
 			
 		case "Export Tour File" :

@@ -164,20 +164,8 @@ public class ContinueComputationState implements State{
 	}
 	
 	@Override
-	public void zoomIn(Controller controller, Window window, int pressedX, int pressedY, int relX, int relY) {
+	public void zoomIn(Controller controller, Window window, float longMin, float longMax, float latMin, float latMax) {
 		GraphicalView graphicalView = window.getGraphicalView();
-		int panelHeight = graphicalView.getHeight();
-    	int panelWidth = graphicalView.getWidth();
-    	//Get the coordinates of the map at the moment
-		float latMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMaxMap();
-		float latMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMinMap();
-		float longMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMinMap();
-		float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
-		//Calculate the new coordinates of the zone to zoom in
-		longMin = longMin + (float)pressedX/panelWidth*(longMax - longMin);
-		longMax = longMax - ((float)(panelWidth - relX))/panelWidth*(longMax - longMin);
-		latMin = latMin + (float)pressedY/panelHeight*(latMax - latMin);
-		latMax = latMax - ((float)(panelHeight-relY))/panelHeight*(latMax - latMin);
 		//Set the new coordinates for the segments of the map
 		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMaxMap(latMax);
 		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMinMap(latMin);

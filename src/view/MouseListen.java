@@ -49,7 +49,6 @@ public class MouseListen extends MouseAdapter{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//System.out.println(e.getX() + " " + e.getY());
 		
 		int xCoord = e.getX();
 		int yCoord = e.getY();
@@ -116,7 +115,27 @@ public class MouseListen extends MouseAdapter{
 		int relX = e.getX();
 		int relY = e.getY();
 		if (Math.abs(relX - pressedX)>20 && Math.abs(relY - pressedY) > 20) {
-			controller.zoomIn(pressedX, pressedY, relX, relY);
+			int panelHeight = graphicalView.getHeight();
+	    	int panelWidth = graphicalView.getWidth();
+	    	
+	    	float leftX = (pressedX < relX ? pressedX : relX);
+	    	float rightX = (pressedX < relX ? relX : pressedX);
+	    	float upY = (pressedY < relY ? pressedY : relY);
+	    	float downY = (pressedY < relY ? relY : pressedY);
+	    	
+	    	//Get the coordinates of the map at the moment
+			float latMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMaxMap();
+			float latMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMinMap();
+			float longMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMinMap();
+			float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
+
+			//Calculate the new coordinates of the zone to zoom in
+			longMin = longMin + leftX/panelWidth*(longMax - longMin);
+			longMax = longMin + rightX/panelWidth*(longMax - longMin);
+			latMin = latMax - downY/panelHeight*(latMax - latMin);
+			latMax = latMax - upY/panelHeight*(latMax - latMin);
+
+			controller.zoomIn(pressedX, pressedY, longMin, longMax, latMin, latMax);
 		}
 	}
 

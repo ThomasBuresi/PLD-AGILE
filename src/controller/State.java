@@ -52,12 +52,13 @@ public interface State {
 	 * 
 	 * @param c controller
 	 * @param w the window
-	 * @param latMin
-	 * @param latMax
 	 * @param longMin
 	 * @param longMax
+	 * @param latMin
+	 * @param latMax
+	 * 
 	 */
-	public default void zoomIn(Controller c, Window w, int pressedX, int pressedY, int relX, int relY) {};
+	public default void zoomIn(Controller c, Window w, float longMin, float longMax, float latMin, float latMax) {};
 	
 	/**
 	 * Method called by the controller after a click on the button "Compute Delivery Tour".

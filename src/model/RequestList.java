@@ -105,7 +105,7 @@ public class RequestList {
 					}
 					int pickupDuration = Integer.valueOf(eElement.getAttribute("pickupDuration"));
 					int deliveryDuration = Integer.valueOf(eElement.getAttribute("deliveryDuration"));
-					Request request = new Request(deliveryDuration, deliveryAddress, pickupAddress, pickupDuration);
+					Request request = new Request(deliveryDuration, deliveryAddress, pickupAddress, pickupDuration,i);
 					System.err.println(request);
 					listRequests.add(request);
 				}

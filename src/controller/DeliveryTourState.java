@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFileChooser;
 
@@ -10,6 +12,7 @@ import com.sun.tools.javac.util.Pair;
 import model.CityMap;
 import model.DeliveryTour;
 import model.Intersection;
+import model.Request;
 import model.RequestList;
 import model.Segment;
 import tsp.DijkstraGraph;
@@ -36,8 +39,9 @@ public class DeliveryTourState implements State {
 	@Override 
 	public void exportTourFile(Controller c, Window w) {
 		
-		
 		// when the merge will be donne call the DeliveryTour method here 
+		c.getDeliveryTour().writeDeliveryTourToFile("tour.txt");
+		
 		
 		//pop up to confirm the export 
 		//w.setPopUpExport()
@@ -49,13 +53,51 @@ public class DeliveryTourState implements State {
 		//mettre en mode remove et highlight dans la request list la requête à supprimer la 
 		//plus proche 
 		
-		// how to check that the point is in the map ? or is on a request ? 
-		//if on a request : 
+		//case the textual view is clicked 
+		//update style points sur la carte 
 		
-		w.setVisibleRemove();
-		//update the table to highlight the corresponding request 
-		c.setCurrentState(c.removeRequestState);
-		//TODO find a mean to save these coordinates to compare them with the next click
+		
+		// how to check that the point is in the map ? or is on a request ? 
+		
+		List<Request> list = c.getRequestList().getListRequests();
+		GraphicalView graphicalView = w.getGraphicalView();
+		int panelHeight = graphicalView.getHeight();
+    	int panelWidth = graphicalView.getWidth();
+
+		//Get coordinates of the zone shown on the map at the moment
+		float latMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMaxMap();
+		float latMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMinMap();
+		float longMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMinMap();
+		float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
+		
+		int id = -1;
+		
+		for (Request r : list) {
+			int xInterP = (int)Math.round((r.getPickupAddress().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
+			int yInterP = panelHeight - (int)Math.round((r.getPickupAddress().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
+			if ((xCoord >= xInterP - 3) && (xCoord<= xInterP + 3) && (yCoord >= yInterP - 3) && (yCoord<= yInterP + 3)) {
+				id=r.getId();
+			}
+			int xInterD = (int)Math.round((r.getDeliveryAddress().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
+			int yInterD = panelHeight - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
+			if ((xCoord >= xInterD - 3) && (xCoord<= xInterD + 3) && (yCoord >= yInterD - 3) && (yCoord<= yInterD + 3)) {
+				id=r.getId();
+			}
+		}
+		
+		if(id!=-1) {
+			//if on a request : 
+			
+			w.setVisibleRemove();
+			
+			//update the table to highlight the corresponding request
+			
+			c.setCurrentState(c.removeRequestState);
+		}
+		
+		
+		//TODO save id 
+		
 		//or which request is in the state clicked 
 		
 		//otherwise don't do anything

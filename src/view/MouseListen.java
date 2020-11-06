@@ -51,28 +51,32 @@ public class MouseListen extends MouseAdapter{
 	public void mouseClicked(MouseEvent e) {
 		//System.out.println(e.getX() + " " + e.getY());
 		
-		State currentState = controller.getCurrentState();
-		if(currentState instanceof DeliveryTourState) {
-			int xCoord = e.getX();
-			int yCoord = e.getY();
-			//only the clicks to remove are detected in this state 
-			
-			controller.leftClick(xCoord,yCoord);
-		} else if(currentState instanceof RemoveRequestState){
-				
-			int xCoord = e.getX();
-			int yCoord = e.getY();
-			//only the clicks to remove are detected in this state 
-			
-			//on the click if it's on the same point or not different actions
-			// go bakc to other state if on the same 
-			// other changes the display 
-			controller.leftClick(xCoord,yCoord);
-			
-		} else if (currentState instanceof AddRequestState) {
-			//4 points to detect ? how ? 
-		}
+		int xCoord = e.getX();
+		int yCoord = e.getY();
 		
+		controller.leftClick(xCoord,yCoord);
+		
+//		State currentState = controller.getCurrentState();
+//		if(currentState instanceof DeliveryTourState) {
+//			
+//			//only the clicks to remove are detected in this state 
+//			
+//			controller.leftClick(xCoord,yCoord);
+//		} else if(currentState instanceof RemoveRequestState){
+//				
+//			int xCoord = e.getX();
+//			int yCoord = e.getY();
+//			//only the clicks to remove are detected in this state 
+//			
+//			//on the click if it's on the same point or not different actions
+//			// go bakc to other state if on the same 
+//			// other changes the display 
+//			
+//			
+//		} else if (currentState instanceof AddRequestState) {
+//			//4 points to detect ? how ? 
+//		}
+//		
 		
 		//controller.addRequest(xCoord, yCoord);
 		/*HashMap<Long, Intersection> listIntersection;

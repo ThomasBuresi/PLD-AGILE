@@ -27,6 +27,11 @@ public class Request {
     protected int pickupDuration;
     
     /**
+     * Id of the request 
+     */
+    protected int id; 
+    
+    /**
      * Default constructor
      */
     public Request() {
@@ -39,11 +44,12 @@ public class Request {
      * @param pickupAddress
      * @param pickupDuration
      */
-    public Request(int deliveryDuration, Intersection deliveryAddress, Intersection pickupAddress, int pickupDuration) {
+    public Request(int deliveryDuration, Intersection deliveryAddress, Intersection pickupAddress, int pickupDuration, int id) {
 		this.deliveryDuration = deliveryDuration;
 		this.deliveryAddress = deliveryAddress;
 		this.pickupAddress = pickupAddress;
 		this.pickupDuration = pickupDuration;
+		this.id=id;
 	}
 
 
@@ -68,6 +74,10 @@ public class Request {
 
 	public int getPickupDuration() {
 		return pickupDuration;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 

@@ -40,6 +40,9 @@ public class DeliveryTour {
 	List <String> pickupOrDeliver ; 
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 =======
 >>>>>>> master
@@ -112,6 +115,7 @@ public class DeliveryTour {
 	
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public int getIndexOfIntersection(Intersection i) {
 		int index = 0;
 		for (Pair<Intersection, List<Segment>> pair: tour) {
@@ -135,6 +139,8 @@ public class DeliveryTour {
 
 	public void addDeparture(Intersection i) {
 =======
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 	/**
@@ -161,12 +167,15 @@ public class DeliveryTour {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public void fillDeliveryTour() {
 		this.ordretsp = new ArrayList <Integer>();
 		TSP tsp = new TSP1();
 		tsp.searchSolution(20000, g);
 =======
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 	
@@ -178,6 +187,9 @@ public class DeliveryTour {
 		
 		tsp.searchSolution(timeLimit, g);
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 =======
 >>>>>>> master
@@ -187,6 +199,7 @@ public class DeliveryTour {
 		this.ordretsp.add(0);
 		// on commence a un car on a deja traite le cas du depart
 		for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		//ajouter au delivery tour l'intersection qui correspond au numero de la requete ->
@@ -209,6 +222,8 @@ public class DeliveryTour {
 =======
 =======
 >>>>>>> master
+=======
+>>>>>>> master
 			//ajouter au delivery tour l'intersection qui correspond au numero de la requete ->
 			int currentsolution=tsp.getSolution(l);	
 			if (currentsolution%2!=0) {
@@ -226,6 +241,9 @@ public class DeliveryTour {
 				this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 =======
 >>>>>>> master
@@ -235,7 +253,10 @@ public class DeliveryTour {
 		//retour au point de départ :
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		this.ordretsp.add(0);
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 =======

@@ -83,7 +83,7 @@ public class GraphicalCityMap {
     
     }
     
-    public void drawGraphicalCityMap(Graphics g, int height, int width) 
+    public void drawGraphicalCityMap(Graphics g, int height, int width,int id) 
     {     
     	if (graphicalIntersection != null) {
     		graphicalIntersection.drawIntersection(g, height, width);
@@ -94,7 +94,12 @@ public class GraphicalCityMap {
     	if(deliveryTour!=null) {
     		graphicalSegment.drawTour(g, height, width);
     	}
+    	if(id!=-1) {
+    		graphicalIntersection.drawHighlight(g, height, width, id);
+    	}
+    	//int id 
     }
+   
 
 	public HashMap<Long, Intersection> getListIntersection() {
 		return listIntersection;

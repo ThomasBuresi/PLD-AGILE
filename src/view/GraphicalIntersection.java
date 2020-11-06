@@ -120,7 +120,46 @@ public class GraphicalIntersection {
     }
 
     public void drawHighlight(Graphics g, int height, int width,int id) {
-    	//Request r = requestList.getListRequests().get(id);
+    	Request r = requestList.getListRequests().get(id);
+    	g.setColor(Color.black);
+    	g.drawRect((int)Math.round((r.getPickupAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-10,
+    			height - (int)Math.round((r.getPickupAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-10, 
+    			20, 20);
+		g.drawOval((int)Math.round((r.getDeliveryAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-10,
+    			height - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-10, 
+    			20, 20);
+    }
+    
+    public Intersection getClickedIntersection(int xCoord,int yCoord, int panelHeight, int panelWidth) {
+    	for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
+			int xInter = (int)Math.round((entry.getValue().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
+			int yInter = panelHeight - (int)Math.round((entry.getValue().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*panelHeight);
+			
+			if ((xCoord >= xInter - 3) && (xCoord<= xInter + 3) && (yCoord >= yInter - 3) && (yCoord<= yInter + 3)) {
+				return entry.getValue();
+			}
+		}
+    	return null;
+    }
+    
+    public int getClickedRequestId(int xCoord,int yCoord, int panelHeight, int panelWidth) {
+    	List<Request> list = requestList.getListRequests();
+		
+		int id = -1;
+		
+		for (Request r : list) {
+			int xInterP = (int)Math.round((r.getPickupAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
+			int yInterP = panelHeight - (int)Math.round((r.getPickupAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*panelHeight);
+			if ((xCoord >= xInterP - 3) && (xCoord<= xInterP + 3) && (yCoord >= yInterP - 3) && (yCoord<= yInterP + 3)) {
+				id=r.getId();
+			}
+			int xInterD = (int)Math.round((r.getDeliveryAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
+			int yInterD = panelHeight - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*panelHeight);
+			if ((xCoord >= xInterD - 3) && (xCoord<= xInterD + 3) && (yCoord >= yInterD - 3) && (yCoord<= yInterD + 3)) {
+				id=r.getId();
+			}
+		}
+    	return id;
     }
 
 	public void setLatMinMap(float latMinMap) {

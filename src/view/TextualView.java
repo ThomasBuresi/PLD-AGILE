@@ -203,6 +203,26 @@ public class TextualView extends JPanel{ //implements Observer {
     }
     
     
+    /**
+     * TODO
+     */
+    public void highlightTable(int id) {
+    	Request r = requestList.getListRequests().get(id);
+    	int k = 0 ;
+		while(k < requestTable.getRowCount()) {
+			//yourString.substring(yourString.indexOf("no") + 3 , yourString.length());
+			String s = requestTable.getModel().getValueAt(k, 0).toString();
+			String idRequestS = s.substring(s.indexOf("Request ")+3, s.length());
+			int idRequest = 0;
+			//if(true);
+			k++;
+		}
+    	//chercher num = id+1 
+    	//decouper texte 
+    	//int idPickup = r.getPickupAddress().
+    }
+    
+    //+listener on the table
 
     /**
      * 

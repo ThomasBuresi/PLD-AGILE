@@ -67,31 +67,39 @@ public class DeliveryTourState implements State {
 		
 		// how to check that the point is in the map ? or is on a request ? 
 		
-		List<Request> list = c.getRequestList().getListRequests();
+		//List<Request> list = c.getRequestList().getListRequests();
 		GraphicalView graphicalView = w.getGraphicalView();
+		
 		int panelHeight = graphicalView.getHeight();
-    	int panelWidth = graphicalView.getWidth();
-
-		//Get coordinates of the zone shown on the map at the moment
-		float latMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMaxMap();
-		float latMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMinMap();
-		float longMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMinMap();
-		float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
+		int panelWidth = graphicalView.getWidth();
 		
-		int id = -1;
+		int id = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
 		
-		for (Request r : list) {
-			int xInterP = (int)Math.round((r.getPickupAddress().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
-			int yInterP = panelHeight - (int)Math.round((r.getPickupAddress().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
-			if ((xCoord >= xInterP - 3) && (xCoord<= xInterP + 3) && (yCoord >= yInterP - 3) && (yCoord<= yInterP + 3)) {
-				id=r.getId();
-			}
-			int xInterD = (int)Math.round((r.getDeliveryAddress().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
-			int yInterD = panelHeight - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
-			if ((xCoord >= xInterD - 3) && (xCoord<= xInterD + 3) && (yCoord >= yInterD - 3) && (yCoord<= yInterD + 3)) {
-				id=r.getId();
-			}
-		}
+//		//Get coordinates of the zone shown on the map at the moment
+//		float latMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMaxMap();
+//		float latMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMinMap();
+//		float longMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMinMap();
+//		float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
+//		
+//		int id = -1;
+//		
+//		for (Request r : list) {
+//			int xInterP = (int)Math.round((r.getPickupAddress().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
+//			int yInterP = panelHeight - (int)Math.round((r.getPickupAddress().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
+//			if ((xCoord >= xInterP - 3) && (xCoord<= xInterP + 3) && (yCoord >= yInterP - 3) && (yCoord<= yInterP + 3)) {
+//				id=r.getId();
+//			}
+//			int xInterD = (int)Math.round((r.getDeliveryAddress().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
+//			int yInterD = panelHeight - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
+//			if ((xCoord >= xInterD - 3) && (xCoord<= xInterD + 3) && (yCoord >= yInterD - 3) && (yCoord<= yInterD + 3)) {
+//				id=r.getId();
+//			}
+//		}
+		
+		System.out.println(id);
+		
+		graphicalView.updateHighlight(id);
+		
 		
 		if(id!=-1) {
 			//if on a request : 
@@ -99,10 +107,12 @@ public class DeliveryTourState implements State {
 			w.setVisibleRemove();
 			
 			//update the table to highlight the corresponding request
+			// highlight map
+			//graphicalView.getGraphicalCityMap().getGraphicalIntersection().drawHighlight(g, height, width, id);
+			
 			
 			c.setCurrentState(c.removeRequestState);
-		}
-		
+		} 
 		
 		//TODO save id 
 		

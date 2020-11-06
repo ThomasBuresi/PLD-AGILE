@@ -27,14 +27,14 @@ public class DijkstraState implements Comparator<DijkstraState> {
 	}
 	
 	/**
-	 * @return the previous state, or <code>null</null> if this is the initial state
+	 * @return the previous state, or <code>null</code> if this is the initial state
 	 */
 	public DijkstraState getPreviousState() {
 		return previousState;
 	}
 	
 	/**
-	 * @return the segment taken between the previous state and this one, or <code>null</null> if this is the inital state
+	 * @return the segment taken between the previous state and this one, or <code>null</code> if this is the inital state
 	 */
 	public Segment getPreviousSegment() {
 		return previousSegment;

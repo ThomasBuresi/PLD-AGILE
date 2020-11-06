@@ -14,8 +14,6 @@ import org.w3c.dom.NodeList;
 
 
 
-//import src.tsp.*;
-
 /**
  * 
  */
@@ -34,22 +32,22 @@ public class CityMap {
 	protected HashMap<Long, Intersection> listIntersection;
 	
 	/**
-	 * 
+	 * The minimal latitude of an intersection present in the map
 	 */
 	protected float latMin;
 	
 	/**
-	 * 
+	 * The maximal latitude of an intersection present in the map
 	 */
 	protected float latMax;
 	
 	/**
-	 * 
+	 * The minimal longitude of an intersection present in the map
 	 */
 	protected float longMin;
 	
 	/**
-	 * 
+	 * The maximal longitude of an intersection present in the map
 	 */
 	protected float longMax;
 	
@@ -62,16 +60,15 @@ public class CityMap {
 
 	/**
 	 * Constructor of <code>CityMap</code>
-	 * @param _filePath
+	 * @param filePath the path to the XML file containing the map
 	 */
-	public CityMap(String _filePath) {
-		this.filePath = _filePath;
+	public CityMap(String filePath) {
+		this.filePath = filePath;
 		this.listIntersection = new HashMap<Long, Intersection>();
 		this.latMax = -200;
 		this.latMin = 200;
 		this.longMax = -200;
 		this.longMin = 200;
-		//fillMap(); //don't think we should call methods from the constructor
 	}
 
 	/**
@@ -109,7 +106,8 @@ public class CityMap {
 	/**
 	 * Fills the map <code>listIntersection</code> with all the intersections
 	 * that are in the list of nodes given as parameter
-	 * @param intersectionsList
+	 * 
+	 * @param intersectionsList the list of nodes of intersections from the XML file
 	 */
 	public void fillIntersectionsList(NodeList intersectionsList) {
 		try {
@@ -143,7 +141,8 @@ public class CityMap {
 	/**
 	 * Adds each <code>Segment</code> from the list of nodes given as parameter to the
 	 * list of segments of the origin intersection
-	 * @param segmentsList
+	 * 
+	 * @param segmentsList  the list of nodes of segments from the XML file
 	 */
 	public void fillSegmentsList(NodeList segmentsList) {
 		try {

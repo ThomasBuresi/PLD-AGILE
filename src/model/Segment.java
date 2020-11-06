@@ -7,23 +7,23 @@ import java.util.*;
 public class Segment {
 	
 	/**
-     * Name of the <code>Segment</code>
+     * Name of the Segment
      */
     protected String name;
 
 	/**
-     * <code>Intersection</code> of origin of the <code>Segment</code>
+     * Intersection of origin of the Segment
      */
     protected Intersection origin;
     
     /**
-     * <code>Intersection</code> of destination of the <code>Segment</code>
+     * Intersection of destination of the Segment
      */
     protected Intersection destination;
 
 
     /**
-     * Length of the <code>Segment</code> in meters
+     * Length of the Segment in meters
      */
     protected float length;
 	
@@ -35,7 +35,7 @@ public class Segment {
     }
 
     /**
-     * Constructor of <code>Segment</code>
+     * Constructor of Segment
      * @param name 
      * @param origin
      * @param destination

@@ -28,23 +28,23 @@ public class GraphicalCityMap {
 	 */
 	//private static final long serialVersionUID = 1L;
 	
-	public GraphicalSegment graphicalSegment;
-	public GraphicalIntersection graphicalIntersection;
+	private GraphicalSegment graphicalSegment;
+	private GraphicalIntersection graphicalIntersection;
 	
 	
 
     /**
-     * Default constructor
+     * Constructor of GraphicalCityMap
+     * @param controller
      */
     public GraphicalCityMap(Controller controller) {
-    	//super();
     	if (controller.getCityMap() != null) {
     		listIntersection = controller.getCityMap().getListIntersection();
     	} else {
     		listIntersection = null;
-    		requestList = null;
     		System.err.println("listIntersection is null");
     	}
+    	
     	if (controller.getRequestList() != null) {
     		requestList = controller.getRequestList();
     	} else {
@@ -60,15 +60,18 @@ public class GraphicalCityMap {
     	}
     	
     	
-    	
-    	// System.out.println("city view " + width + " " + height);
-        // to complete 
-    	
-    	if (listIntersection != null) {   
-    		System.out.println("intersection List not null");
-            graphicalSegment=new GraphicalSegment(listIntersection, controller.getCityMap().getLatMin(),
-            		controller.getCityMap().getLatMax(), controller.getCityMap().getLongMin(),
-            		controller.getCityMap().getLongMax());            
+    	if (listIntersection != null) {  
+    		if (deliveryTour == null) {
+        		System.out.println("Intersection List not null");
+                graphicalSegment=new GraphicalSegment(listIntersection, controller.getCityMap().getLatMin(),
+                		controller.getCityMap().getLatMax(), controller.getCityMap().getLongMin(),
+                		controller.getCityMap().getLongMax());            
+    		} else {
+    			System.out.println("DeliveryTour not null");
+                graphicalSegment=new GraphicalSegment(listIntersection, deliveryTour, controller.getCityMap().getLatMin(),
+                		controller.getCityMap().getLatMax(), controller.getCityMap().getLongMin(),
+                		controller.getCityMap().getLongMax());       
+    		}
     	}
     	
     	if (requestList != null) {
@@ -88,6 +91,9 @@ public class GraphicalCityMap {
     	if (graphicalSegment != null) {
     		graphicalSegment.drawSegment(g, height, width);
     	}
+    	if(deliveryTour!=null) {
+    		graphicalSegment.drawTour(g, height, width);
+    	}
     }
 
 	public HashMap<Long, Intersection> getListIntersection() {
@@ -101,6 +107,14 @@ public class GraphicalCityMap {
 
 	public DeliveryTour getDeliveryTour() {
 		return deliveryTour;
+	}
+
+	public GraphicalSegment getGraphicalSegment() {
+		return graphicalSegment;
+	}
+
+	public GraphicalIntersection getGraphicalIntersection() {
+		return graphicalIntersection;
 	}
     
 }

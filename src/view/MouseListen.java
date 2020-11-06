@@ -1,26 +1,31 @@
 package view;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
+import controller.AddRequestState;
 import controller.Controller;
+import controller.DeliveryTourState;
+import controller.RemoveRequestState;
+import controller.State;
 import model.Intersection;
 
 /**
  * 
  */
-public class MouseListen implements MouseListener{
+public class MouseListen extends MouseAdapter{
 
 	private Controller controller;
 	
 	private GraphicalView graphicalView;
 	
-	private Window window;
-	
-	private int panelWidth;
-	
-	private int panelHeight;
+//	private Window window;
+//	
+//	private int panelWidth;
+//	
+//	private int panelHeight;
 	
 	private int pressedX;
 	
@@ -30,11 +35,11 @@ public class MouseListen implements MouseListener{
      * Default constructor
      */
     public MouseListen(Controller controller, GraphicalView graphicalView, Window window) {
-    	this.window = window;
+//    	this.window = window;
     	this.graphicalView = graphicalView;
     	this.controller = controller;
-    	this.panelHeight = this.graphicalView.getHeight();
-    	this.panelWidth = this.graphicalView.getWidth();
+//    	this.panelHeight = this.graphicalView.getHeight();
+//    	this.panelWidth = this.graphicalView.getWidth();
     }
 
     @Override
@@ -44,10 +49,33 @@ public class MouseListen implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(e.getX() + " " + e.getY());
-		int xCoord = e.getX();
-		int yCoord = e.getY();
-		HashMap<Long, Intersection> listIntersection;
+		//System.out.println(e.getX() + " " + e.getY());
+		
+		State currentState = controller.getCurrentState();
+		if(currentState instanceof DeliveryTourState) {
+			int xCoord = e.getX();
+			int yCoord = e.getY();
+			//only the clicks to remove are detected in this state 
+			
+			controller.leftClick(xCoord,yCoord);
+		} else if(currentState instanceof RemoveRequestState){
+				
+			int xCoord = e.getX();
+			int yCoord = e.getY();
+			//only the clicks to remove are detected in this state 
+			
+			//on the click if it's on the same point or not different actions
+			// go bakc to other state if on the same 
+			// other changes the display 
+			controller.leftClick(xCoord,yCoord);
+			
+		} else if (currentState instanceof AddRequestState) {
+			//4 points to detect ? how ? 
+		}
+		
+		
+		//controller.addRequest(xCoord, yCoord);
+		/*HashMap<Long, Intersection> listIntersection;
 		if (controller.getCityMap() != null) {
 			listIntersection = controller.getCityMap().getListIntersection();
 			if (listIntersection != null) {
@@ -63,7 +91,7 @@ public class MouseListen implements MouseListener{
 					}
 				}
 			}
-		} 
+		} */
 	}
 
 	@Override
@@ -74,7 +102,6 @@ public class MouseListen implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		pressedX = e.getX();
 		pressedY = e.getY();
 		
@@ -82,35 +109,11 @@ public class MouseListen implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		int relX = e.getX();
 		int relY = e.getY();
-		
-		if (graphicalView.graphicalCityMap.graphicalSegment != null && Math.abs(relX - pressedX)>20 && Math.abs(relY - pressedY) > 20) {
-			System.out.println(pressedX + " " + pressedY + " " + relX + " " + relY);
-			float latMax = graphicalView.graphicalCityMap.graphicalSegment.getLatMaxMap();
-			float latMin = graphicalView.graphicalCityMap.graphicalSegment.getLatMinMap();
-			float longMin = graphicalView.graphicalCityMap.graphicalSegment.getLongMinMap();
-			float longMax = graphicalView.graphicalCityMap.graphicalSegment.getLongMaxMap();
-			//System.out.println(latMax + " " + latMin + " " + longMax + " " + longMin);
-			longMin = longMin + (float)pressedX/panelWidth*(longMax - longMin);
-			longMax = longMax - ((float)(panelWidth - relX))/panelWidth*(longMax - longMin);
-			latMin = latMin + (float)pressedY/panelHeight*(latMax - latMin);
-			latMax = latMax - ((float)(panelHeight-relY))/panelHeight*(latMax - latMin);
-			//System.out.println(latMax + " " + latMin + " " + longMax + " " + longMin);
-			graphicalView.graphicalCityMap.graphicalSegment.setLatMaxMap(latMax);
-			graphicalView.graphicalCityMap.graphicalSegment.setLatMinMap(latMin);
-			graphicalView.graphicalCityMap.graphicalSegment.setLongMaxMap(longMax);
-			graphicalView.graphicalCityMap.graphicalSegment.setLongMinMap(longMin);
-			if (graphicalView.graphicalCityMap.graphicalIntersection != null) {
-				//System.out.println("updating...");
-				graphicalView.graphicalCityMap.graphicalIntersection.setLatMaxMap(latMax);
-				graphicalView.graphicalCityMap.graphicalIntersection.setLatMinMap(latMin);
-				graphicalView.graphicalCityMap.graphicalIntersection.setLongMaxMap(longMax);
-				graphicalView.graphicalCityMap.graphicalIntersection.setLongMinMap(longMin);
-			}
+		if (Math.abs(relX - pressedX)>20 && Math.abs(relY - pressedY) > 20) {
+			controller.zoomIn(pressedX, pressedY, relX, relY);
 		}
-		window.repaint();
 	}
 
 

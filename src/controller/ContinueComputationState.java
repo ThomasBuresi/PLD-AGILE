@@ -37,42 +37,10 @@ public class ContinueComputationState implements State{
 	@Override
 	public void continueCalculation(Controller controller, Window window) {
 		//continue the calculation 
-		TSP tsp = controller.getTsp();
-		DijkstraGraph g = controller.getDijkstraGraph();
-		CityMap map = controller.getCityMap();
-		RequestList reqlist = controller.getRequestList();
-		
-		//20000 for the 20sec but with our data set we test with shorter time limits
-		tsp.searchSolution(20000, g);
-		System.out.println("Solution TSP de cout : " + tsp.getSolutionCost());
-		for(int m = 0; m < 1+2*reqlist.getListRequests().size(); m++) {
-			System.out.print(" " + tsp.getSolution(m));
-		}
-		
-		//add the result of tsp to the controller in case we continue the computation
-		// and also thhe corresponding graph 
-		//controller.setDijkstraGraph(g);
-		//controller.setTsp(tsp);
-		
-		System.out.println(" 0");
-		DeliveryTour d = new DeliveryTour();
-		d.addDeparture(reqlist.getDeparture());
-		// on commence � un car on a d�j� trait� le cas du d�part
-		for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
-		//ajouter au delivery tour l'intersection qui correspond au numero de la requ�te ->
-			int currentsolution=tsp.getSolution(l);
-			if (currentsolution%2!=0) {
-				d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
-			}
-			else {
-				
-				d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
-			}
-			
-		}
-		//retour au point de d�part :
-		d.addStep(reqlist.getDeparture(), g.getSegmentPaths()[tsp.getSolution(2*reqlist.getListRequests().size())][tsp.getSolution(0)]); // inverser l'ordre??
-		
+		TSP tsp = controller.getDeliveryTour().getTsp();
+		DijkstraGraph g = controller.getDeliveryTour().getG();
+		DeliveryTour d = new DeliveryTour(controller, tsp, g);
+		d.fillDeliveryTour(20000);
 		controller.setDeliveryTour(d);
 		
 		for (Pair<Intersection, List<Segment>> pair: d.getTour()) {
@@ -96,6 +64,7 @@ public class ContinueComputationState implements State{
 		
 		window.setVisibleAddExport();
 		controller.setCurrentState(controller.deliveryTourState);
+		
 	}
 	@Override
 	public void skipContinueCalculation(Controller controller, Window window) {

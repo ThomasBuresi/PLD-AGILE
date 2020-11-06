@@ -38,9 +38,17 @@ public class DeliveryTourState implements State {
 	
 	@Override 
 	public void exportTourFile(Controller c, Window w) {
-		
-		// when the merge will be donne call the DeliveryTour method here 
-		c.getDeliveryTour().writeDeliveryTourToFile("tour.txt");
+		fc = new JFileChooser();
+    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
+    			System.getProperty("file.separator")+ "src" + 
+    			System.getProperty("file.separator")+ "resources"));
+    	
+		int val_ret_requests = fc.showOpenDialog(null);
+
+        if (val_ret_requests == JFileChooser.APPROVE_OPTION) {
+           String path = fc.getSelectedFile().getAbsolutePath();
+           c.getDeliveryTour().writeDeliveryTourToFile(path);
+        }
 		
 		
 		//pop up to confirm the export 

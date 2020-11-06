@@ -6,8 +6,6 @@ import java.util.*;
 import model.CityMap;
 import model.DeliveryTour;
 import model.RequestList;
-import tsp.DijkstraGraph;
-import tsp.TSP;
 import view.Window;
 
 /**
@@ -21,8 +19,6 @@ public class Controller {
 	private CityMap cityMap;
 	private RequestList requestList;
 	private DeliveryTour deliveryTour;
-	private DijkstraGraph dijkstraGraph;
-	private TSP tsp;
 	private Window window;
 	private ListOfCommands listOfCommands;
 	private State currentState; 
@@ -48,8 +44,8 @@ public class Controller {
     	cityMap=null; 
     	requestList=null;
     	deliveryTour=null;
-    	tsp=null;
-    	dijkstraGraph=null;
+//    	tsp=null;
+//    	dijkstraGraph=null;
     }
     
     
@@ -131,10 +127,8 @@ public class Controller {
         
     }
 
-    /**
-     * Getters and setters 
-     * @return
-     */
+    // Getters and setters 
+    
     
     public CityMap getCityMap() {
     	return cityMap;
@@ -159,21 +153,6 @@ public class Controller {
 		this.deliveryTour = d;
 	}
 	
-	public TSP getTsp() {
-		return tsp;
-	}
-	
-	public void setTsp(TSP tsp) {
-		this.tsp=tsp;
-	}
-	
-	public DijkstraGraph getDijkstraGraph () {
-		return dijkstraGraph;
-	}
-    
-	public void setDijkstraGraph (DijkstraGraph g) {
-		this.dijkstraGraph=g;
-	}
 	
 	public State getCurrentState() {
 		return currentState;

@@ -25,14 +25,27 @@ public class DeliveryTour {
      * segments that lead to this intersection from the previous one
      */ 
 	List <Pair<Intersection, List<Segment>>> tour;
-	List <String> pickupOrDeliver ; // string qui dit si l'intersection est un point de pickup ou delivery
+	/**
+     * Represents the description of the intersection in the tour:
+     * if it'a a pickup/delivery point or the return to the deposit 
+     */ 
+	List <String> pickupOrDeliver ; 
+	
 	CityMap map ;
 	RequestList reqlist;
+	/**
+     * Represents the graph with the shortest distance between all the 
+     * intersections present in the map 
+     */ 
 	DijkstraGraph g;
+	/**
+     * Represents the solution of the best tour calculated
+     */ 
 	TSP tsp;
 
     /**
-     * Default constructor of <code>DeliveryTour</code>
+     * Constructor of <code>DeliveryTour</code>  that calculates
+     * the <code>DijkstraGraph</code> from the loaded map and requests 
      */
     public DeliveryTour(Controller controller) {
 		this.tour = new ArrayList <Pair<Intersection, List<Segment>>>();
@@ -42,7 +55,11 @@ public class DeliveryTour {
 		this.reqlist = controller.getRequestList();
 		this.g = new DijkstraGraph(this.map, this.reqlist);
     }
-    
+    /**
+     * Constructor of <code>DeliveryTour</code>  that takes as parameters the
+     * <code>DijkstraGraph</code> and the <code>TSP</code> already calculated
+     * to be able to continue the calculation of the tour
+     */
     public DeliveryTour(Controller controller, TSP tsp, DijkstraGraph g) {
 		this.tour = new ArrayList <Pair<Intersection, List<Segment>>>();
 		this.pickupOrDeliver =new ArrayList<String>();
@@ -52,33 +69,18 @@ public class DeliveryTour {
 		this.g = g;
     }
     
+ 
     /**
-     * Constructor of <code>DeliveryTour</code> that takes as a parameter
-     * the <code>tour</code>
-     */
-    public DeliveryTour(List <Pair<Intersection, List<Segment>>> tour) {
-		this.tour = tour;
-		pickupOrDeliver =new ArrayList<String>();
-    }
-    
-//    public DeliveryTour(String filenameMap, String filenameRequest) {
-//    	tour = new ArrayList <Pair<Intersection, List<Segment>>>();
-//		pickupOrDeliver =new ArrayList<String>();
-//		this.map = new CityMap(filenameMap);
-//		map.fillMap();
-//		this.reqlist = new RequestList(filenameRequest,map);
-//		reqlist.fillRequests();
-//		this.g = new DijkstraGraph(map,reqlist);
-//    }
-    /**
-     * 
+     * Adds an intersection and the list of segments that lead to this 
+     * intersection from the previous one in the tour.
+     * @param i the Intersection to add to the tour
+     * @param s the list of segments
      */
     public void addStep(Intersection i , List<Segment> s) {
     	tour.add(new Pair<>(i,s));
     }
     
     /**
-     * 
      * Adds a new intersection after the i-th index (starting from 0), and updates relevant paths
      * @param i the index after which the new step should be added
      * @param step the intersection to be added
@@ -95,18 +97,18 @@ public class DeliveryTour {
 			tour.add(newStep);
 		}
 	}
+	
+	/**
+     * Adds the departure Intersection as the first one in the tour
+     * @param i the departure Intersection
+     */
     public void addDeparture(Intersection i) {
     	tour.add(new Pair<>(i, null));
     }
 
-	public List<Pair<Intersection, List<Segment>>> getTour() {
-		return tour;
-	}
 
 
 	public void affiche() {
-
-		
 		for (Pair<Intersection, List<Segment>> pair: tour) {
 			System.out.println(pair.fst.toString());
 			List<Segment> seg = pair.snd;
@@ -117,7 +119,11 @@ public class DeliveryTour {
 			}
 		}
 	}
-
+	
+	/**
+     * Calculates the delivery tour until the <code>timeLimit</code> is reached
+     * @param timeLimit the limit of time in ms available to calculate the tour 
+     */
 	public void fillDeliveryTour(int timeLimit) {
 		
 		tsp.searchSolution(timeLimit, g);
@@ -150,13 +156,15 @@ public class DeliveryTour {
 		
 	}
 	
-	
+	/**
+     * Exports the delivery tour as a description of the steps of the tour
+     * to take to a file (its path is given as a parameter)
+     */
 	public void writeDeliveryTourToFile(String filename) {
 		File file = new File(filename);
         FileWriter fr = null;
         BufferedWriter br = null;
-        
-
+       
         try{
             fr = new FileWriter(file);
             br = new BufferedWriter(fr);
@@ -193,7 +201,11 @@ public class DeliveryTour {
         }
 	}
 
-
+	/**
+     * Adds the description of the intersection: if it'a a pickup/delivery point
+     * or the return to the deposit 
+     * @param detail the description of the intersection
+     */
 	public void addIntersectionDetail(String detail) {
 		this.pickupOrDeliver.add(detail);
 	}
@@ -204,6 +216,10 @@ public class DeliveryTour {
 
 	public TSP getTsp() {
 		return tsp;
+	}
+	
+	public List<Pair<Intersection, List<Segment>>> getTour() {
+		return tour;
 	}
 }
 			

@@ -43,6 +43,7 @@ public class Request {
      * @param deliveryAddress
      * @param pickupAddress
      * @param pickupDuration
+     * @param id 
      */
     public Request(int deliveryDuration, Intersection deliveryAddress, Intersection pickupAddress, int pickupDuration, int id) {
 		this.deliveryDuration = deliveryDuration;

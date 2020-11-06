@@ -8,6 +8,8 @@ import controller.Controller;
 import tsp.DijkstraGraph;
 import tsp.TSP;
 import tsp.TSP1;
+import tsp.TSP2;
+
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -50,7 +52,7 @@ public class DeliveryTour {
     public DeliveryTour(Controller controller) {
 		this.tour = new ArrayList <Pair<Intersection, List<Segment>>>();
 		this.pickupOrDeliver =new ArrayList<String>();
-		this.tsp = new TSP1();
+		this.tsp = new TSP2();
 		this.map = controller.getCityMap();
 		this.reqlist = controller.getRequestList();
 		this.g = new DijkstraGraph(this.map, this.reqlist);

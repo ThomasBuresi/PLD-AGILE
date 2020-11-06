@@ -1,4 +1,7 @@
 package model;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -20,6 +23,7 @@ public class DeliveryTour {
      */ 
 	List <Pair<Intersection, List<Segment>>> tour;
 	List <String> pickupOrDeliver ; // string qui dit si l'intersection est un point de pickup ou delivery
+	List <Integer> ordretsp;//
 	CityMap map ;
 	RequestList reqlist;
 	DijkstraGraph g;
@@ -75,7 +79,29 @@ public class DeliveryTour {
 			tour.add(newStep);
 		}
 	}
-    public void addDeparture(Intersection i) {
+	
+	public int getIndexOfIntersection(Intersection i) {
+		int index = 0;
+		for (Pair<Intersection, List<Segment>> pair: tour) {
+			if ( i.getIdIntersection() == pair.fst.getIdIntersection()) {
+				return index;
+			}
+			index ++;
+		}
+		return -1;
+	}
+	
+	public void removeStep(Intersection i) {
+		int index= this.getIndexOfIntersection(i);
+		this.tour.remove(index);
+		this.pickupOrDeliver.remove(index);
+		this.ordretsp.remove(index);
+		Intersection temp = tour.get(index).fst;
+		List <Segment> tempSeg = g.getSegmentPaths()[index][index-1];
+		tour.set(index, new Pair<Intersection, List<Segment>>(temp,tempSeg));
+	}
+
+	public void addDeparture(Intersection i) {
     	tour.add(new Pair<>(i, null));
     }
 
@@ -99,11 +125,13 @@ public class DeliveryTour {
 	}
 
 	public void fillDeliveryTour() {
+		this.ordretsp = new ArrayList <Integer>();
 		TSP tsp = new TSP1();
 		tsp.searchSolution(20000, g);
 		
 		this.addDeparture(reqlist.getDeparture());
 		this.addIntersectionDetail("");
+		this.ordretsp.add(0);
 		// on commence a un car on a deja traite le cas du depart
 		for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
 		//ajouter au delivery tour l'intersection qui correspond au numero de la requete ->
@@ -112,6 +140,7 @@ public class DeliveryTour {
 //			System.out.println("pair");
 //			System.out.println(currentsolution + "   " + (tsp.getSolution(l)/2));
 //			System.out.println("Pickup Address :" + reqlist.getListRequests().get(tsp.getSolution(l)/2).getPickupAddress().getIdIntersection() );
+			
 			this.addIntersectionDetail("Pickup Address");
 			this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 ).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 		}
@@ -122,9 +151,11 @@ public class DeliveryTour {
 			this.addIntersectionDetail("Delivery Address");
 			this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 		}
-		//retour au point de départ :
 		
+		this.ordretsp.add(currentsolution);
 		}
+		//retour au point de départ :
+		this.ordretsp.add(0);
 		this.addIntersectionDetail("Return to Departure");
 		this.addStep(reqlist.getDeparture(), g.getSegmentPaths()[tsp.getSolution(2*reqlist.getListRequests().size())][tsp.getSolution(0)]); // inverser l'ordre??
 		

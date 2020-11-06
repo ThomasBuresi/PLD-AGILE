@@ -30,14 +30,7 @@ public class DeliveryTour {
      * Represents the description of the intersection in the tour:
      * if it'a a pickup/delivery point or the return to the deposit 
      */ 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	List <String> pickupOrDeliver ; // string qui dit si l'intersection est un point de pickup ou delivery
-	List <Integer> ordretsp;//
-	
-=======
-=======
->>>>>>> master
+
 	List <String> pickupOrDeliver ; 
 	
 	/**

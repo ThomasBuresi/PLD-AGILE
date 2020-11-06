@@ -1,18 +1,13 @@
 package model;
+import java.io.IOException;
 import java.util.*;
 
-import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.sun.tools.javac.util.Pair;
 
 import controller.Controller;
 import tsp.DijkstraGraph;
 import tsp.TSP;
 import tsp.TSP1;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException; 
 
 /**
  * 
@@ -79,7 +74,22 @@ public class DeliveryTour {
     
     /**
      * 
+     * Adds a new intersection after the i-th index (starting from 0), and updates relevant paths
+     * @param i the index after which the new step should be added
+     * @param step the intersection to be added
      */
+	public void addIntermediateStep(int i, Intersection step) {
+		Pair<Intersection, List<Segment>> previousStep = tour.get(i);
+		tour.add(++i,
+				new Pair<>(step, DijkstraGraph.computeShortestPath(previousStep.fst, step).getAllPreviousSegments()));
+		if (i + 1 < tour.size()) {
+			Pair<Intersection, List<Segment>> nextStep = tour.get(i + 1);
+			Pair<Intersection, List<Segment>> newStep = new Pair<>(nextStep.fst,
+					DijkstraGraph.computeShortestPath(step, nextStep.fst).getAllPreviousSegments());
+			tour.remove(i + 1);
+			tour.add(newStep);
+		}
+	}
     public void addDeparture(Intersection i) {
     	tour.add(new Pair<>(i, null));
     }

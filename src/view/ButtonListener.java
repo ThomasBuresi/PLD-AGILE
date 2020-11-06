@@ -25,10 +25,7 @@ import tsp.TSP1;
  */
 public class ButtonListener implements ActionListener {
 	
-	/**
-	 * To open a dialog window to load the files 
-	 */
-//	private JFileChooser fc;
+
 	
 	/**
 	 * Controller to perform the actions that require some processing 
@@ -40,9 +37,6 @@ public class ButtonListener implements ActionListener {
 	 */
 	private Window window; //won't be needed normally
 	
-//	private GraphicalView graphicalView;
-//	
-//	private TextualView textualView;
 //	
     /**
      * Constructor of ButtonListener

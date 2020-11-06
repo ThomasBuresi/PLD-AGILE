@@ -26,11 +26,11 @@ public class DeliveryTour {
      * segments that lead to this intersection from the previous one
      */ 
 	List <Pair<Intersection, List<Segment>>> tour;
+	
 	/**
      * Represents the description of the intersection in the tour:
      * if it'a a pickup/delivery point or the return to the deposit 
      */ 
-
 	List <String> pickupOrDeliver ; 
 	
 	/**
@@ -41,11 +41,13 @@ public class DeliveryTour {
 
 	CityMap map ;
 	RequestList reqlist;
+	
 	/**
      * Represents the graph with the shortest distance between all the 
      * intersections present in the map 
      */ 
 	DijkstraGraph g;
+	
 	/**
      * Represents the solution of the best tour calculated
      */ 
@@ -62,6 +64,7 @@ public class DeliveryTour {
 		this.map = controller.getCityMap();
 		this.reqlist = controller.getRequestList();
 		this.g = new DijkstraGraph(this.map, this.reqlist);
+		this.ordretsp = new ArrayList<Integer>();
     }
     /**
      * Constructor of <code>DeliveryTour</code>  that takes as parameters the
@@ -75,6 +78,7 @@ public class DeliveryTour {
 		this.map = controller.getCityMap();
 		this.reqlist = controller.getRequestList();
 		this.g = g;
+		this.ordretsp = new ArrayList<Integer>();
     }
     
  

@@ -147,7 +147,31 @@ public class MapRequestsLoadedState implements State{
 	
 	@Override
 	public void computeDeliveryTour(Controller controller, Window window) {
+		DeliveryTour d = new DeliveryTour(controller);
+		d.fillDeliveryTour(5000);
+		controller.setDeliveryTour(d);
 		
+		for (Pair<Intersection, List<Segment>> pair: d.getTour()) {
+			//Intersection i = pair.getFirst();
+			//System.out.println("hello");
+			System.out.println(pair.fst.toString());
+			List<Segment> seg = pair.snd;
+			if (seg != null) {
+				for (Segment s : seg) {
+					System.out.println(s.toString());
+				}
+			}
+		}
+		// print the delivery tour 
+		
+		GraphicalView graphicalView = window.getGraphicalView();
+        TextualView textualView = window.getTextualView();
+ 	    
+        graphicalView.updateGraphicalCityMap(controller);
+        textualView.update(controller);
+		
+		window.setContinueCalculation();
+		controller.setCurrentState(controller.continueComputationState);
 		//controller computation
 		
 		//case it ends 
@@ -163,7 +187,7 @@ public class MapRequestsLoadedState implements State{
 		//remember that we can continue the computation only one time
 		//setContinueVisible
 		
-		CityMap map = controller.getCityMap();
+		/*CityMap map = controller.getCityMap();
 		RequestList reqlist = controller.getRequestList();
 		DijkstraGraph g = new DijkstraGraph(map, reqlist);
 		  
@@ -227,7 +251,7 @@ public class MapRequestsLoadedState implements State{
         textualView.update(controller);
 		
 		window.setContinueCalculation();
-		controller.setCurrentState(controller.continueComputationState);
+		controller.setCurrentState(controller.continueComputationState);*/
 	}
 
 }

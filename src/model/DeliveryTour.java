@@ -30,12 +30,13 @@ public class DeliveryTour {
      * segments that lead to this intersection from the previous one
      */ 
 	List <Pair<Intersection, List<Segment>>> tour;
-	List <String> pickupOrDeliver ; // string qui dit si l'intersection est un point de pickup ou delivery
-	List <Integer> ordretsp;//
 	/**
      * Represents the description of the intersection in the tour:
      * if it'a a pickup/delivery point or the return to the deposit 
      */ 
+	List <String> pickupOrDeliver ; // string qui dit si l'intersection est un point de pickup ou delivery
+	List <Integer> ordretsp;//
+	
 	CityMap map ;
 	RequestList reqlist;
 	/**
@@ -208,13 +209,24 @@ public class DeliveryTour {
             		br.write("Departure : " + pair.fst.getName() +  System.getProperty("line.separator"));
             		br.write (System.getProperty("line.separator"));
             	}
-            	// a refaire
-//    			List<Segment> seg = pair.snd;
-//    			if (seg != null) {
-//    				for (Segment s : seg) {
-//    					br.write("          "+ s.toString()+ System.getProperty("line.separator"));
-//    				}
-//    			}
+         
+    			List<Segment> seg = pair.snd;
+    			if (seg != null) {
+    				Segment segmentprecedent = null;
+    				Segment segmentsuivant;
+    				float longueur = 0.0f;
+    				for (Segment s : seg) {
+    					segmentsuivant = s;
+    					if (segmentprecedent != null && segmentsuivant != null && segmentsuivant.getName().equals(segmentprecedent.getName())!= true) {
+    						longueur += segmentprecedent.length;
+    						br.write("          Pendant" + longueur + "m prendre " + segmentprecedent.getName()+ System.getProperty("line.separator"));
+    						longueur = 0.0f;
+    					}
+    					else {
+    						
+    					}
+    				}
+    			}
     			if (p!=0) {
     				br.write("Step " + p +": "+ this.pickupOrDeliver.get(p)+ System.getProperty("line.separator"));
     				br.write("Address : " + pair.fst.getName() + System.getProperty("line.separator"));

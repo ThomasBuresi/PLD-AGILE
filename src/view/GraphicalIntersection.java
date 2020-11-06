@@ -119,6 +119,10 @@ public class GraphicalIntersection {
     	
     }
 
+    public void drawHighlight(Graphics g, int height, int width,int id) {
+    	//Request r = requestList.getListRequests().get(id);
+    }
+
 	public void setLatMinMap(float latMinMap) {
 		this.latMinMap = latMinMap;
 	}

@@ -10,14 +10,10 @@ import com.sun.tools.javac.util.Pair;
 import controller.Controller;
 import tsp.DijkstraGraph;
 import tsp.TSP;
-import tsp.TSP1;
 import tsp.TSP2;
 
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
 
 /**
  * 
@@ -30,12 +26,18 @@ public class DeliveryTour {
      * segments that lead to this intersection from the previous one
      */ 
 	List <Pair<Intersection, List<Segment>>> tour;
-	List <String> pickupOrDeliver ; // string qui dit si l'intersection est un point de pickup ou delivery
-	List <Integer> ordretsp;//
 	/**
      * Represents the description of the intersection in the tour:
      * if it'a a pickup/delivery point or the return to the deposit 
      */ 
+	List <String> pickupOrDeliver ; 
+	
+	/**
+     * List of ids of the intersections in the tour in the right order 
+     * of passage
+     */ 
+	List <Integer> ordretsp;//
+
 	CityMap map ;
 	RequestList reqlist;
 	/**
@@ -103,6 +105,9 @@ public class DeliveryTour {
 		}
 	}
 	
+	/**
+     * TODO
+     */ 
 	public int getIndexOfIntersection(Intersection i) {
 		int index = 0;
 		for (Pair<Intersection, List<Segment>> pair: tour) {
@@ -114,6 +119,9 @@ public class DeliveryTour {
 		return -1;
 	}
 	
+	/**
+     * TODO
+     */ 
 	public void removeStep(Intersection i) {
 		int index= this.getIndexOfIntersection(i);
 		this.tour.remove(index);
@@ -134,7 +142,9 @@ public class DeliveryTour {
     }
 
 
-
+    /**
+     * TODO
+     */ 
 	public void affiche() {
 		for (Pair<Intersection, List<Segment>> pair: tour) {
 			System.out.println(pair.fst.toString());

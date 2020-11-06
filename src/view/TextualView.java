@@ -89,9 +89,11 @@ public class TextualView extends JPanel{ //implements Observer {
 		tableModel.addColumn("Requests");
 		String str ="";
 		int i = 1;
+		//Get Address from coordinates API
+    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
+    	requestList.getDeparture().setAddress(jOpenCageGeocoder);
 		for (Request res : requests) {
-			//Get Address from coordinates API
-	    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
+			
 	    	//Set the address in the intersection to later not call the API again and get it back to show it in the table
 			String deliveryAddress = res.getDeliveryAddress().setAddress(jOpenCageGeocoder);
 			String pickupAddress = res.getPickupAddress().setAddress(jOpenCageGeocoder);
@@ -147,10 +149,10 @@ public class TextualView extends JPanel{ //implements Observer {
 
     			for (int j=0; j<requestsNotOrdered.size(); ++j) {
     				if(requestsNotOrdered.get(j).getPickupAddress().getIdIntersection()==intersectionId) {
-    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, false),pair.fst));
+    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, false),pair.fst)); 
     				}
     				if(requestsNotOrdered.get(j).getDeliveryAddress().getIdIntersection()==intersectionId) {
-    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, true),pair.fst));
+    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, true),pair.fst)); 
     				}
     			}
     		}

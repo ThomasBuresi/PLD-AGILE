@@ -1,20 +1,12 @@
 package model;
+import java.io.IOException;
 import java.util.*;
 
-import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.sun.tools.javac.util.Pair;
 
 import tsp.DijkstraGraph;
-<<<<<<< HEAD
 import tsp.TSP;
 import tsp.TSP1;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException; 
-=======
->>>>>>> dijkstra
 
 /**
  * 
@@ -66,10 +58,7 @@ public class DeliveryTour {
     }
     
     /**
-<<<<<<< HEAD
      * 
-     */
-=======
      * Adds a new intersection after the i-th index (starting from 0), and updates relevant paths
      * @param i the index after which the new step should be added
      * @param step the intersection to be added
@@ -86,8 +75,6 @@ public class DeliveryTour {
 			tour.add(newStep);
 		}
 	}
-
->>>>>>> dijkstra
     public void addDeparture(Intersection i) {
     	tour.add(new Pair<>(i, null));
     }

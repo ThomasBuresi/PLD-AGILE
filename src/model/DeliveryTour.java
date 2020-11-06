@@ -33,13 +33,15 @@ public class DeliveryTour {
 <<<<<<< HEAD
 	List <String> pickupOrDeliver ; // string qui dit si l'intersection est un point de pickup ou delivery
 	List <Integer> ordretsp;//
-=======
 	/**
      * Represents the description of the intersection in the tour:
      * if it'a a pickup/delivery point or the return to the deposit 
      */ 
 	List <String> pickupOrDeliver ; 
 	
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 	CityMap map ;
 	RequestList reqlist;
@@ -109,6 +111,7 @@ public class DeliveryTour {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public int getIndexOfIntersection(Intersection i) {
 		int index = 0;
 		for (Pair<Intersection, List<Segment>> pair: tour) {
@@ -132,6 +135,8 @@ public class DeliveryTour {
 
 	public void addDeparture(Intersection i) {
 =======
+=======
+>>>>>>> master
 	/**
      * Adds the departure Intersection as the first one in the tour
      * @param i the departure Intersection
@@ -155,12 +160,15 @@ public class DeliveryTour {
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public void fillDeliveryTour() {
 		this.ordretsp = new ArrayList <Integer>();
 		TSP tsp = new TSP1();
 		tsp.searchSolution(20000, g);
 =======
+=======
+>>>>>>> master
 	
 	/**
      * Calculates the delivery tour until the <code>timeLimit</code> is reached
@@ -169,6 +177,9 @@ public class DeliveryTour {
 	public void fillDeliveryTour(int timeLimit) {
 		
 		tsp.searchSolution(timeLimit, g);
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 		
 		this.addDeparture(reqlist.getDeparture());
@@ -176,6 +187,7 @@ public class DeliveryTour {
 		this.ordretsp.add(0);
 		// on commence a un car on a deja traite le cas du depart
 		for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		//ajouter au delivery tour l'intersection qui correspond au numero de la requete ->
 		int currentsolution=tsp.getSolution(l);	
@@ -195,6 +207,8 @@ public class DeliveryTour {
 			this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 		}
 =======
+=======
+>>>>>>> master
 			//ajouter au delivery tour l'intersection qui correspond au numero de la requete ->
 			int currentsolution=tsp.getSolution(l);	
 			if (currentsolution%2!=0) {
@@ -211,13 +225,19 @@ public class DeliveryTour {
 				this.addIntersectionDetail("Delivery Address");
 				this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 			}
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 		
 		this.ordretsp.add(currentsolution);
 		}
 		//retour au point de départ :
 <<<<<<< HEAD
+<<<<<<< HEAD
 		this.ordretsp.add(0);
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 		this.addIntersectionDetail("Return to Departure");

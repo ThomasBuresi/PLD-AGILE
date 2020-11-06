@@ -156,6 +156,7 @@ public class CityMap {
 					long idDest = Long.parseLong(eElement.getAttribute("destination"));
 					float length = Float.parseFloat(eElement.getAttribute("length"));
 					String name = eElement.getAttribute("name");
+					if (name == "") name = "Name absent";
 					Segment seg = new Segment(name, getIntersection(idOrigin), getIntersection(idDest), length);
 					getIntersection(idOrigin).addSegment(seg); // Add the segment to the list of segments of the origin intersection
 				}

@@ -19,6 +19,11 @@ public class GraphicalView extends JPanel implements Observer {
 	 * Containing the city map
 	 */
 	public GraphicalCityMap graphicalCityMap;
+	
+	/**
+	 * Selected request id 
+	 */
+	public int id;
 		
     /**
      * Default constructor
@@ -29,7 +34,7 @@ public class GraphicalView extends JPanel implements Observer {
         setBackground(Color.white);
     	
     	graphicalCityMap = new GraphicalCityMap(controller);
-    	
+    	id=-1;
     	repaint();
     }
     
@@ -43,6 +48,11 @@ public class GraphicalView extends JPanel implements Observer {
     	repaint();
     }
     
+    public void updateHighlight(int id) {
+    	this.id=id;
+    	repaint();
+    }
+    
     public void repaint(Graphics g) {
 		super.repaint();
 		paintComponent(g);
@@ -52,7 +62,7 @@ public class GraphicalView extends JPanel implements Observer {
     public void paintComponent(Graphics g) 
     {     
     	super.paintComponent(g);
-    	graphicalCityMap.drawGraphicalCityMap(g, this.getHeight(), this.getWidth());
+    	graphicalCityMap.drawGraphicalCityMap(g, this.getHeight(), this.getWidth(),id);
     }
     
      

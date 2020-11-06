@@ -1,5 +1,8 @@
 package controller;
 
+import view.GraphicalView;
+import view.Window;
+
 public class RemoveRequestState implements State {
 
 	/*
@@ -27,6 +30,23 @@ public class RemoveRequestState implements State {
 	 * update state of the controller 
 	 * 
 	 */
+	
+	@Override 
+	public void leftClick(Controller c, Window w,int xCoord,int yCoord) {
+		GraphicalView graphicalView = w.getGraphicalView();
+		
+		int panelHeight = graphicalView.getHeight();
+		int panelWidth = graphicalView.getWidth();
+		
+		int id = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
+		
+		System.out.println(id);
+		
+		graphicalView.updateHighlight(id);
+		
+		
+		
+	}
 	
 	
 }

@@ -1,0 +1,24 @@
+~~~~~~~~~~~ Delivery Roadmap ~~~~~~~~~~~
+Departure : 10 Avenue des Colonnes, 69500 Bron, France
+
+Step 1: Pickup Address
+Address : 72 Avenue Jean Mermoz, 69008 Lyon 8e Arrondissement, France
+
+Step 2: Pickup Address
+Address : 20 Boulevard des Tchécoslovaques, 69007 Lyon 7e Arrondissement, France
+
+Step 3: Pickup Address
+Address : 51 Rue Léon Blum, 69100 Villeurbanne, France
+
+Step 4: Delivery Address
+Address : Bâtiment B, Rue Émile Decorps, 69100 Villeurbanne, France
+
+Step 5: Delivery Address
+Address : 113 Avenue Paul Krüger, 69100 Villeurbanne, France
+
+Step 6: Delivery Address
+Address : 9 Place Charles Dufraine, 69001 Lyon 3e Arrondissement, France
+
+Step 7: Return to Departure
+Address : 10 Avenue des Colonnes, 69500 Bron, France
+

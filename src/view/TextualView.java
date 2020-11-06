@@ -203,6 +203,17 @@ public class TextualView extends JPanel{ //implements Observer {
     }
     
     
+    /**
+     * TODO
+     */
+    public void highlightTable(int id) {
+    	Request r = requestList.getListRequests().get(id);
+    	//chercher num = id+1 
+    	//decouper texte 
+    	//int idPickup = r.getPickupAddress().
+    }
+    
+    //+listener on the table
 
     /**
      * 

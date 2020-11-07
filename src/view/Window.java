@@ -397,6 +397,8 @@ public class Window extends JFrame{
     	export_tour.setVisible(true);
     	undo_button.setVisible(true);
     	redo_button.setVisible(true);
+    	load_file.setEnabled(true);
+    	load_requests_file.setEnabled(true);
     	this.repaint();
     }
     
@@ -407,6 +409,8 @@ public class Window extends JFrame{
     			);
     	remove_request.setVisible(true);
     	cancel_remove_request.setVisible(true);
+    	load_file.setEnabled(false);
+    	load_requests_file.setEnabled(false);
     	add_request.setVisible(false);
     	export_tour.setVisible(false);
     	undo_button.setVisible(false);
@@ -431,6 +435,9 @@ public class Window extends JFrame{
     	export_tour.setVisible(false);
     	undo_button.setVisible(false);
     	redo_button.setVisible(false);
+    	
+    	load_file.setEnabled(false);
+    	load_requests_file.setEnabled(false);
     	
     	//button to confirm the Add 
     	add_confirm.setVisible(true);

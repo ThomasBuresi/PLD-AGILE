@@ -26,12 +26,12 @@ import view.Window;
  *
  */
 
-public class ContinueComputationState implements State{
+public class ContinueComputationState extends MapRequestsLoadedState{
 	
 	/**
 	 * To open a dialog window to load the files 
 	 */
-	private JFileChooser fc;
+	//private JFileChooser fc;
 	
 
 	@Override
@@ -74,7 +74,7 @@ public class ContinueComputationState implements State{
 		controller.setCurrentState(controller.deliveryTourState);
 	}
 	
-	
+	/*
 	@Override
 	public void loadRequestsFile(Controller controller, Window window) {
 		fc = new JFileChooser();
@@ -180,7 +180,7 @@ public class ContinueComputationState implements State{
 		}
 		
 		window.repaint();
-	}
+	}*/
 	
 	
 }

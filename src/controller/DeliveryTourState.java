@@ -22,7 +22,7 @@ import view.GraphicalView;
 import view.TextualView;
 import view.Window;
 
-public class DeliveryTourState implements State {
+public class DeliveryTourState extends MapLoadedState {
 	
 	/**
 	 * To open a dialog window to load the files 
@@ -121,7 +121,7 @@ public class DeliveryTourState implements State {
 		//otherwise don't do anything
 		
 	}
-	
+	/*
 	@Override
 	public void loadRequestsFile(Controller controller, Window window) {
 		fc = new JFileChooser();
@@ -227,7 +227,7 @@ public class DeliveryTourState implements State {
 		}
 		
 		window.repaint();
-	}
+	}*/
 	
 	
 	

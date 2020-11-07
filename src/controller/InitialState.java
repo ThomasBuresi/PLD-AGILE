@@ -32,20 +32,15 @@ public class InitialState implements State {
         if (val_ret == JFileChooser.APPROVE_OPTION) {
            File file = fc.getSelectedFile();
            
-           //to print the absolute path of the file
-           //System.out.println("Chemin absolu : "+file.getAbsolutePath()+"\n");
-           
            CityMap cityMap = new CityMap(file.getAbsolutePath());
        	   cityMap.fillMap();
        	   
        	   c.setCityMap(cityMap);
        	   System.out.println("map loaded");
        	   c.setDeliveryTour(null);
-       	   
+       	   c.setRequestList(null);
            GraphicalView graphicalView = w.getGraphicalView();
            TextualView textualView = w.getTextualView();
-           
-           
            
            graphicalView.updateGraphicalCityMap(c);
            //window.repaint();

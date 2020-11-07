@@ -10,7 +10,7 @@ import view.GraphicalView;
 import view.TextualView;
 import view.Window;
 
-public class MapLoadedState implements State{
+public class MapLoadedState extends InitialState{
 	/**
 	 * To open a dialog window to load the files 
 	 */
@@ -55,7 +55,7 @@ public class MapLoadedState implements State{
 		
 		
 	}
-	
+	/*
 	@Override
 	public void loadMap(Controller c,  Window w) {
 		fc = new JFileChooser();
@@ -90,7 +90,7 @@ public class MapLoadedState implements State{
         }
 		
 	}
-	
+	*/
 	@Override
 	public void zoomOut(Controller controller, Window window) {
 		GraphicalView graphicalView = window.getGraphicalView();

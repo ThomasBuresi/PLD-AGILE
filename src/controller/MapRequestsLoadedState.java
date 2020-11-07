@@ -19,13 +19,13 @@ import view.GraphicalView;
 import view.TextualView;
 import view.Window;
 
-public class MapRequestsLoadedState implements State{
+public class MapRequestsLoadedState extends MapLoadedState{
 	
 	/**
 	 * To open a dialog window to load the files 
 	 */
-	private JFileChooser fc;
-	
+	//private JFileChooser fc;
+	/*
 	@Override
 	public void loadRequestsFile(Controller controller, Window window) {
 		fc = new JFileChooser();
@@ -131,7 +131,7 @@ public class MapRequestsLoadedState implements State{
 		}
 		
 		window.repaint();
-	}
+	}*/
 	
 	@Override
 	public void computeDeliveryTour(Controller controller, Window window) {

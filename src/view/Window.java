@@ -152,6 +152,7 @@ public class Window extends JFrame{
     	MouseListen mouseListen = new MouseListen(controller, graphicalView, this);
     	
     	graphicalView.addMouseListener(mouseListen);
+    	graphicalView.addMouseMotionListener(mouseListen);
     	// Main Frame
     	setTitle("Deliver'IF");
         setSize(1300,720);

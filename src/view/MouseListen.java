@@ -96,6 +96,26 @@ public class MouseListen extends MouseAdapter{
 			}
 		} */
 	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		int currentX = e.getX();
+		int currentY = e.getY();
+		int leftX = (pressedX < currentX ? pressedX : currentX);
+    	int rightX = (pressedX < currentX ? currentX : pressedX);
+    	int upY = (pressedY < currentY ? pressedY : currentY);
+    	int downY = (pressedY < currentY ? currentY : pressedY);
+    	int width = rightX - leftX;
+    	int height = downY - upY;
+    	if (width >= 20 && height >= 20) {
+			graphicalView.setDrawRect(true);
+			graphicalView.setRectCoord(leftX, upY, width, height);
+			graphicalView.repaint();
+    	} else {
+    		graphicalView.setDrawRect(false);
+			graphicalView.repaint();
+    	}
+	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
@@ -112,9 +132,10 @@ public class MouseListen extends MouseAdapter{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		graphicalView.setDrawRect(false);
 		int relX = e.getX();
 		int relY = e.getY();
-		if (Math.abs(relX - pressedX)>20 && Math.abs(relY - pressedY) > 20) {
+		if (Math.abs(relX - pressedX) >= 20 && Math.abs(relY - pressedY) >= 20) {
 			int panelHeight = graphicalView.getHeight();
 	    	int panelWidth = graphicalView.getWidth();
 	    	
@@ -130,10 +151,10 @@ public class MouseListen extends MouseAdapter{
 			float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
 
 			//Calculate the new coordinates of the zone to zoom in
-			longMin = longMin + leftX/panelWidth*(longMax - longMin);
-			longMax = longMin + rightX/panelWidth*(longMax - longMin);
-			latMin = latMax - downY/panelHeight*(latMax - latMin);
-			latMax = latMax - upY/panelHeight*(latMax - latMin);
+			longMin = longMin + leftX*(longMax - longMin)/panelWidth;
+			longMax = longMin + rightX*(longMax - longMin)/panelWidth;
+			latMin = latMax - downY*(latMax - latMin)/panelHeight;
+			latMax = latMax - upY*(latMax - latMin)/panelHeight;
 
 			controller.zoomIn(pressedX, pressedY, longMin, longMax, latMin, latMax);
 		}

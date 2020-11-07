@@ -87,11 +87,11 @@ public class GraphicalIntersection {
     	Color colors[] = {Color.red, Color.green, Color.yellow, Color.cyan, Color.pink, Color.orange, Color.gray, Color.magenta};
     	List<Request> requests = requestList.getListRequests();
     	
-    	System.out.println(requestList);
+    	//System.out.println(requestList);
     	
     	int departure_py = height - (int)Math.round((requestList.getDeparture().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-5;
     	int departure_px = (int)Math.round((requestList.getDeparture().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-5;
-    	System.out.println("departure : " + departure_px + " " + departure_py);
+
         g.fillRect(departure_px, departure_py, 10, 10);
       
     	

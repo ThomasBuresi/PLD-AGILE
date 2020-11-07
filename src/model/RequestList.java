@@ -77,7 +77,7 @@ public class RequestList {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
-			System.err.println("Root element: " + doc.getDocumentElement().getNodeName());
+			//System.err.println("Root element: " + doc.getDocumentElement().getNodeName());
 			NodeList depotList = doc.getElementsByTagName("depot");
 			if(depotList.getLength() != 1) {
 				System.err.println("Error : found " + depotList.getLength() + " depots instead of one");
@@ -87,6 +87,7 @@ public class RequestList {
 			departure = cityMap.listIntersection.get(Long.parseLong(depot.getAttribute("address")));
 			// would return null if no corresponding intersection
 			if(departure==null) {
+				System.err.println("Error : the intersection of departure was not found in the map");
 				return false;
 			}
 			departureTime = TimeUtils.timeToSeconds(depot.getAttribute("departureTime"));
@@ -97,16 +98,18 @@ public class RequestList {
 					Element eElement = (Element) node;
 					Intersection pickupAddress = cityMap.getIntersection(Long.valueOf(eElement.getAttribute("pickupAddress")));
 					if(pickupAddress==null) {
+						System.err.println("Error : the intersection of pickup " + Long.valueOf(eElement.getAttribute("pickupAddress")) + " was not found in the map");
 						return false;
 					}
 					Intersection deliveryAddress = cityMap.getIntersection(Long.valueOf(eElement.getAttribute("deliveryAddress")));
 					if(deliveryAddress==null) {
+						System.err.println("Error : the intersection of delivery " + Long.valueOf(eElement.getAttribute("deliveryAddress")) + " was not found in the map");
 						return false;
 					}
 					int pickupDuration = Integer.valueOf(eElement.getAttribute("pickupDuration"));
 					int deliveryDuration = Integer.valueOf(eElement.getAttribute("deliveryDuration"));
 					Request request = new Request(deliveryDuration, deliveryAddress, pickupAddress, pickupDuration,i);
-					System.err.println(request);
+					//System.err.println(request);
 					listRequests.add(request);
 				}
 			}

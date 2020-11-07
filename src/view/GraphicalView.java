@@ -11,10 +11,12 @@ import controller.Controller;
 /**
  * 
  */
-@SuppressWarnings("deprecation")
-public class GraphicalView extends JPanel implements Observer {
 
-	
+public class GraphicalView extends JPanel{
+
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Containing the city map
 	 */
@@ -23,10 +25,23 @@ public class GraphicalView extends JPanel implements Observer {
 	/**
 	 * Selected request id 
 	 */
-	public int id;
+	private int id;
+	
+	/**
+	 * It is true if the rectangle for the zone to zoom in should
+	 * be drawn
+	 */
+	public boolean drawRect;
+	
+	/**
+	 * Coordinates of the zone to draw for the zoom in
+	 */
+	public int[] coordRect;
 		
     /**
-     * Default constructor
+     * Constructor of GraphicalView
+     * 
+     * @param controller
      */
     public GraphicalView(Controller controller) {
     	this.setLayout(null);
@@ -35,6 +50,8 @@ public class GraphicalView extends JPanel implements Observer {
     	
     	graphicalCityMap = new GraphicalCityMap(controller);
     	id=-1;
+    	drawRect = false;
+    	coordRect = new int[4];
     	repaint();
     }
     
@@ -63,22 +80,28 @@ public class GraphicalView extends JPanel implements Observer {
     {     
     	super.paintComponent(g);
     	graphicalCityMap.drawGraphicalCityMap(g, this.getHeight(), this.getWidth(),id);
+    	if (drawRect) {
+    		g.setColor(Color.red);
+    		g.drawRect(coordRect[0], coordRect[1], coordRect[2], coordRect[3]);
+    		g.setColor(new Color(255, 0, 0, 50));
+    		g.fillRect(coordRect[0], coordRect[1], coordRect[2], coordRect[3]);
+    	}
     }
     
-     
-    public void update() {
-        // TODO implement here
-    }
-
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public GraphicalCityMap getGraphicalCityMap() {
 		return graphicalCityMap;
+	}
+
+	public void setRectCoord(int pressedX, int pressedY, int width, int height) {
+		coordRect[0] = pressedX;
+		coordRect[1] = pressedY;
+		coordRect[2] = width;
+		coordRect[3] = height;
+	}
+
+	public void setDrawRect(boolean drawRect) {
+		this.drawRect = drawRect;
 	}
 	
 	

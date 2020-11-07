@@ -139,7 +139,7 @@ public class MapRequestsLoadedState implements State{
 		d.fillDeliveryTour(5000);
 		controller.setDeliveryTour(d);
 		
-		for (Pair<Intersection, List<Segment>> pair: d.getTour()) {
+		/*for (Pair<Intersection, List<Segment>> pair: d.getTour()) {
 			//Intersection i = pair.getFirst();
 			//System.out.println("hello");
 			System.out.println(pair.fst.toString());
@@ -149,7 +149,7 @@ public class MapRequestsLoadedState implements State{
 					System.out.println(s.toString());
 				}
 			}
-		}
+		}*/
 		// print the delivery tour 
 		
 		GraphicalView graphicalView = window.getGraphicalView();

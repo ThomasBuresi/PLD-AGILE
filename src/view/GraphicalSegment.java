@@ -102,9 +102,7 @@ public class GraphicalSegment {
     
     public void drawSegment(Graphics g, int height, int width) 
     {     
-        int i = 0;
         for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
-  		  i += entry.getValue().getListSegments().size();
   		  List<Segment> seg = entry.getValue().getListSegments();
   		  for (Segment s : seg) {
   			  int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
@@ -139,7 +137,7 @@ public class GraphicalSegment {
   		  //i += entry.getValue().getListSegments().size();
   		  List<Segment> seg =  pair.snd;
   		  if(seg!=null) {
-  			  System.out.println(pair.fst.getName());
+  			//System.out.println(pair.fst.getName());
   			for (Segment s : seg) {
     			  int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
     			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);

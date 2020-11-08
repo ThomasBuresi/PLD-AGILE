@@ -104,6 +104,9 @@ public class GraphicalView extends JPanel{
 		this.drawRect = drawRect;
 	}
 	
+	public void setId(int id) {
+		this.id=id;
+	}
 	
 	
 

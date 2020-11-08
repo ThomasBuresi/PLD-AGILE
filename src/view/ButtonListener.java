@@ -97,6 +97,8 @@ public class ButtonListener implements ActionListener {
 			break;
 			
 		case "Remove" :
+			controller.removeRequest();
+			
 			break;
 			
 		case "Cancel removal":
@@ -112,8 +114,11 @@ public class ButtonListener implements ActionListener {
 			
 			break;
 		case "Undo" :
+			controller.undo();
+	
 			break;
 		case "Redo" :
+			controller.redo();
 			break;
 			
 		}

@@ -69,36 +69,18 @@ public class DeliveryTourState extends MapLoadedState {
 		
 		//List<Request> list = c.getRequestList().getListRequests();
 		GraphicalView graphicalView = w.getGraphicalView();
+		TextualView textualView = w.getTextualView();
 		
 		int panelHeight = graphicalView.getHeight();
 		int panelWidth = graphicalView.getWidth();
 		
 		int id = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
 		
-//		//Get coordinates of the zone shown on the map at the moment
-//		float latMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMaxMap();
-//		float latMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLatMinMap();
-//		float longMin = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMinMap();
-//		float longMax = graphicalView.graphicalCityMap.getGraphicalSegment().getLongMaxMap();
-//		
-//		int id = -1;
-//		
-//		for (Request r : list) {
-//			int xInterP = (int)Math.round((r.getPickupAddress().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
-//			int yInterP = panelHeight - (int)Math.round((r.getPickupAddress().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
-//			if ((xCoord >= xInterP - 3) && (xCoord<= xInterP + 3) && (yCoord >= yInterP - 3) && (yCoord<= yInterP + 3)) {
-//				id=r.getId();
-//			}
-//			int xInterD = (int)Math.round((r.getDeliveryAddress().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
-//			int yInterD = panelHeight - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
-//			if ((xCoord >= xInterD - 3) && (xCoord<= xInterD + 3) && (yCoord >= yInterD - 3) && (yCoord<= yInterD + 3)) {
-//				id=r.getId();
-//			}
-//		}
 		
 		System.out.println(id);
 		
 		graphicalView.updateHighlight(id);
+		textualView.highlightTable(id);
 		
 		
 		if(id!=-1) {
@@ -121,6 +103,28 @@ public class DeliveryTourState extends MapLoadedState {
 		//otherwise don't do anything
 		
 	}
+	
+	
+	@Override
+	public void undo(ListOfCommands listOfCdes){
+		listOfCdes.undo();
+		
+		//update views TODO
+		
+	}
+
+	@Override
+	public void redo(ListOfCommands listOfCdes){
+		listOfCdes.redo();
+		
+		//update views TODO
+		
+	}
+	
+	
+	
+	
+	
 	/*
 	@Override
 	public void loadRequestsFile(Controller controller, Window window) {

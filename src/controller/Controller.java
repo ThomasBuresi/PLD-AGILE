@@ -41,6 +41,7 @@ public class Controller {
     public Controller() {
     	currentState = initialState;
     	window = new Window(this);
+    	listOfCommands= new ListOfCommands();
     	cityMap=null; 
     	requestList=null;
     	deliveryTour=null;
@@ -108,8 +109,13 @@ public class Controller {
     	currentState.leftClick(this,window,xCoord,yCoord);
     }
     
+    public void removeRequest() {
+    	currentState.removeRequest(this,window);//RemoveCommand
+    }
+    
     public void cancelRemove() {
     	window.getGraphicalView().updateHighlight(-1);
+    	window.getTextualView().highlightTable(-1);
     	window.setVisibleAddExport();
     	this.setCurrentState(deliveryTourState);
     }
@@ -121,7 +127,7 @@ public class Controller {
      * @return
      */
     public void undo() {
-        // TODO implement here
+        currentState.undo(listOfCommands);
         
     }
 
@@ -129,7 +135,7 @@ public class Controller {
      * @return
      */
     public void redo() {
-        // TODO implement here
+    	currentState.redo(listOfCommands);
         
     }
 
@@ -170,6 +176,10 @@ public class Controller {
 	
 	public void setListOfCommands(ListOfCommands list) {
 		listOfCommands=list;
+	}
+	
+	public Window getWindow() {
+		return window;
 	}
 	
 }

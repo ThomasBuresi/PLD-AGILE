@@ -129,4 +129,26 @@ public interface State {
 	public default void leftClick(Controller c, Window w,int xCoord,int yCoord) {};
 
 
+	/**
+	 * Method to process the removal of the request from the tour and add it to the list of commands for the 
+	 * undo/redo. 
+	 * 
+	 * @param c controller
+	 * @param w the window
+	 */
+	public default void removeRequest(Controller c,Window w) {};
+	
+	/**
+	 * Method called by the controller after a click on the button "Undo"
+	 * @param l the current list of commands
+	 */
+	public default void undo(ListOfCommands l){};
+	
+	/**
+	 * Method called by the controller after a click on the button "Redo"
+	 * @param l the current list of commands
+	 */
+	public default void redo(ListOfCommands l){};
+	
+	
 }

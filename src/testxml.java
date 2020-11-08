@@ -111,8 +111,8 @@ public class testxml {
 			System.out.print(" " + tsp.getSolution(m));
 		}
 		System.out.println(" 0");
-		DeliveryTour d = new DeliveryTour("src/resources/largeMap.xml","src/resources/requestsSmall2.xml");
-		d.fillDeliveryTour();
+		//DeliveryTour d = new DeliveryTour("src/resources/largeMap.xml","src/resources/requestsSmall2.xml");
+		//d.fillDeliveryTour();
 //		d.addDeparture(reqlist.getDeparture());
 //		d.addIntersectionDetail("");
 //		// on commence ï¿½ un car on a dï¿½jï¿½ traitï¿½ le cas du dï¿½part
@@ -140,13 +140,13 @@ public class testxml {
 //			d.addIntersectionDetail("Delivery Address");
 //			d.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 //		}
-//		//retour au point de départ :
+//		//retour au point de dï¿½part :
 //		
 //		}
 //		d.addIntersectionDetail("Return to Departure");
 //		d.addStep(reqlist.getDeparture(), g.getSegmentPaths()[tsp.getSolution(2*reqlist.getListRequests().size())][tsp.getSolution(0)]); // inverser l'ordre??
-	d.affiche();
-	d.writeDeliveryTourToFile("test.txt");
+//	d.affiche();
+//	d.writeDeliveryTourToFile("test.txt");
 	
     //Bienvenue sur le projet AGILE 
   }

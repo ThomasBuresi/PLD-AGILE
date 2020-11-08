@@ -150,12 +150,12 @@ public class GraphicalIntersection {
 		for (Request r : list) {
 			int xInterP = (int)Math.round((r.getPickupAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
 			int yInterP = panelHeight - (int)Math.round((r.getPickupAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*panelHeight);
-			if ((xCoord >= xInterP - 3) && (xCoord<= xInterP + 3) && (yCoord >= yInterP - 3) && (yCoord<= yInterP + 3)) {
+			if ((xCoord >= xInterP - 5) && (xCoord<= xInterP + 5) && (yCoord >= yInterP - 5) && (yCoord<= yInterP + 5)) {
 				id=r.getId();
 			}
 			int xInterD = (int)Math.round((r.getDeliveryAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
 			int yInterD = panelHeight - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*panelHeight);
-			if ((xCoord >= xInterD - 3) && (xCoord<= xInterD + 3) && (yCoord >= yInterD - 3) && (yCoord<= yInterD + 3)) {
+			if ((xCoord >= xInterD - 5) && (xCoord<= xInterD + 5) && (yCoord >= yInterD - 5) && (yCoord<= yInterD + 5)) {
 				id=r.getId();
 			}
 		}

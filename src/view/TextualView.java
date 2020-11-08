@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 
 import com.byteowls.jopencage.JOpenCageGeocoder;
@@ -35,6 +38,8 @@ public class TextualView extends JPanel{ //implements Observer {
 	/**
      * Default constructor
      */
+	private Controller controller;
+	
 	private RequestList requestList;
 	
 	private DeliveryTour deliveryTour;
@@ -42,6 +47,11 @@ public class TextualView extends JPanel{ //implements Observer {
 	private JTable requestTable;
 	
 	private JScrollPane scrollPane;
+	
+	/**
+	 * To remember which cell is selected 
+	 */
+	private int iSelectedRequest;
 	
 	
     /**
@@ -51,6 +61,11 @@ public class TextualView extends JPanel{ //implements Observer {
     	super(new GridLayout(1,0));
     	setBounds(950,60,300,460);
         setBackground(Color.white);
+        
+        iSelectedRequest=-1;
+        
+        this.controller=controller;
+        
         //requestTable = new JTable();
     	//super(new GridLayout(1,0));
         
@@ -181,6 +196,7 @@ public class TextualView extends JPanel{ //implements Observer {
 		//MyCellRenderer MyRenderer=new MyCellRenderer();
 		
 		requestTable = new JTable(tableModel);
+		requestTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		//JScrollPane tableSP = new JScrollPane(requestTable);
 		//tableSP.setPreferredSize(new Dimension(400,800));
 		//requestTable.setAutoscrolls(true);
@@ -192,6 +208,16 @@ public class TextualView extends JPanel{ //implements Observer {
 			requestTable.setRowHeight(k, 80);
 			k++;
 		}
+		
+		ListSelectionModel selectionModel = requestTable.getSelectionModel();
+
+		selectionModel.addListSelectionListener(new ListSelectionListener() {
+		    public void valueChanged(ListSelectionEvent e) {
+		        handleSelectionEvent(e);
+		    }
+		});
+		
+		
 		//requestTable.setBounds(0, 0, 300,460);
 		//requestTable.setPreferredScrollableViewportSize(new Dimension(300, 460));
 		//requestTable.setVisible(true);
@@ -207,22 +233,71 @@ public class TextualView extends JPanel{ //implements Observer {
      * TODO
      */
     public void highlightTable(int id) {
-    	Request r = requestList.getListRequests().get(id);
-    	int k = 0 ;
-		while(k < requestTable.getRowCount()) {
-			//yourString.substring(yourString.indexOf("no") + 3 , yourString.length());
-			String s = requestTable.getModel().getValueAt(k, 0).toString();
-			String idRequestS = s.substring(s.indexOf("Request ")+3, s.length());
-			int idRequest = 0;
-			//if(true);
-			k++;
-		}
-    	//chercher num = id+1 
-    	//decouper texte 
-    	//int idPickup = r.getPickupAddress().
+    	int []rows = {-1,-1};
+    	
+    	iSelectedRequest=id;
+    	
+    	if(id!=-1) {
+    		Request r = requestList.getListRequests().get(id);
+        	int k = 0 ;
+        	
+        	int j=0;
+    		while(k < requestTable.getRowCount()) {
+    			//yourString.substring(yourString.indexOf("no") + 3 , yourString.length());
+    			String s = requestTable.getModel().getValueAt(k, 0).toString();
+    			String idRequestS = s.substring("<HTML>Request ".length(), "<HTML>Request ".length()+3);
+    			String str = idRequestS.replaceAll("[^-?0-9]+", ""); 
+    			System.out.println("we get as an id : "+str);
+
+    			int idRequest = Integer.parseInt(str);
+    			
+    			if(id==(idRequest-1)) {
+    				//we need a custom cell renderer s
+    				rows[j]=k;
+    				j++;
+    			}
+    			k++;
+    		}
+    	}
+    	
+		
+		requestTable.getColumnModel().getColumn(0).setCellRenderer(new HighlightCellRenderer(rows));
+
+		repaint();
     }
     
     //+listener on the table
+    
+    
+    protected void handleSelectionEvent(ListSelectionEvent e) {
+        if (e.getValueIsAdjusting())
+            return;
+
+        // e.getSource() returns an object like this
+        // javax.swing.DefaultListSelectionModel 1052752867 ={11}
+        // where 11 is the index of selected element when mouse button is released
+
+        String strSource= e.getSource().toString();
+        
+        
+        int start = strSource.indexOf("{")+1,
+            stop  = strSource.length()-1;
+        int index = Integer.parseInt(strSource.substring(start, stop));
+        
+        String s = requestTable.getModel().getValueAt(index, 0).toString();
+		String idRequestS = s.substring("<HTML>Request ".length(), "<HTML>Request ".length()+3);
+		String str = idRequestS.replaceAll("[^-?0-9]+", ""); 
+		System.out.println("we get as an id : "+str);
+
+		iSelectedRequest = Integer.parseInt(str)-1;
+		
+		
+		highlightTable(iSelectedRequest);
+		
+		//update graphical view ?? with iSelectedRequest ! 
+		controller.getWindow().getGraphicalView().updateHighlight(iSelectedRequest);
+		
+    }
 
     /**
      * 
@@ -247,6 +322,10 @@ public class TextualView extends JPanel{ //implements Observer {
     	}
         
         repaint();
+    }
+    
+    public int getISelectedRequest () {
+    	return iSelectedRequest ;
     }
 
 

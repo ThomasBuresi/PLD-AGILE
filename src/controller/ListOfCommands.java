@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 
 /**
- * Exporter from PlaCos
+ * Exported from PlaCo
  * 
  * @author Christine Solnon
  *

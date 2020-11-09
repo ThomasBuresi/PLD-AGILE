@@ -31,7 +31,7 @@ public class Controller {
 	protected final RequestHighlightedState requestHighlighted = new RequestHighlightedState();
 	protected final ContinueComputationState continueComputationState = new ContinueComputationState();
 	protected final AddRequestState addRequestState = new AddRequestState();
-	protected final RemoveRequestState removeRequestState = new RemoveRequestState();
+	public final RemoveRequestState removeRequestState = new RemoveRequestState();
 	
 	
 	
@@ -55,7 +55,7 @@ public class Controller {
 	 * @param state the new current state
 	 * from PlaCo 
 	 */
-	protected void setCurrentState(State state){
+	public void setCurrentState(State state){
 		currentState = state;
 	}
 
@@ -97,8 +97,12 @@ public class Controller {
     	currentState.changeToAddRequestMode(this,window);
     }
     
-    public void addRequest(int [] xCoord, int [] yCoord) { //AddCommand , pass 4 Intersections as parameter
-    	currentState.addRequest(this, window, xCoord, yCoord);
+    public void addRequest() { //AddCommand , pass 4 Intersections as parameter
+    	currentState.addRequest(this, window);
+    }
+    
+    public void reInitialiseSelection() {
+    	currentState.reInitialiseSelection(this,window);
     }
     
     public void exportTour() {
@@ -113,7 +117,11 @@ public class Controller {
     	currentState.removeRequest(this,window);//RemoveCommand
     }
     
-    public void cancelRemove() {
+    /**
+     * TODO Move the content of this method to the corresponding state : remove/add where needed 
+     */
+    
+    public void cancel() {
     	window.getGraphicalView().updateHighlight(-1);
     	window.getTextualView().highlightTable(-1);
     	window.setVisibleAddExport();
@@ -127,7 +135,7 @@ public class Controller {
      * @return
      */
     public void undo() {
-        currentState.undo(listOfCommands);
+        currentState.undo(this,window,listOfCommands);
         
     }
 
@@ -135,7 +143,7 @@ public class Controller {
      * @return
      */
     public void redo() {
-    	currentState.redo(listOfCommands);
+    	currentState.redo(this,window,listOfCommands);
         
     }
 

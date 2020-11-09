@@ -84,16 +84,19 @@ public class ButtonListener implements ActionListener {
 			break;
 		
 		case "Add" :
-			// TODO 
 			controller.changeToAddRequestMode();
 			break;
 			
 		case "Confirm Add":
 			//4 coordinates to share 
 			//where to we get them ? before or at the controller level
-			int [] xCoord; //4 x coord in order 
-			int [] yCoord; //4 y coord in order
+			//int [] xCoord; //4 x coord in order 
+			//int [] yCoord; //4 y coord in order
 			//controller.addRequest(xCoord, yCoord);
+			controller.addRequest();
+			break;
+		case "Re initialise the selection":
+			controller.reInitialiseSelection();
 			break;
 			
 		case "Remove" :
@@ -101,8 +104,8 @@ public class ButtonListener implements ActionListener {
 			
 			break;
 			
-		case "Cancel removal":
-			controller.cancelRemove();
+		case "Cancel":
+			controller.cancel();
 			break;
 			
 		case "Export Tour File" :

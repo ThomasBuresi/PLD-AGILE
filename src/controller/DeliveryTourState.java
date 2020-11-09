@@ -106,17 +106,25 @@ public class DeliveryTourState extends MapLoadedState {
 	
 	
 	@Override
-	public void undo(ListOfCommands listOfCdes){
+	public void undo(Controller c, Window w,ListOfCommands listOfCdes){
 		listOfCdes.undo();
+		GraphicalView graphicalView = w.getGraphicalView();
+		TextualView textualView = w.getTextualView();
 		
+		graphicalView.updateGraphicalCityMap(c);
+		textualView.update(c);
 		//update views TODO
 		
 	}
 
 	@Override
-	public void redo(ListOfCommands listOfCdes){
+	public void redo(Controller c, Window w,ListOfCommands listOfCdes){
 		listOfCdes.redo();
+		GraphicalView graphicalView = w.getGraphicalView();
+		TextualView textualView = w.getTextualView();
 		
+		graphicalView.updateGraphicalCityMap(c);
+		textualView.update(c);
 		//update views TODO
 		
 	}

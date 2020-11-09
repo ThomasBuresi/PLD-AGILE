@@ -27,6 +27,16 @@ public class GraphicalCityMap {
 	 * 
 	 */
 	//private static final long serialVersionUID = 1L;
+	/**
+	 * True if we are in add mode and should represent the selected intersections
+	 */
+	public boolean addMode;
+	
+	/** 
+	 * Clicked intersection
+	 */
+	public Intersection i;
+	
 	
 	private GraphicalSegment graphicalSegment;
 	private GraphicalIntersection graphicalIntersection;
@@ -38,6 +48,9 @@ public class GraphicalCityMap {
      * @param controller
      */
     public GraphicalCityMap(Controller controller) {
+    	
+    	addMode=false;
+    	
     	if (controller.getCityMap() != null) {
     		listIntersection = controller.getCityMap().getListIntersection();
     	} else {
@@ -87,6 +100,7 @@ public class GraphicalCityMap {
     {     
     	if (graphicalIntersection != null) {
     		graphicalIntersection.drawIntersection(g, height, width);
+    		
     	}
     	if (graphicalSegment != null) {
     		graphicalSegment.drawSegment(g, height, width);
@@ -97,6 +111,15 @@ public class GraphicalCityMap {
     	if(id!=-1) {
     		graphicalIntersection.drawHighlight(g, height, width, id);
     	}
+    	
+    	
+    	if(addMode) {
+    		graphicalIntersection.addSelectedIntersection(i);
+    		addMode=false;
+    	}
+    	
+    	
+    		
     	//int id 
     }
    
@@ -120,6 +143,10 @@ public class GraphicalCityMap {
 
 	public GraphicalIntersection getGraphicalIntersection() {
 		return graphicalIntersection;
+	}
+	
+	public void setClickedIntersection(Intersection i) {
+		this.i=i;
 	}
     
 }

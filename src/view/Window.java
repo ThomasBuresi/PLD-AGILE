@@ -78,6 +78,10 @@ public class Window extends JFrame{
 	 */
 	private JButton add_confirm;
 	
+	/**
+	 * Button to re initialise the selection of the intersections for the adding
+	 */
+	private JButton re_initialise;
 	
 	/**
 	 * Button to remove a request from the tour
@@ -85,7 +89,7 @@ public class Window extends JFrame{
 	private JButton remove_request;
 	
 	/**
-	 * Button to cancel the removal a request to the tour
+	 * Button to cancel the removal or adding a request to the tour
 	 */
 	private JButton cancel_remove_request;
 	
@@ -155,7 +159,7 @@ public class Window extends JFrame{
     	graphicalView.addMouseMotionListener(mouseListen);
     	// Main Frame
     	setTitle("Deliver'IF");
-        setSize(1300,720);
+        setSize(1300,750);
         setLocation(100,10);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -205,6 +209,12 @@ public class Window extends JFrame{
         add_confirm.setVisible(false);
         add_confirm.setBounds(950,550,300,30);
         
+        // re initialise the intersections selected to be added 
+        re_initialise = new JButton("Re initialise the selection");
+        re_initialise.addActionListener(buttonListener);
+        re_initialise.setVisible(false);
+        re_initialise.setBounds(950,630,300,30);
+        
         // remove requests from the tour
         remove_request = new JButton("Remove");
         remove_request.addActionListener(buttonListener);
@@ -212,7 +222,7 @@ public class Window extends JFrame{
         remove_request.setBounds(950,550,300,30);
         
         // cancel remove requests from the tour
-        cancel_remove_request = new JButton("Cancel removal");
+        cancel_remove_request = new JButton("Cancel");
         cancel_remove_request.addActionListener(buttonListener);
         cancel_remove_request.setVisible(false);
         cancel_remove_request.setBounds(950,590,300,30);
@@ -240,11 +250,12 @@ public class Window extends JFrame{
         
         //Indications for the user
         indications = new JTextArea("Your Next Step : \r\n"
-        		+ "Please load your City Map File (XML). \r\n");
+        		+ "Please load your City Map File (XML). \r\n"
+        		);
         indications.setEditable(false);
         indications.setLineWrap(true);
         indications.setWrapStyleWord(true);
-        indications.setBounds(10, 10, 540, 80);
+        indications.setBounds(10, 10, 610, 140);
         //indications.setBorder(BorderFactory.createLineBorder(Color.black));
         
         legend = new JTextArea();
@@ -267,7 +278,7 @@ public class Window extends JFrame{
         //For the bottom indication zone
         bottom_panel = new JPanel();
         bottom_panel.setLayout(null);
-        bottom_panel.setBounds(20,550,900,110);
+        bottom_panel.setBounds(20,550,900,150);
         bottom_panel.setBackground(Color.white);
         bottom_panel.add(indications);
         
@@ -290,6 +301,7 @@ public class Window extends JFrame{
         this.add(skip_continue_calculation);
         this.add(add_request);
         this.add(add_confirm);
+        this.add(re_initialise);
         this.add(remove_request);
         this.add(cancel_remove_request);
         this.add(export_tour);
@@ -327,10 +339,10 @@ public class Window extends JFrame{
         super.paint(g);	
         if (bottom_panel.getComponentCount() > 1) {
         	g.setColor(Color.black);
-        	g.fillRect(705, 611, 10, 10);
+        	g.fillRect(715, 611, 10, 10);
         	g.setColor(Color.red);
-        	g.fillRect(705, 627, 10, 10);
-        	g.fillOval(705, 643, 10, 10);
+        	g.fillRect(715, 627, 10, 10);
+        	g.fillOval(715, 643, 10, 10);
         }
         
     }
@@ -345,7 +357,9 @@ public class Window extends JFrame{
     
     public void setVisibleRequestButton() {
     	indications.setText("Your Next Step : \r\n"
-    			+ "Please load your Requests File (XML). ");
+    			+ "Please load your Requests File (XML).\r\n "
+    			+"--> Zoom in : draw a rectangle by clicking on the map where you want to zoom.\r\n"
+        		+"--> Zoom out : button at the right upper corner of the map. ");
     	load_requests_file.setVisible(true);
     	skip_continue_calculation.setVisible(false);
     	add_request.setVisible(false);
@@ -363,7 +377,9 @@ public class Window extends JFrame{
     
     public void setVisibleCalculateButton() {
     	indications.setText("Your Next Step : \r\n"
-    			+ "Click on Calculate Delivery Tour to run the algorithm and get an optimized delivery tour on the map. ");
+    			+ "Click on Calculate Delivery Tour to run the algorithm and get an optimized delivery tour on the map. \r\n"
+    			+"--> Zoom in : draw a rectangle by clicking on the map where you want to zoom.\r\n"
+        		+"--> Zoom out : button at the right upper corner of the map. ");
     	calculate_tour.setVisible(true);
     	continue_calculation.setVisible(false);
     	skip_continue_calculation.setVisible(false);
@@ -375,7 +391,9 @@ public class Window extends JFrame{
     
     public void setContinueCalculation() {
     	indications.setText("Your Next Step : \r\n"
-    			+ "Click on Continue to a more optimized tour since it will be calculated for 20 additional seconds. ");
+    			+ "Click on Continue to a more optimized tour since it will be calculated for 20 additional seconds. \r\n"
+    			+"--> Zoom in : draw a rectangle by clicking on the map where you want to zoom.\r\n"
+        		+"--> Zoom out : button at the right upper corner of the map. ");
     	calculate_tour.setVisible(false);
     	continue_calculation.setVisible(true);
     	skip_continue_calculation.setVisible(true);
@@ -387,7 +405,9 @@ public class Window extends JFrame{
     			+ "Your Delivery Tour has been computed, you have 3 options : \r\n"
     			+"1. You can export the Delivery Tour.\r\n"
     			+"2. You can go add request by clickin on Add.\r\n" 
-    			+"3. You can remove a request by selecting one of its elements on the map or in the list.\r\n");
+    			+"3. You can remove a request by selecting one of its elements on the map or in the list.\r\n"
+    			+"--> Zoom in : draw a rectangle by clicking on the map where you want to zoom.\r\n"
+        		+"--> Zoom out : button at the right upper corner of the map. ");
     	calculate_tour.setVisible(false);
     	continue_calculation.setVisible(false);
     	skip_continue_calculation.setVisible(false);
@@ -395,6 +415,7 @@ public class Window extends JFrame{
     	cancel_remove_request.setVisible(false);
     	add_request.setVisible(true);
     	export_tour.setVisible(true);
+    	re_initialise.setVisible(false);
     	undo_button.setVisible(true);
     	redo_button.setVisible(true);
     	load_file.setEnabled(true);
@@ -406,12 +427,14 @@ public class Window extends JFrame{
     	indications.setText("Your Next Step : \r\n"
     			+ "You can click on a point and its request elements are highlighted.\r\n"
     			+"If you wish to cancel your selection reclick on one of its elements, otherwise click on \"Remove\" to delete the request from the Delivery Tour. \r\n"
-    			);
+    			+"--> Zoom in : draw a rectangle by clicking on the map where you want to zoom.\r\n"
+        		+"--> Zoom out : button at the right upper corner of the map. ");
     	remove_request.setVisible(true);
     	cancel_remove_request.setVisible(true);
     	load_file.setEnabled(false);
     	load_requests_file.setEnabled(false);
     	add_request.setVisible(false);
+    	re_initialise.setVisible(false);
     	export_tour.setVisible(false);
     	undo_button.setVisible(false);
     	redo_button.setVisible(false);
@@ -426,11 +449,14 @@ public class Window extends JFrame{
     			+"2. The point in the Tour preceding this pickup.\r\n" 
     			+"3. The new delivery point.       "
     			+"4. The point in the Tour preceding this delivery.\r\n"
-    			+"Then confirm addition by clicking \"Confirm Add\".\r\n");
+    			+"Then confirm addition by clicking \"Confirm Add\" or select others and click on \"Re initialise the selection\".\r\n"
+    			+"--> Zoom in : draw a rectangle by clicking on the map where you want to zoom.\r\n"
+        		+"--> Zoom out : button at the right upper corner of the map. ");
     	
     	calculate_tour.setVisible(false);
     	continue_calculation.setVisible(false);
     	skip_continue_calculation.setVisible(false);
+    	
     	add_request.setVisible(false);
     	export_tour.setVisible(false);
     	undo_button.setVisible(false);
@@ -441,6 +467,8 @@ public class Window extends JFrame{
     	
     	//button to confirm the Add 
     	add_confirm.setVisible(true);
+    	cancel_remove_request.setVisible(true);
+    	re_initialise.setVisible(true);
     	
     	//can't load when adding 
     	load_file.setVisible(false);
@@ -456,7 +484,7 @@ public class Window extends JFrame{
     			+ "-   Deposit (Start point)\n" 
     			+ "-   Pickup address\n"
     			+ "-   Delivery address");
-    	legend.setBounds(700, 10, 200, 80);
+    	legend.setBounds(710, 10, 200, 80);
     	legend.setEditable(false);
     	bottom_panel.add(legend);
     	this.repaint();

@@ -109,7 +109,13 @@ public interface State {
 	 * @param c controller
 	 * @param w the window
 	 */
-	public default void addRequest(Controller c, Window w, int [] xCoord, int[] yCoord) {};
+	public default void addRequest(Controller c, Window w) {};
+	
+	/**
+	 * TODO
+	 */
+	public default void reInitialiseSelection(Controller c, Window w) {};
+	
 	
 	/**
 	 * Method called by the controller after a click on the button "Export Tour File".
@@ -142,13 +148,13 @@ public interface State {
 	 * Method called by the controller after a click on the button "Undo"
 	 * @param l the current list of commands
 	 */
-	public default void undo(ListOfCommands l){};
+	public default void undo(Controller c, Window w,ListOfCommands l){};
 	
 	/**
 	 * Method called by the controller after a click on the button "Redo"
 	 * @param l the current list of commands
 	 */
-	public default void redo(ListOfCommands l){};
+	public default void redo(Controller c, Window w,ListOfCommands l){};
 	
 	
 }

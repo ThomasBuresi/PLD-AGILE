@@ -199,7 +199,7 @@ public class DeliveryTour {
 		
 		this.ordretsp.add(currentsolution);
 		}
-		//retour au point de départ :
+		//retour au point de dï¿½part :
 
 		this.ordretsp.add(0);
 		this.addIntersectionDetail("Return to Departure");

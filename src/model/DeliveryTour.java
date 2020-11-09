@@ -43,7 +43,6 @@ public class DeliveryTour {
 	CityMap map ;
 	RequestList reqlist;
 	
-	List <java.time.>
 	/**
      * Represents the graph with the shortest distance between all the 
      * intersections present in the map 
@@ -239,7 +238,7 @@ public class DeliveryTour {
     					segmentsuivant = s;
     					if (segmentsuivant != null && segmentprecedent != null) {
     						if (i != dernierseg) {
-        						if (segmentprecedent != null && segmentsuivant != null && segmentsuivant.getName().equals(segmentprecedent.getName())!= true) {
+        						if (segmentsuivant.getName().equals(segmentprecedent.getName())!= true && !segmentsuivant.getName().equals("Name absent")) {
             						longueur += (int) segmentprecedent.length;
             						br.write("          For " + longueur + "m take " + segmentprecedent.getName()+ System.getProperty("line.separator"));
             						longueur = 0;
@@ -267,10 +266,11 @@ public class DeliveryTour {
     					}
     					
     			}
+    			br.write (System.getProperty("line.separator"));
     			if (p!=0) {
     				br.write("Step " + p +": "+ this.pickupOrDeliver.get(p)+ System.getProperty("line.separator"));
     				br.write("Address : " + pair.fst.getName() + System.getProperty("line.separator"));
-    				br.write (System.getProperty("line.separator"));
+    				
     			}
     			p++;
             }

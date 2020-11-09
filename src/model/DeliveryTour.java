@@ -11,6 +11,7 @@ import controller.Controller;
 import tsp.DijkstraGraph;
 import tsp.TSP;
 import tsp.TSP2;
+import tsp.TSP3;
 
 
 
@@ -60,7 +61,7 @@ public class DeliveryTour {
     public DeliveryTour(Controller controller) {
 		this.tour = new ArrayList <Pair<Intersection, List<Segment>>>();
 		this.pickupOrDeliver =new ArrayList<String>();
-		this.tsp = new TSP2();
+		this.tsp = new TSP3();
 		this.map = controller.getCityMap();
 		this.reqlist = controller.getRequestList();
 		this.g = new DijkstraGraph(this.map, this.reqlist);

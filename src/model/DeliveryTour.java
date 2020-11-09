@@ -97,7 +97,8 @@ public class DeliveryTour {
      * @param i the index after which the new step should be added
      * @param step the intersection to be added
      */
-	public void addIntermediateStep(int i, Intersection step) {
+	public void addIntermediateStep(Intersection indexprecedent, Intersection step) {
+		int i = this.getIndexOfIntersection(indexprecedent);
 		Pair<Intersection, List<Segment>> previousStep = tour.get(i);
 		tour.add(++i,
 				new Pair<>(step, DijkstraGraph.computeShortestPath(previousStep.fst, step).getAllPreviousSegments()));
@@ -127,7 +128,7 @@ public class DeliveryTour {
 	/**
      * TODO
      */ 
-	public void removeStep(Intersection i) {
+	public Intersection removeStep(Intersection i) {
 		int index= this.getIndexOfIntersection(i);
 		this.tour.remove(index);
 		this.pickupOrDeliver.remove(index);
@@ -135,6 +136,7 @@ public class DeliveryTour {
 		Intersection temp = tour.get(index).fst;
 		List <Segment> tempSeg = g.getSegmentPaths()[index][index-1];
 		tour.set(index, new Pair<Intersection, List<Segment>>(temp,tempSeg));
+		return tour.get(index-1).fst;
 	}
 
 
@@ -229,16 +231,27 @@ public class DeliveryTour {
     				Segment segmentprecedent = null;
     				Segment segmentsuivant;
     				float longueur = 0.0f;
-    				for (Segment s : seg) {
+    				int dernierseg = seg.size();
+    				int i =1;
+    				for (Segment s : s
+    						
+    						eg) {
     					segmentsuivant = s;
-    					if (segmentprecedent != null && segmentsuivant != null && segmentsuivant.getName().equals(segmentprecedent.getName())!= true) {
-    						longueur += segmentprecedent.length;
-    						br.write("          Pendant" + longueur + "m prendre " + segmentprecedent.getName()+ System.getProperty("line.separator"));
-    						longueur = 0.0f;
+    					if (i != dernierseg) {
+    						if (segmentprecedent != null && segmentsuivant != null && segmentsuivant.getName().equals(segmentprecedent.getName())!= true) {
+        						longueur += segmentprecedent.length;
+        						br.write("          For" + longueur + "m take " + segmentprecedent.getName()+ System.getProperty("line.separator"));
+        						longueur = 0.0f;
+        					}
+        					else {
+        						
+        					}
     					}
     					else {
     						
     					}
+    					segmentprecedent= segmentsuivant;
+    					i++;
     				}
     			}
     			if (p!=0) {

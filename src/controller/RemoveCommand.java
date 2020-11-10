@@ -90,6 +90,7 @@ public class RemoveCommand implements Command {
         deliveryTour.addIntermediateStep(beforeDelivery, delivery,false);
         controller.getRequestList().getListRequests().add(r.getId(),r);
         controller.setDeliveryTour(deliveryTour);
+        controller.getWindow().getTextualView().update(controller);
     	
     	
         //return null;

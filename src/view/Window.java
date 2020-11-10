@@ -518,6 +518,10 @@ public class Window extends JFrame{
     	bottom_panel.remove(legend);
     	this.repaint();
     }
+    
+    public void setPopUpExport() {
+    	JOptionPane.showMessageDialog(this, "The delivery route was exported correctly.");
+    }
 
 
 

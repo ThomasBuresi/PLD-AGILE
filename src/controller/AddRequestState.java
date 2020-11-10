@@ -24,9 +24,10 @@ public class AddRequestState implements State{
 			ListOfCommands list =controller.getListOfCommands();
 			list.add(new AddCommand(controller,controller.getDeliveryTour(),graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded()));
 			controller.setListOfCommands(list);
-			
+
 			System.out.println(controller.getDeliveryTour().toString());
-			controller.getDeliveryTour().affiche();
+			//controller.getDeliveryTour().affiche();
+
 			System.out.println(controller.getRequestList().toString());
 			
 			

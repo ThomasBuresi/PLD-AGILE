@@ -52,7 +52,7 @@ public class DeliveryTourState extends MapLoadedState {
 		
 		
 		//pop up to confirm the export 
-		//w.setPopUpExport()
+		w.setPopUpExport();
 	}
 	
 	

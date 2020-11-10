@@ -26,7 +26,7 @@ public class AddRequestState implements State{
 			controller.setListOfCommands(list);
 			
 			//System.out.println(controller.getDeliveryTour().toString());
-			controller.getDeliveryTour().affiche();
+			//controller.getDeliveryTour().affiche();
 			//System.out.println(controller.getRequestList().toString());
 			
 			

@@ -27,6 +27,7 @@ import model.Intersection;
 import model.Request;
 import model.RequestList;
 import model.Segment;
+import model.TimeDelivery;
 
 /**
  * 
@@ -147,6 +148,7 @@ public class TextualView extends JPanel{ //implements Observer {
     	this.remove(scrollPane);
     	
     	requestList=controller.getRequestList();
+    	List <TimeDelivery> times = deliveryTour.computeTime();
     	
     	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
     	
@@ -184,6 +186,9 @@ public class TextualView extends JPanel{ //implements Observer {
 		tableModel.addColumn("Requests");
 		String str;
 		
+		//at 0 is the time for the departure which we don't display 
+		int p=1;
+		
 		for (Pair<Pair<Integer, Boolean>, Intersection> pair : intersections) {
 			String address = pair.snd.getName();
 			
@@ -193,12 +198,12 @@ public class TextualView extends JPanel{ //implements Observer {
 			
 			str="<HTML>" + ("Request Id - " + (pair.fst.fst+1) +" : ") + "<br>";
 			if (!pair.fst.snd) {
-				str += "PICKUP - " + address + "</HTML>"; 
+				str += "PICKUP - " + address +" at "+times.get(p).toString()+ "</HTML>"; 
 			} else {
-				str+= "DELIVERY - " + address + "</HTML>"; 
+				str+= "DELIVERY - " + address +" at "+times.get(p).toString()+ "</HTML>"; 
 			}
 			
-			
+			p++;
 			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
 		}
 		

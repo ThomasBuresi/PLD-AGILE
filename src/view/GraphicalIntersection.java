@@ -174,6 +174,7 @@ public class GraphicalIntersection {
     			if (r.getDeliveryAddress().getIdIntersection() == i.getIdIntersection() || 
     					r.getPickupAddress().getIdIntersection() == i.getIdIntersection()) {
     				toBeAdded.add(i);
+    				return;
     			}
     		}
     	} else if (toBeAdded.size() == 0 || toBeAdded.size() == 2) {
@@ -182,9 +183,7 @@ public class GraphicalIntersection {
 
     }
     
- 
-    	
-  
+
     
     public Intersection getClickedIntersection(int xCoord,int yCoord, int panelHeight, int panelWidth) {
     	for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {

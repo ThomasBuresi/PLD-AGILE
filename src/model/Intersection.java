@@ -57,6 +57,7 @@ public class Intersection {
     	this.latitude = latitude;
     	this.idIntersection= idIntersection;
     	this.listSegments = new ArrayList<Segment>();
+    	this.name=null;
     			
     }
 	

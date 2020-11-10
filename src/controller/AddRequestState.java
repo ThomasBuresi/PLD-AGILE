@@ -18,11 +18,13 @@ public class AddRequestState implements State{
 
 		if(graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded().size()==4) {
 			
+			System.out.println(graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded().toString());
+			
 			ListOfCommands list =controller.getListOfCommands();
 			list.add(new AddCommand(controller,controller.getDeliveryTour(),graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded()));
 			controller.setListOfCommands(list);
 			
-			System.out.println(controller.getDeliveryTour().toString());
+			controller.getDeliveryTour().affiche();
 			System.out.println(controller.getRequestList().toString());
 			
 			

@@ -23,10 +23,17 @@ public class MapLoadedState extends InitialState{
     			System.getProperty("file.separator")+ "src" + 
     			System.getProperty("file.separator")+ "resources"));
     	
+    	window.setLoadingRequests();
+        window.repaint();
+    	
 		int val_ret_requests = fc.showOpenDialog(null);
 
         if (val_ret_requests == JFileChooser.APPROVE_OPTION) {
-           File requests_file = fc.getSelectedFile();
+           
+        	
+        	File requests_file = fc.getSelectedFile();
+           
+           
            
            RequestList requestList = new RequestList(requests_file.getAbsolutePath(), controller.getCityMap());
            boolean res = requestList.fillRequests();
@@ -51,6 +58,20 @@ public class MapLoadedState extends InitialState{
 	   
         } else {
              System.out.println("L'ouverture est annul�e\n");
+             
+             
+              if(controller.getCurrentState() instanceof DeliveryTourState) {
+	        	 window.setVisibleAddExport();
+	         }else if(controller.getCurrentState() instanceof ContinueComputationState) {
+            	 window.setContinueCalculation();
+             
+	         } else if(controller.getCurrentState() instanceof MapRequestsLoadedState) {
+            	 window.setVisibleCalculateButton();
+             }
+             else  {
+            	 window.setVisibleRequestButton();
+             } 
+             
         }
 		
 		

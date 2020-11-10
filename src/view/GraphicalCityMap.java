@@ -98,7 +98,12 @@ public class GraphicalCityMap {
     
     public void drawGraphicalCityMap(Graphics g, int height, int width,int id) 
     {     
+    	
     	if (graphicalIntersection != null) {
+    		if(addMode) {
+        		graphicalIntersection.addSelectedIntersection(i);
+        		addMode=false;
+        	}
     		graphicalIntersection.drawIntersection(g, height, width);
     		
     	}
@@ -113,10 +118,7 @@ public class GraphicalCityMap {
     	}
     	
     	
-    	if(addMode) {
-    		graphicalIntersection.addSelectedIntersection(i);
-    		addMode=false;
-    	}
+    	
     	
     	
     		

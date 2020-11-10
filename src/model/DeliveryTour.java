@@ -101,11 +101,12 @@ public class DeliveryTour {
      * Adds a new intersection after the i-th index (starting from 0), and updates relevant paths
      * @param i the index after which the new step should be added
      * @param step the intersection to be added
+     * @param PoD true for pickup, false for delivery
      */
-	public void addIntermediateStep(Intersection indexprecedent, Intersection step, boolean PoD) {
-		int i = this.getIndexOfIntersection(indexprecedent);
+	public void addIntermediateStep(Intersection previousInter, Intersection step, boolean PoD) {
+		int i = this.getIndexOfIntersection(previousInter);
 		tour.add(++i,
-				new Pair<>(step, DijkstraGraph.computeShortestPath(indexprecedent, step).getAllPreviousSegments()));
+				new Pair<>(step, DijkstraGraph.computeShortestPath(previousInter, step).getAllPreviousSegments()));
 		if (PoD) {
 			pickupOrDeliver.add(i, "Pickup Address");//ou i+1 ? je ne me souviens plus comment ca marche ++i
 		}
@@ -118,7 +119,7 @@ public class DeliveryTour {
 			Pair<Intersection, List<Segment>> newStep = new Pair<>(nextStep.fst,
 					DijkstraGraph.computeShortestPath(step, nextStep.fst).getAllPreviousSegments());
 			tour.remove(i + 1);
-			tour.add(newStep);
+			tour.add(i+1, newStep);
 		}
 	}
 	

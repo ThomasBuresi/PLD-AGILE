@@ -2,6 +2,7 @@
 Departure : 11 Impasse de l'Ordre, 69001 Lyon, France at 8h0mins
 
 
+<<<<<<< HEAD
           For 10m take Rue Nazareth
           For 20m take Rue Louis Jasseron
           For 47m take Place de la Ferrandi�re
@@ -44,3 +45,36 @@ Address : Coll�ge Gilbert Dru, Rue Jeanne Hachette, 69001 Lyon, France
 
 Step 5: Return to Departure at 8h48mins
 Address : 11 Impasse de l'Ordre, 69001 Lyon, France
+=======
+          For 96m take Impasse de l'Ordre
+          For 61m take Rue Antoine Charial
+          For 142m take Rue Baraban
+          For 106m take Avenue Georges Pompidou
+          For 39m take Rue Nazareth
+
+Step 1: Pickup Address
+Address : 3 Rue de Nazareth, 69001 Lyon 3e Arrondissement, France
+          For 85m take Rue Richelieu
+          For 319m take Rue Lafontaine
+          For 92m take Avenue Marc Sangnier
+          For 123m take Rue Clos Poncet
+
+Step 2: Delivery Address
+Address : 27 Rue Richelieu, 69100 Villeurbanne, France
+          For 106m take Rue Frédéric Passy
+          For 96m take Rue Édouard Aynard
+          For 31m take Place Marengo
+          For 231m take Rue François Gillet
+          For 265m take Place de la Ferrandière
+          For 487m take Avenue Georges Pompidou
+          For 414m take Rue Maurice Flandin
+
+Step 3: Return to Departure
+Address : Collège Gilbert Dru, Rue Jeanne Hachette, 69001 Lyon, France
+          For 221m take Rue Nazareth
+          For 140m take Rue François Gillet
+          For 127m take Rue Pascal
+          For 249m take Avenue Marc Sangnier
+          For 123m take Rue Clos Poncet
+
+>>>>>>> master

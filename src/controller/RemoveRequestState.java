@@ -75,8 +75,6 @@ public class RemoveRequestState implements State {
 			
 			w.getGraphicalView().setId(-1);
 			
-			w = c.getWindow();
-			
 			w.getGraphicalView().updateGraphicalCityMap(c);
 			w.getTextualView().update(c);
 			
@@ -86,9 +84,39 @@ public class RemoveRequestState implements State {
 		}else {
 			System.out.println("error on remove the request");
 		}
+
 		
+	}
+	
+	@Override
+	public void zoomOut(Controller controller, Window window) {
+		GraphicalView graphicalView = window.getGraphicalView();
+		if (graphicalView.graphicalCityMap.getGraphicalSegment() != null) {
+			graphicalView.graphicalCityMap.getGraphicalSegment().resetCoord();
+			if (graphicalView.graphicalCityMap.getGraphicalIntersection() != null) {
+				graphicalView.graphicalCityMap.getGraphicalIntersection().resetCoord();
+			}
+		}
+		window.repaint();
+	}
+	
+	@Override
+	public void zoomIn(Controller controller, Window window, float longMin, float longMax, float latMin, float latMax) {
+		GraphicalView graphicalView = window.getGraphicalView();
+		//Set the new coordinates for the segments of the map
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMaxMap(latMax);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMinMap(latMin);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLongMaxMap(longMax);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLongMinMap(longMin);
+		if (graphicalView.graphicalCityMap.getGraphicalIntersection() != null) {
+			//Set the new coordinates for the points from the requests of the map
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLatMaxMap(latMax);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLatMinMap(latMin);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLongMaxMap(longMax);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLongMinMap(longMin);
+		}
 		
-		
+		window.repaint();
 	}
 	
 	

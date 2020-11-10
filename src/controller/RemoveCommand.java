@@ -83,8 +83,10 @@ public class RemoveCommand implements Command {
      * @return
      */
     public void undoCommand() {
-        deliveryTour.addIntermediateStep(beforePickup, pickup);
-        deliveryTour.addIntermediateStep(beforeDelivery, delivery);
+    	
+    	// true for the pickup, false for the delivery 
+        deliveryTour.addIntermediateStep(beforePickup, pickup,true);
+        deliveryTour.addIntermediateStep(beforeDelivery, delivery,false);
         controller.getRequestList().getListRequests().add(r.getId(),r);
         controller.setDeliveryTour(deliveryTour);
     	

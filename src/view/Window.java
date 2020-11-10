@@ -372,7 +372,7 @@ public class Window extends JFrame{
     }
     
     public void setErrorAtOpening() {
-    	indications.setText(indications.getText()+ " Please load a compatible file");
+    	indications.setText(indications.getText()+ " \n\r Please load a compatible file");
     }
     
     public void setVisibleCalculateButton() {
@@ -430,6 +430,7 @@ public class Window extends JFrame{
     			+"--> Zoom in : draw a rectangle by clicking on the map where you want to zoom.\r\n"
         		+"--> Zoom out : button at the right upper corner of the map. ");
     	remove_request.setVisible(true);
+    	add_confirm.setVisible(false);
     	cancel_remove_request.setVisible(true);
     	load_file.setEnabled(false);
     	load_requests_file.setEnabled(false);

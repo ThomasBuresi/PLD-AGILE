@@ -18,26 +18,28 @@ public class AddRequestState implements State{
 
 		if(graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded().size()==4) {
 			
+			ListOfCommands list =controller.getListOfCommands();
+			list.add(new AddCommand(controller,controller.getDeliveryTour(),graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded()));
+			controller.setListOfCommands(list);
+			
+			System.out.println(controller.getDeliveryTour().toString());
+			System.out.println(controller.getRequestList().toString());
+			
+			
+			
+			graphicalView.getGraphicalCityMap().getGraphicalIntersection().reInitializedToBeAdded();
+			graphicalView.updateSelection(false, null);
+			
+			w.getGraphicalView().updateGraphicalCityMap(controller);
+			w.getTextualView().update(controller);
+			
+			w.setVisibleAddExport();
+			controller.setCurrentState(controller.deliveryTourState);
 		}else {
 			System.out.println("wrong selection, missing points");
 		}
 		
 		
-		//graphicalView.updateGraphicalCityMap(controller);
-		
-		
-		//not to forget
-		ListOfCommands list =controller.getListOfCommands();
-		list.add(new AddCommand());
-		controller.setListOfCommands(list);// TODO 
-		
-		//getclicked intersections
-		//update the view after each click ? 
-		
-		
-		//reset everythhing
-		graphicalView.getGraphicalCityMap().getGraphicalIntersection().reInitializedToBeAdded();
-		graphicalView.updateSelection(false, null);
 		
 
 	}
@@ -59,7 +61,7 @@ public class AddRequestState implements State{
 		
 		Intersection i  = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedIntersection(xCoord, yCoord, panelHeight, panelWidth);
 		
-		System.out.println(i.toString());
+		//System.out.println(i.toString());
 		
 		graphicalView.updateSelection(true, i);
 		graphicalView.repaint();
@@ -67,13 +69,40 @@ public class AddRequestState implements State{
 		
 		System.out.println(graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded().toString());
 		
-		//System.out.println(id);
-		
-		//graphicalView.updateHighlight(id);
-		//textualView.highlightTable(id);
 		
 		
 		
+	}
+	
+	@Override
+	public void zoomOut(Controller controller, Window window) {
+		GraphicalView graphicalView = window.getGraphicalView();
+		if (graphicalView.graphicalCityMap.getGraphicalSegment() != null) {
+			graphicalView.graphicalCityMap.getGraphicalSegment().resetCoord();
+			if (graphicalView.graphicalCityMap.getGraphicalIntersection() != null) {
+				graphicalView.graphicalCityMap.getGraphicalIntersection().resetCoord();
+			}
+		}
+		window.repaint();
+	}
+	
+	@Override
+	public void zoomIn(Controller controller, Window window, float longMin, float longMax, float latMin, float latMax) {
+		GraphicalView graphicalView = window.getGraphicalView();
+		//Set the new coordinates for the segments of the map
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMaxMap(latMax);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMinMap(latMin);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLongMaxMap(longMax);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLongMinMap(longMin);
+		if (graphicalView.graphicalCityMap.getGraphicalIntersection() != null) {
+			//Set the new coordinates for the points from the requests of the map
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLatMaxMap(latMax);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLatMinMap(latMin);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLongMaxMap(longMax);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLongMinMap(longMin);
+		}
+		
+		window.repaint();
 	}
 	
 	

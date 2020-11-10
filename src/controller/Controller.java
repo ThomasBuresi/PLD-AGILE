@@ -122,6 +122,7 @@ public class Controller {
      */
     
     public void cancel() {
+    	window.getGraphicalView().getGraphicalCityMap().getGraphicalIntersection().reInitializedToBeAdded();
     	window.getGraphicalView().updateHighlight(-1);
     	window.getTextualView().highlightTable(-1);
     	window.setVisibleAddExport();

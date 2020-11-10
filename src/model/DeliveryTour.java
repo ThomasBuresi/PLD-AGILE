@@ -97,6 +97,7 @@ public class DeliveryTour {
      * Adds a new intersection after the i-th index (starting from 0), and updates relevant paths
      * @param i the index after which the new step should be added
      * @param step the intersection to be added
+     * @param PoD true for pickup, false for delivery
      */
 	public void addIntermediateStep(Intersection indexprecedent, Intersection step, boolean PoD) {
 		int i = this.getIndexOfIntersection(indexprecedent);

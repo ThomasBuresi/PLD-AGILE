@@ -98,11 +98,17 @@ public class DeliveryTour {
      * @param i the index after which the new step should be added
      * @param step the intersection to be added
      */
-	public void addIntermediateStep(Intersection indexprecedent, Intersection step) {
+	public void addIntermediateStep(Intersection indexprecedent, Intersection step, boolean PoD) {
 		int i = this.getIndexOfIntersection(indexprecedent);
-		Pair<Intersection, List<Segment>> previousStep = tour.get(i);
 		tour.add(++i,
-				new Pair<>(step, DijkstraGraph.computeShortestPath(previousStep.fst, step).getAllPreviousSegments()));
+				new Pair<>(step, DijkstraGraph.computeShortestPath(indexprecedent, step).getAllPreviousSegments()));
+		if (PoD) {
+			pickupOrDeliver.add(i, "Pickup Address");//ou i+1 ? je ne me souviens plus comment ca marche ++i
+		}
+		else {
+			pickupOrDeliver.add(i, "Delivery Address");
+		}
+		
 		if (i + 1 < tour.size()) {
 			Pair<Intersection, List<Segment>> nextStep = tour.get(i + 1);
 			Pair<Intersection, List<Segment>> newStep = new Pair<>(nextStep.fst,
@@ -133,9 +139,9 @@ public class DeliveryTour {
 		int index= this.getIndexOfIntersection(i);
 		this.tour.remove(index);
 		this.pickupOrDeliver.remove(index);
-		this.ordretsp.remove(index);
+		//this.ordretsp.remove(index);
 		Intersection temp = tour.get(index).fst;
-		List <Segment> tempSeg = g.getSegmentPaths()[index][index-1];
+		List <Segment> tempSeg = DijkstraGraph.computeShortestPath(temp, tour.get(index-1).fst).getAllPreviousSegments();
 		tour.set(index, new Pair<Intersection, List<Segment>>(temp,tempSeg));
 		return tour.get(index-1).fst;
 	}

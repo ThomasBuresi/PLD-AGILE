@@ -161,9 +161,18 @@ public class GraphicalIntersection {
     }
     
     public void addSelectedIntersection(Intersection i) {
-    	if(toBeAdded.size()<4) {
+    	if (toBeAdded.size() == 1 || toBeAdded.size() == 3){
+    		List <Request> res = requestList.getListRequests();
+    		for (Request r : res) {
+    			if (r.getDeliveryAddress().getIdIntersection() == i.getIdIntersection() || 
+    					r.getPickupAddress().getIdIntersection() == i.getIdIntersection()) {
+    				toBeAdded.add(i);
+    			}
+    		}
+    	} else if (toBeAdded.size() == 0 || toBeAdded.size() == 2) {
     		toBeAdded.add(i);
     	}
+
     }
     
  

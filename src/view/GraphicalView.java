@@ -81,8 +81,8 @@ public class GraphicalView extends JPanel{
      */
     
     public void updateSelection(boolean on,Intersection i) {
-    		graphicalCityMap.addMode=on;
-    		if(i!=null)graphicalCityMap.setClickedIntersection(i);
+    	graphicalCityMap.addMode=on;
+    	if(i!=null)graphicalCityMap.setClickedIntersection(i);
     	
 
     }

@@ -164,7 +164,7 @@ public class DeliveryTour {
     /**
      * TODO
      */ 
-	public void affiche() {
+	/*public void affiche() {
 		for (Pair<Intersection, List<Segment>> pair: tour) {
 			System.out.println(pair.fst.toString());
 			List<Segment> seg = pair.snd;
@@ -174,7 +174,7 @@ public class DeliveryTour {
 				}
 			}
 		}
-	}
+	}*/
 
 
 
@@ -286,6 +286,7 @@ public class DeliveryTour {
     			if (p!=0) {
     				br.write("Step " + p +": "+ this.pickupOrDeliver.get(p)+ " at " + times.get(p).toString()+System.getProperty("line.separator"));
     				br.write("Address : " + pair.fst.getName() + System.getProperty("line.separator"));
+    				br.write (System.getProperty("line.separator"));
     				
     			}
     			p++;

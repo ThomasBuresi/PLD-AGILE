@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -371,8 +372,32 @@ public class Window extends JFrame{
     	
     }
     
+    public void setLoadingRequests() {
+    	indications.setText("\n\n\n                  Loading the requests. ");
+    }
+    
     public void setErrorAtOpening() {
+<<<<<<< HEAD
     	indications.setText(indications.getText()+ " \n\r Please load a compatible file");
+=======
+//    	//indications.setText(indications.getText()+ " \n\r Please load a compatible file");
+//    	JFrame popup = new JFrame ("Warning");
+//        popup.setSize(200,100);
+//        popup.setLocation(500,300);
+//        popup.setResizable(false);
+//        
+//        JTextArea textPopup = new JTextArea ("            ---Error--- \n   Please load a compatible file. ");
+//        
+//        //textPopup.setBounds(20,10,150,80);
+//        
+//        textPopup.setForeground(Color.red);
+//        textPopup.setEditable(false);
+//        
+//        popup.add(textPopup);
+//        popup.setVisible(true);
+    	
+    	JOptionPane.showMessageDialog(this, "Please load a compatible file");
+>>>>>>> master
     }
     
     public void setVisibleCalculateButton() {
@@ -463,6 +488,9 @@ public class Window extends JFrame{
     	undo_button.setVisible(false);
     	redo_button.setVisible(false);
     	
+    	//can't load when adding 
+    	load_file.setVisible(true);
+    	load_requests_file.setVisible(true);
     	load_file.setEnabled(false);
     	load_requests_file.setEnabled(false);
     	
@@ -471,9 +499,7 @@ public class Window extends JFrame{
     	cancel_remove_request.setVisible(true);
     	re_initialise.setVisible(true);
     	
-    	//can't load when adding 
-    	load_file.setVisible(false);
-    	load_requests_file.setVisible(false);
+    	
     	
     	repaint();
     

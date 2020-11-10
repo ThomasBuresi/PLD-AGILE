@@ -2,6 +2,7 @@
 Departure : 11 Impasse de l'Ordre, 69001 Lyon, France at 8h0mins
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
           For 10m take Rue Nazareth
@@ -63,6 +64,22 @@ Address : 3 Rue de Nazareth, 69001 Lyon 3e Arrondissement, France
           For 92m take Avenue Marc Sangnier
           For 123m take Rue Clos Poncet
 
+=======
+
+          For 96m take Impasse de l'Ordre
+          For 61m take Rue Antoine Charial
+          For 142m take Rue Baraban
+          For 106m take Avenue Georges Pompidou
+          For 39m take Rue Nazareth
+
+Step 1: Pickup Address
+Address : 3 Rue de Nazareth, 69001 Lyon 3e Arrondissement, France
+          For 85m take Rue Richelieu
+          For 319m take Rue Lafontaine
+          For 92m take Avenue Marc Sangnier
+          For 123m take Rue Clos Poncet
+
+>>>>>>> master
 Step 2: Delivery Address
 Address : 27 Rue Richelieu, 69100 Villeurbanne, France
           For 106m take Rue Frédéric Passy
@@ -82,6 +99,9 @@ Address : Collège Gilbert Dru, Rue Jeanne Hachette, 69001 Lyon, France
           For 123m take Rue Clos Poncet
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 =======
 >>>>>>> master

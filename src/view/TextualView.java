@@ -148,6 +148,12 @@ public class TextualView extends JPanel{ //implements Observer {
     public void orderTable() {
     	this.remove(scrollPane);
     	
+    	requestList=controller.getRequestList();
+    	
+    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
+    	
+    	System.out.println(requestList.getListRequests().toString());
+    	
     	List <Pair<Intersection, List<Segment>>> tour=deliveryTour.getTour();
     	List<Request> requestsNotOrdered = requestList.getListRequests();
     	
@@ -183,6 +189,11 @@ public class TextualView extends JPanel{ //implements Observer {
 		
 		for (Pair<Pair<Integer, Boolean>, Intersection> pair : intersections) {
 			String address = pair.snd.getName();
+			
+			if(address==null) {
+				address = pair.snd.setAddress(jOpenCageGeocoder);
+			}
+			
 			str="<HTML>" + ("Request " + (pair.fst.fst+1) +" : ") + "<br>";
 			if (!pair.fst.snd) {
 				str += "PICKUP - " + address + "</HTML>"; 
@@ -318,6 +329,7 @@ public class TextualView extends JPanel{ //implements Observer {
     		if (controller.getDeliveryTour() != null) {
         		deliveryTour = controller.getDeliveryTour();
         		orderTable();
+        		System.out.println("TABLE ORDERED");
         	} else {
         		deliveryTour = null;
         		fillTable();

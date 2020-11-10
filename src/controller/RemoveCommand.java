@@ -58,41 +58,47 @@ public class RemoveCommand implements Command {
     }
 
     /**
-     * @return
+     * 
      */
     public void doCommand() {
-        
-    	beforePickup=deliveryTour.removeStep(pickup);
     	beforeDelivery=deliveryTour.removeStep(delivery);
+    	beforePickup=deliveryTour.removeStep(pickup);
     	
-    	controller.getRequestList().getListRequests().remove(r.getId());
-    	//remember return intersection for the add
-    	
+    	int i=0;
+    	int index = -1;
+    	List <Request> requests = controller.getRequestList().getListRequests();
+    	for (Request res : requests) {
+    		if (res.getId() == r.getId()) {
+    			index = i;
+    		}
+    		i++;
+    	}
+    	if (index != -1) {
+    		controller.getRequestList().getListRequests().remove(index);
+    	}    
     	//Delivery tour path updated directly in method remove or add 
     	controller.setDeliveryTour(deliveryTour);
     	
-    	//controller.getWindow().getGraphicalView().updateGraphicalCityMap(controller);
     	
     	// TODO remember where it was remove > modif return of method removeStep 
     	// that way the redo will be more direct 
+
     	
-        //return null;
+
     }
 
     /**
-     * @return
+     * 
      */
     
     public void undoCommand() {
-    	
     	// true for the pickup, false for the delivery 
-        deliveryTour.addIntermediateStep(beforePickup, pickup,true);
-        deliveryTour.addIntermediateStep(beforeDelivery, delivery,false);
-        controller.getRequestList().getListRequests().add(r.getId(),r);
+    	deliveryTour.addIntermediateStep(beforePickup, pickup, true);
+        deliveryTour.addIntermediateStep(beforeDelivery, delivery, false);
+         
+        controller.getRequestList().getListRequests().add(r);
+        
         controller.setDeliveryTour(deliveryTour);
-    	
-    	
-        //return null;
     }
 
 }

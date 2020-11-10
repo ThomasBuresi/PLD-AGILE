@@ -373,7 +373,7 @@ public class Window extends JFrame{
     }
     
     public void setLoadingRequests() {
-    	indications.setText("\n\n\n                  Loading the requests. ");
+    	indications.setText("\n\n\n                  Loading the requests... ");
     }
     
     public void setErrorAtOpening() {

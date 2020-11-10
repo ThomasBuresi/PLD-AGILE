@@ -29,6 +29,11 @@ public class RequestList {
      * delivery tour ( time in seconds )
      */
     protected int departureTime;
+    
+    /**
+     * TODO
+     */
+    protected int index;
 
     /**
 	 * The path to the XML file containing the requests
@@ -61,6 +66,7 @@ public class RequestList {
 		this.filePath = filePath;
 		this.cityMap = cityMap;
 		this.listRequests = new ArrayList<Request>();
+		this.index = 0;
 	}
 	
 	/**
@@ -108,9 +114,10 @@ public class RequestList {
 					}
 					int pickupDuration = Integer.valueOf(eElement.getAttribute("pickupDuration"));
 					int deliveryDuration = Integer.valueOf(eElement.getAttribute("deliveryDuration"));
-					Request request = new Request(deliveryDuration, deliveryAddress, pickupAddress, pickupDuration,i);
+					Request request = new Request(deliveryDuration, deliveryAddress, pickupAddress, pickupDuration, index);
 					//System.err.println(request);
 					listRequests.add(request);
+					this.index++;
 				}
 			}
 		} catch (Exception e) {
@@ -149,6 +156,14 @@ public class RequestList {
 
 	public List<Request> getListRequests() {
 		return listRequests;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 }

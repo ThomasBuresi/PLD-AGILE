@@ -7,8 +7,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -63,9 +61,9 @@ public class TextualView extends JPanel{ //implements Observer {
     	setBounds(950,60,300,460);
         setBackground(Color.white);
         
-        iSelectedRequest=-1;
+        iSelectedRequest = -1;
         
-        this.controller=controller;
+        this.controller = controller;
         
         //requestTable = new JTable();
     	//super(new GridLayout(1,0));
@@ -114,7 +112,7 @@ public class TextualView extends JPanel{ //implements Observer {
 			String deliveryAddress = res.getDeliveryAddress().setAddress(jOpenCageGeocoder);
 			String pickupAddress = res.getPickupAddress().setAddress(jOpenCageGeocoder);
 
-			str="<HTML>" + ("Request "+i+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
+			str="<HTML>" + ("Request Id - "+i+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
 			
 			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
 			
@@ -152,7 +150,6 @@ public class TextualView extends JPanel{ //implements Observer {
     	
     	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
     	
-    	System.out.println(requestList.getListRequests().toString());
     	
     	List <Pair<Intersection, List<Segment>>> tour=deliveryTour.getTour();
     	List<Request> requestsNotOrdered = requestList.getListRequests();
@@ -171,10 +168,10 @@ public class TextualView extends JPanel{ //implements Observer {
 
     			for (int j=0; j<requestsNotOrdered.size(); ++j) {
     				if(requestsNotOrdered.get(j).getPickupAddress().getIdIntersection()==intersectionId) {
-    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, false),pair.fst)); 
+    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(requestsNotOrdered.get(j).getId(), false),pair.fst)); 
     				}
     				if(requestsNotOrdered.get(j).getDeliveryAddress().getIdIntersection()==intersectionId) {
-    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, true),pair.fst)); 
+    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(requestsNotOrdered.get(j).getId(), true),pair.fst)); 
     				}
     			}
     		}
@@ -194,7 +191,7 @@ public class TextualView extends JPanel{ //implements Observer {
 				address = pair.snd.setAddress(jOpenCageGeocoder);
 			}
 			
-			str="<HTML>" + ("Request " + (pair.fst.fst+1) +" : ") + "<br>";
+			str="<HTML>" + ("Request Id - " + (pair.fst.fst+1) +" : ") + "<br>";
 			if (!pair.fst.snd) {
 				str += "PICKUP - " + address + "</HTML>"; 
 			} else {
@@ -236,6 +233,7 @@ public class TextualView extends JPanel{ //implements Observer {
 		//add(new JScrollPane(requestTable));
 //		requestTable.setAutoscrolls(this.getAutoscrolls());
 		//add(requestTable);
+		
 		scrollPane = new JScrollPane(requestTable);
         this.add(scrollPane);
     }
@@ -246,18 +244,23 @@ public class TextualView extends JPanel{ //implements Observer {
      */
     public void highlightTable(int id) {
     	int []rows = {-1,-1};
-    	
+    	//System.out.println("highlight table " + requestTable.getRowCount());
     	iSelectedRequest=id;
     	
     	if(id!=-1) {
-    		Request r = requestList.getListRequests().get(id);
+    		/*Request r = null;
+        	for (Request res : requestList.getListRequests()) {
+        		if (res.getId() == id) {
+        			r = res;
+        		}
+        	}*/
         	int k = 0 ;
         	
         	int j=0;
     		while(k < requestTable.getRowCount()) {
     			//yourString.substring(yourString.indexOf("no") + 3 , yourString.length());
     			String s = requestTable.getModel().getValueAt(k, 0).toString();
-    			String idRequestS = s.substring("<HTML>Request ".length(), "<HTML>Request ".length()+3);
+    			String idRequestS = s.substring("<HTML>Request Id - ".length(), "<HTML>Request Id - ".length()+3);
     			String str = idRequestS.replaceAll("[^-?0-9]+", ""); 
     			System.out.println("we get as an id : "+str);
 
@@ -297,7 +300,7 @@ public class TextualView extends JPanel{ //implements Observer {
         int index = Integer.parseInt(strSource.substring(start, stop));
         
         String s = requestTable.getModel().getValueAt(index, 0).toString();
-		String idRequestS = s.substring("<HTML>Request ".length(), "<HTML>Request ".length()+3);
+		String idRequestS = s.substring("<HTML>Request Id - ".length(), "<HTML>Request Id - ".length()+3);
 		String str = idRequestS.replaceAll("[^-?0-9]+", ""); 
 		System.out.println("we get as an id : "+str);
 
@@ -329,7 +332,8 @@ public class TextualView extends JPanel{ //implements Observer {
     		if (controller.getDeliveryTour() != null) {
         		deliveryTour = controller.getDeliveryTour();
         		orderTable();
-        		System.out.println("TABLE ORDERED");
+        		System.out.println("TABLE ORDERED ");
+        		this.updateUI(); // This helps for the undo / redo
         	} else {
         		deliveryTour = null;
         		fillTable();

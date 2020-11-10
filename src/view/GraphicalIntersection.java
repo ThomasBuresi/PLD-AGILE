@@ -124,7 +124,7 @@ public class GraphicalIntersection {
     	}
     	g.setColor(Color.black);
     	
-    	System.out.println("draw intersections, already selected a number of "+toBeAdded.size());
+    	//System.out.println("draw intersections, already selected a number of "+toBeAdded.size());
     	if(!toBeAdded.isEmpty()) {
     		int k=0;
     		for(Intersection i : toBeAdded) {
@@ -150,14 +150,21 @@ public class GraphicalIntersection {
     }
 
     public void drawHighlight(Graphics g, int height, int width,int id) {
-    	Request r = requestList.getListRequests().get(id);
-    	g.setColor(Color.black);
-    	g.drawRect((int)Math.round((r.getPickupAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-10,
-    			height - (int)Math.round((r.getPickupAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-10, 
-    			20, 20);
-		g.drawOval((int)Math.round((r.getDeliveryAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-10,
-    			height - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-10, 
-    			20, 20);
+    	Request r = null;
+    	for (Request res : requestList.getListRequests()) {
+    		if (res.getId() == id) {
+    			r = res;
+    		}
+    	}
+    	if (r!= null) {
+	    	g.setColor(Color.black);
+	    	g.drawRect((int)Math.round((r.getPickupAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-10,
+	    			height - (int)Math.round((r.getPickupAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-10, 
+	    			20, 20);
+			g.drawOval((int)Math.round((r.getDeliveryAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-10,
+	    			height - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-10, 
+	    			20, 20);
+    	}
     }
     
     public void addSelectedIntersection(Intersection i) {

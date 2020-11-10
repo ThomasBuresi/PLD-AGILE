@@ -164,7 +164,7 @@ public class DeliveryTour {
     /**
      * TODO
      */ 
-	/*public void affiche() {
+	public void affiche() {
 		for (Pair<Intersection, List<Segment>> pair: tour) {
 			System.out.println(pair.fst.toString());
 			List<Segment> seg = pair.snd;
@@ -174,7 +174,7 @@ public class DeliveryTour {
 				}
 			}
 		}
-	}*/
+	}
 
 
 

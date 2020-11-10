@@ -133,23 +133,21 @@ public class Controller {
     
     
     /**
-     * @return
+     * 
      */
     public void undo() {
         currentState.undo(this,window,listOfCommands);
-        
     }
 
     /**
-     * @return
+     * 
      */
     public void redo() {
     	currentState.redo(this,window,listOfCommands);
-        
     }
 
-    // Getters and setters 
     
+    // Getters and setters 
     
     public CityMap getCityMap() {
     	return cityMap;

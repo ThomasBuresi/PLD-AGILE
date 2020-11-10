@@ -377,6 +377,9 @@ public class Window extends JFrame{
     }
     
     public void setErrorAtOpening() {
+<<<<<<< HEAD
+    	indications.setText(indications.getText()+ " \n\r Please load a compatible file");
+=======
 //    	//indications.setText(indications.getText()+ " \n\r Please load a compatible file");
 //    	JFrame popup = new JFrame ("Warning");
 //        popup.setSize(200,100);
@@ -394,6 +397,7 @@ public class Window extends JFrame{
 //        popup.setVisible(true);
     	
     	JOptionPane.showMessageDialog(this, "Please load a compatible file");
+>>>>>>> master
     }
     
     public void setVisibleCalculateButton() {

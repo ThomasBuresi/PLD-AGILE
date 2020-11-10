@@ -1,30 +1,46 @@
 ~~~~~~~~~~~ Delivery Roadmap ~~~~~~~~~~~
-Departure : 11 Impasse de l'Ordre, 69001 Lyon, France
+Departure : 11 Impasse de l'Ordre, 69001 Lyon, France at 8h0mins
 
-Step 1: Pickup Address
-Address : 1 b Rue Pascal, 69100 Villeurbanne, France
 
-Step 2: Delivery Address
-Address : 27 Rue Richelieu, 69100 Villeurbanne, France
+          For 10m take Rue Nazareth
+          For 20m take Rue Louis Jasseron
+          For 47m take Place de la Ferrandière
+          For 106m take Avenue Georges Pompidou
+          For 76m take Rue Baraban
+          For 134m take Rue des Teinturiers
+          For 64m take Rue Étienne Richerand
+          For 69m take Rue Antoine Charial
+          For 96m take Impasse de l'Ordre
 
-Step 3: Return to Departure
-Address : 11 Impasse de l'Ordre, 69001 Lyon, France
-
-Step 4: 
-Address : 11 Impasse de l'Ordre, 69001 Lyon, France
-
-Step 5: Pickup Address
+Step 1: Pickup Address at 8h9mins
 Address : 3 Rue de Nazareth, 69001 Lyon 3e Arrondissement, France
+          For 350m take Rue Pascal
+          For 140m take Rue François Gillet
+          For 234m take Place de la Ferrandière
 
-Step 6: Pickup Address
+Step 2: Pickup Address at 8h18mins
 Address : 1 b Rue Pascal, 69100 Villeurbanne, France
+          For 85m take Rue Richelieu
+          For 319m take Rue Lafontaine
+          For 92m take Avenue Marc Sangnier
+          For 123m take Rue Clos Poncet
 
-Step 7: Delivery Address
+Step 3: Delivery Address at 8h30mins
 Address : 27 Rue Richelieu, 69100 Villeurbanne, France
+          For 1020m take Avenue Félix Faure
+          For 11m take Place des Maisons Neuves
+          For 307m take Rue Frédéric Mistral
+          For 107m take Name absent
+          For 15m take Rue Richelieu
 
-Step 8: Delivery Address
-Address : CollÃ¨ge Gilbert Dru, Rue Jeanne Hachette, 69001 Lyon, France
+Step 4: Delivery Address at 8h44mins
+Address : Collège Gilbert Dru, Rue Jeanne Hachette, 69001 Lyon, France
+          For 288m take Avenue Félix Faure
+          For 459m take Rue Baraban
+          For 134m take Rue des Teinturiers
+          For 64m take Rue Étienne Richerand
+          For 69m take Rue Antoine Charial
+          For 96m take Impasse de l'Ordre
 
-Step 9: Return to Departure
+Step 5: Return to Departure at 8h48mins
 Address : 11 Impasse de l'Ordre, 69001 Lyon, France
-

@@ -43,6 +43,8 @@ public class DeliveryTour {
 	CityMap map ;
 	RequestList reqlist;
 	
+	List <Float> durations ;
+	
 	/**
      * Represents the graph with the shortest distance between all the 
      * intersections present in the map 
@@ -66,6 +68,7 @@ public class DeliveryTour {
 		this.reqlist = controller.getRequestList();
 		this.g = new DijkstraGraph(this.map, this.reqlist);
 		this.ordretsp = new ArrayList<Integer>();
+		this.durations= new ArrayList<Float>();
     }
     /**
      * Constructor of <code>DeliveryTour</code>  that takes as parameters the
@@ -80,6 +83,7 @@ public class DeliveryTour {
 		this.reqlist = controller.getRequestList();
 		this.g = g;
 		this.ordretsp = new ArrayList<Integer>();
+		this.durations= new ArrayList<Float>();
     }
     
  
@@ -185,6 +189,7 @@ public class DeliveryTour {
 		this.addDeparture(reqlist.getDeparture());
 		this.addIntersectionDetail("");
 		this.ordretsp.add(0);
+		this.durations.add(0.0f);
 		// on commence a un car on a deja traite le cas du depart
 		for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
 			//ajouter au delivery tour l'intersection qui correspond au numero de la requete ->
@@ -194,21 +199,24 @@ public class DeliveryTour {
 	//			System.out.println("Pickup Address :" + reqlist.getListRequests().get(tsp.getSolution(l)/2).getPickupAddress().getIdIntersection() );
 				this.addIntersectionDetail("Pickup Address");
 				this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 ).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+				this.durations.add( ((float)reqlist.getListRequests().get(tsp.getSolution(l)/2).pickupDuration)/3600);
 			}
 			else {
 	//			System.out.println(currentsolution + "   " + (tsp.getSolution(l)/2 -1));
 	//			System.out.println("Delivery Address :" + reqlist.getListRequests().get(tsp.getSolution(l)/2 - 1).getDeliveryAddress().getIdIntersection() );
 				this.addIntersectionDetail("Delivery Address");
 				this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+				this.durations.add( ((float)reqlist.getListRequests().get(tsp.getSolution(l)/2-1).deliveryDuration)/3600);
 			}
 
 		
 		this.ordretsp.add(currentsolution);
 		}
-		//retour au point de d�part :
+		//retour au point de depart :
 
 		this.ordretsp.add(0);
 		this.addIntersectionDetail("Return to Departure");
+		this.durations.add(0.0f);
 		this.addStep(reqlist.getDeparture(), g.getSegmentPaths()[tsp.getSolution(2*reqlist.getListRequests().size())][tsp.getSolution(0)]); // inverser l'ordre??
 		
 	}
@@ -221,6 +229,7 @@ public class DeliveryTour {
 		File file = new File(filename);
         FileWriter fr = null;
         BufferedWriter br = null;
+        List <TimeDelivery> times = this.computeTime();
        
         try{
             fr = new FileWriter(file);
@@ -229,7 +238,7 @@ public class DeliveryTour {
             br.write("~~~~~~~~~~~ Delivery Roadmap ~~~~~~~~~~~"+ System.getProperty("line.separator"));
             for (Pair<Intersection, List<Segment>> pair: tour) {
             	if (p==0) {
-            		br.write("Departure : " + pair.fst.getName() +  System.getProperty("line.separator"));
+            		br.write("Departure : " + pair.fst.getName() + " at " + times.get(0).toString() +  System.getProperty("line.separator"));
             		br.write (System.getProperty("line.separator"));
             	}
          
@@ -274,7 +283,7 @@ public class DeliveryTour {
     			}
     			br.write (System.getProperty("line.separator"));
     			if (p!=0) {
-    				br.write("Step " + p +": "+ this.pickupOrDeliver.get(p)+ System.getProperty("line.separator"));
+    				br.write("Step " + p +": "+ this.pickupOrDeliver.get(p)+ " at " + times.get(p).toString()+System.getProperty("line.separator"));
     				br.write("Address : " + pair.fst.getName() + System.getProperty("line.separator"));
     				
     			}
@@ -292,6 +301,22 @@ public class DeliveryTour {
         }
 	}
 
+	public List<TimeDelivery> computeTime(){
+		List <TimeDelivery> result = new ArrayList <TimeDelivery>();
+		// departure time
+		result.add(new TimeDelivery().addhours(this.reqlist.departureTime/3600));
+		for (int i = 1 ; i< tour.size();i++) {
+			float longueurtotale = 0.0f;
+			for (int j = 0 ; j< tour.get(i).snd.size(); j ++) {
+				longueurtotale +=  tour.get(i).snd.get(j).length/1000;
+			}
+			durations.set(i, durations.get(i)+longueurtotale/15); 
+		}
+		for (int i = 1; i < durations.size(); i++) {
+			result.add(result.get(i-1).addhours(durations.get(i)));
+		}
+		return result;
+	}
 	/**
      * Adds the description of the intersection: if it'a a pickup/delivery point
      * or the return to the deposit 

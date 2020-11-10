@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -372,7 +373,8 @@ public class Window extends JFrame{
     }
     
     public void setErrorAtOpening() {
-    	indications.setText(indications.getText()+ " \n\r Please load a compatible file");
+//    	indications.setText(indications.getText()+ " \n\r Please load a compatible file");
+    	JOptionPane.showMessageDialog(this, "Please load a compatible file");
     }
     
     public void setVisibleCalculateButton() {

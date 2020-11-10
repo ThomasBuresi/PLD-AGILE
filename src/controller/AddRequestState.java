@@ -65,7 +65,6 @@ public class AddRequestState implements State{
 		
 		graphicalView.updateSelection(true, i);
 		graphicalView.repaint();
-		graphicalView.repaint();
 		
 		System.out.println(graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded().toString());
 		

@@ -7,6 +7,7 @@ import java.util.*;
 import javax.swing.JPanel;
 
 import controller.Controller;
+import model.Intersection;
 
 /**
  * 
@@ -33,6 +34,9 @@ public class GraphicalView extends JPanel{
 	 */
 	public boolean drawRect;
 	
+
+	
+	
 	/**
 	 * Coordinates of the zone to draw for the zoom in
 	 */
@@ -51,6 +55,7 @@ public class GraphicalView extends JPanel{
     	graphicalCityMap = new GraphicalCityMap(controller);
     	id=-1;
     	drawRect = false;
+    	
     	coordRect = new int[4];
     	repaint();
     }
@@ -70,6 +75,19 @@ public class GraphicalView extends JPanel{
     	repaint();
     }
     
+    /**
+     * 
+     * @param on true if switch on mode
+     */
+    
+    public void updateSelection(boolean on,Intersection i) {
+    		graphicalCityMap.addMode=on;
+    		if(i!=null)graphicalCityMap.setClickedIntersection(i);
+    	
+
+    }
+    
+    
     public void repaint(Graphics g) {
 		super.repaint();
 		paintComponent(g);
@@ -86,6 +104,7 @@ public class GraphicalView extends JPanel{
     		g.setColor(new Color(255, 0, 0, 50));
     		g.fillRect(coordRect[0], coordRect[1], coordRect[2], coordRect[3]);
     	}
+    	
     }
     
 

@@ -4,6 +4,7 @@ import java.util.*;
 
 import model.DeliveryTour;
 import model.Intersection;
+import model.Request;
 
 /**
  * 
@@ -14,6 +15,11 @@ public class RemoveCommand implements Command {
 	 * Delivery tour where we remove a request.
 	 */
 	private DeliveryTour deliveryTour;
+	
+	/**
+	 * Request that we remove 
+	 */
+	private Request r;
 	
 	/**
 	 * Controller to save the modifications onto the tour
@@ -30,13 +36,24 @@ public class RemoveCommand implements Command {
 	 */
 	private Intersection delivery;
 	
+	/**
+	 * Pickup intersection of the request we want to remove. 
+	 */
+	private Intersection beforePickup;
+	
+	/**
+	 * Delivery intersection of the request we want to remove. 
+	 */
+	private Intersection beforeDelivery;
+	
     /**
      * Default constructor
      */
-    public RemoveCommand(Controller controller,DeliveryTour tour,Intersection pickup,Intersection delivery) { //A request ? id ?  
+    public RemoveCommand(Controller controller,DeliveryTour tour,Request r) { //A request ? id ?  
+    	this.r=r;
     	this.controller=controller;
-    	this.pickup=pickup;
-    	this.delivery=delivery;
+    	this.pickup=r.getPickupAddress();
+    	this.delivery=r.getDeliveryAddress();
     	deliveryTour=tour;
     }
 
@@ -45,10 +62,16 @@ public class RemoveCommand implements Command {
      */
     public void doCommand() {
         
-    	deliveryTour.removeStep(pickup);
-    	deliveryTour.removeStep(delivery);
-    	deliveryTour.fillDeliveryTour(1000);
+    	beforePickup=deliveryTour.removeStep(pickup);
+    	beforeDelivery=deliveryTour.removeStep(delivery);
+    	
+    	controller.getRequestList().getListRequests().remove(r.getId());
+    	//remember return intersection for the add
+    	
+    	//Delivery tour path updated directly in method remove or add 
     	controller.setDeliveryTour(deliveryTour);
+    	
+    	//controller.getWindow().getGraphicalView().updateGraphicalCityMap(controller);
     	
     	// TODO remember where it was remove > modif return of method removeStep 
     	// that way the redo will be more direct 
@@ -60,7 +83,12 @@ public class RemoveCommand implements Command {
      * @return
      */
     public void undoCommand() {
-        // TODO readd the request 
+        deliveryTour.addIntermediateStep(beforePickup, pickup);
+        deliveryTour.addIntermediateStep(beforeDelivery, delivery);
+        controller.getRequestList().getListRequests().add(r.getId(),r);
+        controller.setDeliveryTour(deliveryTour);
+    	
+    	
         //return null;
     }
 

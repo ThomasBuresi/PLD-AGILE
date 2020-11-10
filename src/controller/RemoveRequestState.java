@@ -69,11 +69,13 @@ public class RemoveRequestState implements State {
 		
 		if(r!=null) {
 			ListOfCommands list = c.getListOfCommands();
-			list.add(new RemoveCommand(c,c.getDeliveryTour(),r.getPickupAddress(),r.getDeliveryAddress()));
+			list.add(new RemoveCommand(c,c.getDeliveryTour(),r));
 			
 			c.setListOfCommands(list);
-			c.getRequestList().getListRequests().remove(idRequestToRemove);
+			
 			w.getGraphicalView().setId(-1);
+			
+			w = c.getWindow();
 			
 			w.getGraphicalView().updateGraphicalCityMap(c);
 			w.getTextualView().update(c);

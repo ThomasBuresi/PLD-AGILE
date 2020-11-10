@@ -1,7 +1,9 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.*;
 
 import javax.swing.JPanel;
@@ -18,6 +20,11 @@ public class GraphicalIntersection {
      * 
      */
 	protected HashMap<Long, Intersection> listIntersection;
+	
+	/**
+	 * Array of the 4 intersections clicked to be added 
+	 */
+	protected ArrayList<Intersection> toBeAdded;
 	
 	/**
      * 
@@ -70,6 +77,7 @@ public class GraphicalIntersection {
     public GraphicalIntersection(HashMap<Long, Intersection> listIntersection, RequestList requestList, 
     		float latMin, float latMax, float longMin, float longMax) {
     	this.listIntersection = listIntersection; 
+    	toBeAdded = new ArrayList<Intersection>();
     	this.requestList = requestList;
     	this.latMax = latMax;
     	this.latMin = latMin;
@@ -116,6 +124,28 @@ public class GraphicalIntersection {
     	}
     	g.setColor(Color.black);
     	
+    	System.out.println("draw intersections, already selected a number of "+toBeAdded.size());
+    	if(!toBeAdded.isEmpty()) {
+    		int k=0;
+    		for(Intersection i : toBeAdded) {
+        		if(k<2) {
+            		
+                	float x = i.getLatitude();
+                	float y = i.getLongitude();
+                	g.drawRect((int)Math.round((y-longMinMap)/(longMaxMap-longMinMap)*width)-10,
+                			height - (int)Math.round((x-latMinMap)/(latMaxMap-latMinMap)*height)-10, 
+                			20, 20);
+            	}else {
+            		
+                	float x = i.getLatitude();
+                	float y = i.getLongitude();
+                	g.drawOval((int)Math.round((y-longMinMap)/(longMaxMap-longMinMap)*width)-10,
+                			height - (int)Math.round((x-latMinMap)/(latMaxMap-latMinMap)*height)-10, 
+                			20, 20);
+            	}
+        		k++;
+        	}
+    	}
     	
     }
 
@@ -130,12 +160,22 @@ public class GraphicalIntersection {
     			20, 20);
     }
     
+    public void addSelectedIntersection(Intersection i) {
+    	if(toBeAdded.size()<4) {
+    		toBeAdded.add(i);
+    	}
+    }
+    
+ 
+    	
+  
+    
     public Intersection getClickedIntersection(int xCoord,int yCoord, int panelHeight, int panelWidth) {
     	for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
 			int xInter = (int)Math.round((entry.getValue().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
 			int yInter = panelHeight - (int)Math.round((entry.getValue().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*panelHeight);
 			
-			if ((xCoord >= xInter - 3) && (xCoord<= xInter + 3) && (yCoord >= yInter - 3) && (yCoord<= yInter + 3)) {
+			if ((xCoord >= xInter - 5) && (xCoord<= xInter + 5) && (yCoord >= yInter - 5) && (yCoord<= yInter + 5)) {
 				return entry.getValue();
 			}
 		}
@@ -160,6 +200,14 @@ public class GraphicalIntersection {
 			}
 		}
     	return id;
+    }
+    
+    public void reInitializedToBeAdded() {
+    	toBeAdded= new ArrayList<Intersection>();
+    }
+    
+    public ArrayList<Intersection> getToBeAdded() {
+    	return toBeAdded;
     }
 
 	public void setLatMinMap(float latMinMap) {

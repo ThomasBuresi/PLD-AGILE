@@ -23,6 +23,7 @@ import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.sun.tools.javac.util.Pair;
 
 import controller.Controller;
+import controller.RemoveRequestState;
 import model.DeliveryTour;
 import model.Intersection;
 import model.Request;
@@ -294,8 +295,15 @@ public class TextualView extends JPanel{ //implements Observer {
 		
 		highlightTable(iSelectedRequest);
 		
+		
 		//update graphical view ?? with iSelectedRequest ! 
 		controller.getWindow().getGraphicalView().updateHighlight(iSelectedRequest);
+		
+		if(!(controller.getCurrentState() instanceof RemoveRequestState)) {
+			controller.setCurrentState(controller.removeRequestState);
+			controller.getWindow().setVisibleRemove();
+			
+		}
 		
     }
 

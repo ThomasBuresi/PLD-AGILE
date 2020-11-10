@@ -1,6 +1,7 @@
 ~~~~~~~~~~~ Delivery Roadmap ~~~~~~~~~~~
 Departure : 11 Impasse de l'Ordre, 69001 Lyon, France at 8h0mins
 
+<<<<<<< HEAD
 
 <<<<<<< HEAD
           For 10m take Rue Nazareth
@@ -46,6 +47,9 @@ Address : CollËge Gilbert Dru, Rue Jeanne Hachette, 69001 Lyon, France
 Step 5: Return to Departure at 8h48mins
 Address : 11 Impasse de l'Ordre, 69001 Lyon, France
 =======
+=======
+
+>>>>>>> master
           For 96m take Impasse de l'Ordre
           For 61m take Rue Antoine Charial
           For 142m take Rue Baraban
@@ -77,4 +81,7 @@ Address : Coll√®ge Gilbert Dru, Rue Jeanne Hachette, 69001 Lyon, France
           For 249m take Avenue Marc Sangnier
           For 123m take Rue Clos Poncet
 
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master

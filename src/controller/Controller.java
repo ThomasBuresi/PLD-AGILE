@@ -28,7 +28,6 @@ public class Controller {
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
 	protected final MapRequestsLoadedState mapRequestsLoadedState = new MapRequestsLoadedState();
 	protected final DeliveryTourState deliveryTourState = new DeliveryTourState();
-	protected final RequestHighlightedState requestHighlighted = new RequestHighlightedState();
 	protected final ContinueComputationState continueComputationState = new ContinueComputationState();
 	protected final AddRequestState addRequestState = new AddRequestState();
 	public final RemoveRequestState removeRequestState = new RemoveRequestState();
@@ -36,7 +35,7 @@ public class Controller {
 	
 	
     /**
-     * Default constructor
+     * Default constructor of Controller that initializes the attributes
      */
     public Controller() {
     	currentState = initialState;
@@ -45,8 +44,6 @@ public class Controller {
     	cityMap=null; 
     	requestList=null;
     	deliveryTour=null;
-//    	tsp=null;
-//    	dijkstraGraph=null;
     }
     
     
@@ -85,7 +82,6 @@ public class Controller {
 	}
     
     public void continueCalculation() {
-    	//TODO
     	currentState.continueCalculation(this, window);
     }
     

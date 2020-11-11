@@ -126,7 +126,7 @@ public class GraphicalSegment {
     	for (int r=100; r>0; r--) colors.add(new Color(r*255/100,         0,       255));
     	for (int gr=0; gr<100; gr++) colors.add(new Color(        0, gr*255/100,       255));
     	for (int b=100; b>0; b--) colors.add(new Color(        0,       255, b*255/100));
-    	                          colors.add(new Color(        0,       255,         0));
+    	colors.add(new Color(        0,       255,         0));
     	Color[] c = colors.toArray(new Color[colors.size()]);
     	
     	
@@ -139,14 +139,15 @@ public class GraphicalSegment {
   		  if(seg!=null) {
   			//System.out.println(pair.fst.getName());
   			for (Segment s : seg) {
-    			  int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
-    			  int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);
-    			  int yDest = height - (int)Math.round((s.getDestination().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
-    			  int xDest = (int)Math.round((s.getDestination().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);
-    			  
-    			  g2d.setColor(c[i]);
-    			  i++;
-    			  g2d.drawLine(xOrig, yOrig, xDest, yDest);
+  				if (i == c.length) i=0;
+    			int yOrig = height - (int)Math.round((s.getOrigin().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
+    			int xOrig = (int)Math.round((s.getOrigin().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);
+    			int yDest = height - (int)Math.round((s.getDestination().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height);
+    			int xDest = (int)Math.round((s.getDestination().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width);
+    			
+    			g2d.setColor(c[i]);
+    			i++;
+    			g2d.drawLine(xOrig, yOrig, xDest, yDest);
     		  }
   		  }
   	  	}

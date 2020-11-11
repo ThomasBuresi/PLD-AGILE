@@ -4,9 +4,6 @@ import view.GraphicalView;
 import view.TextualView;
 import view.Window;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import model.Intersection;
 
 public class AddRequestState implements State{
@@ -18,18 +15,9 @@ public class AddRequestState implements State{
 
 		if(graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded().size()==4) {
 			
-
-			//System.out.println(graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded().toString());
-			
 			ListOfCommands list =controller.getListOfCommands();
 			list.add(new AddCommand(controller,controller.getDeliveryTour(),graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded()));
-			controller.setListOfCommands(list);
-			
-			//System.out.println(controller.getDeliveryTour().toString());
-			//controller.getDeliveryTour().affiche();
-			//System.out.println(controller.getRequestList().toString());
-			
-			
+			controller.setListOfCommands(list);			
 			
 			graphicalView.getGraphicalCityMap().getGraphicalIntersection().reInitializedToBeAdded();
 			graphicalView.updateSelection(false, null);
@@ -42,10 +30,6 @@ public class AddRequestState implements State{
 		}else {
 			System.out.println("wrong selection, missing points");
 		}
-		
-		
-		
-
 	}
 	
 	@Override
@@ -64,17 +48,13 @@ public class AddRequestState implements State{
 		int panelWidth = graphicalView.getWidth();
 		
 		Intersection i  = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedIntersection(xCoord, yCoord, panelHeight, panelWidth);
-		
-		//System.out.println(i.toString());
+
 		
 		graphicalView.updateSelection(true, i);
 		graphicalView.repaint();
 		
 		System.out.println(graphicalView.getGraphicalCityMap().getGraphicalIntersection().getToBeAdded().toString());
-		
-		
-		
-		
+
 	}
 	
 	@Override

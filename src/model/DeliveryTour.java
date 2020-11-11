@@ -206,15 +206,11 @@ public class DeliveryTour {
 			//ajouter au delivery tour l'intersection qui correspond au numero de la requete ->
 			int currentsolution=tsp.getSolution(l);	
 			if (currentsolution%2!=0) {
-	//			System.out.println(currentsolution + "   " + (tsp.getSolution(l)/2));
-	//			System.out.println("Pickup Address :" + reqlist.getListRequests().get(tsp.getSolution(l)/2).getPickupAddress().getIdIntersection() );
 				this.addIntersectionDetail("Pickup Address");
 				this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 ).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 				this.durations.add( ((float)reqlist.getListRequests().get(tsp.getSolution(l)/2).pickupDuration)/3600);
 			}
 			else {
-	//			System.out.println(currentsolution + "   " + (tsp.getSolution(l)/2 -1));
-	//			System.out.println("Delivery Address :" + reqlist.getListRequests().get(tsp.getSolution(l)/2 - 1).getDeliveryAddress().getIdIntersection() );
 				this.addIntersectionDetail("Delivery Address");
 				this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
 				this.durations.add( ((float)reqlist.getListRequests().get(tsp.getSolution(l)/2-1).deliveryDuration)/3600);

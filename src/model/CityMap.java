@@ -114,28 +114,33 @@ public class CityMap {
 				Node node = intersectionsList.item(i);
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) node;
-					long id = Long.parseLong(eElement.getAttribute("id"));
-					float lat = Float.parseFloat(eElement.getAttribute("latitude"));
-					float longit = Float.parseFloat(eElement.getAttribute("longitude"));
-					Intersection inters = new Intersection(lat, longit, id);
-					if (listIntersection.containsKey(id)) {
-						Intersection conflictingInter = listIntersection.get(id);
-						if (conflictingInter.getLatitude() != inters.getLatitude()
-								|| conflictingInter.getLongitude() != inters.getLongitude()) {
-							System.err.println("Duplicate intersection with conflicting information found");
-							return false;
+					String id_s = eElement.getAttribute("id");
+					String lat_s = eElement.getAttribute("latitude");
+					String long_s = eElement.getAttribute("longitude");
+					if (id_s.length() > 0 && lat_s.length() > 0 && long_s.length() > 0) {
+						long id = Long.parseLong(id_s);
+						float lat = Float.parseFloat(lat_s);
+						float longit = Float.parseFloat(long_s);
+						Intersection inters = new Intersection(lat, longit, id);
+						if (listIntersection.containsKey(id)) {
+							Intersection conflictingInter = listIntersection.get(id);
+							if (conflictingInter.getLatitude() != inters.getLatitude()
+									|| conflictingInter.getLongitude() != inters.getLongitude()) {
+								System.err.println("Duplicate intersection with conflicting information found");
+								return false;
+							}
 						}
-					}
-					listIntersection.put(id, inters);
-					if (lat > latMax) {
-						latMax = lat;
-					} else if (lat < latMin) {
-						latMin = lat;
-					}
-					if (longit > longMax) {
-						longMax = longit;
-					} else if (longit < longMin) {
-						longMin = longit;
+						listIntersection.put(id, inters);
+						if (lat > latMax) {
+							latMax = lat;
+						} else if (lat < latMin) {
+							latMin = lat;
+						}
+						if (longit > longMax) {
+							longMax = longit;
+						} else if (longit < longMin) {
+							longMin = longit;
+						}
 					}
 				}
 			}
@@ -160,15 +165,23 @@ public class CityMap {
 				Node node = segmentsList.item(i);
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) node;
-					long idOrigin = Long.parseLong(eElement.getAttribute("origin"));
-					long idDest = Long.parseLong(eElement.getAttribute("destination"));
-					float length = Float.parseFloat(eElement.getAttribute("length"));
-					String name = eElement.getAttribute("name");
-					if (name == "")
-						name = "Name absent";
-					Segment seg = new Segment(name, getIntersection(idOrigin), getIntersection(idDest), length);
-					getIntersection(idOrigin).addSegment(seg); // Add the segment to the list of segments of the origin
-																// intersection
+					String idOrigin_s = eElement.getAttribute("origin");
+					String idDest_s = eElement.getAttribute("destination");
+					String length_s = eElement.getAttribute("length");
+					if (idOrigin_s.length() > 0 && idDest_s.length() > 0 && length_s.length() > 0 ) {
+						long idOrigin = Long.parseLong(idOrigin_s);
+						long idDest = Long.parseLong(idDest_s);
+						float length = Float.parseFloat(length_s);
+						String name = eElement.getAttribute("name");
+						if (name == "")
+							name = "Name absent";
+						Intersection origin = getIntersection(idOrigin);
+						Intersection dest = getIntersection(idDest);
+						if (origin != null && dest != null) {
+							Segment seg = new Segment(name, origin, dest, length);
+							getIntersection(idOrigin).addSegment(seg); // Add the segment to the list of segments of the origin
+						}
+					}													
 				}
 			}
 		} catch (Exception e) {

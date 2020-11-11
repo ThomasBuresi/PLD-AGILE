@@ -77,6 +77,11 @@ public class RemoveRequestState implements State {
 		System.out.println("Id to remove "+idRequestToRemove);
 		System.out.println(c.getRequestList().getListRequests().toString());
 		
+    	for (Request res : c.getRequestList().getListRequests()) {
+    		if (res.getId() == idRequestToRemove) {
+    			r = res;
+    		}
+    	}
 		
 		Request r = null;
     	for (Request res : c.getRequestList().getListRequests()) {
@@ -84,9 +89,6 @@ public class RemoveRequestState implements State {
     			r = res;
     	    }
        }
-		
-		//Request r = c.getRequestList().getListRequests().get(idRequestToRemove);
-		
 		
 		
 		if(r!=null) {

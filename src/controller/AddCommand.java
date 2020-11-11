@@ -66,11 +66,13 @@ public class AddCommand implements Command {
      * 
      */
     public void doCommand() {
-        deliveryTour.addIntermediateStep(beforePickup, pickup, true);
-        deliveryTour.addIntermediateStep(beforeDelivery, delivery, false);
+        deliveryTour.addIntermediateStep(beforePickup, pickup, true,10f);
+        deliveryTour.addIntermediateStep(beforeDelivery, delivery, false,10f);
 
         controller.getRequestList().setIndex(controller.getRequestList().getIndex()+1);
         controller.getRequestList().getListRequests().add(r);
+        
+        deliveryTour.setReqlist(controller.getRequestList());
         
         controller.setDeliveryTour(deliveryTour);
     }
@@ -93,6 +95,8 @@ public class AddCommand implements Command {
     	if (index != -1) {
     		controller.getRequestList().getListRequests().remove(index);
     	}
+    	
+    	deliveryTour.setReqlist(controller.getRequestList());
     	
     	controller.setDeliveryTour(deliveryTour);
     }

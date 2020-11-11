@@ -523,6 +523,9 @@ public class Window extends JFrame{
     	JOptionPane.showMessageDialog(this, "The delivery route was exported correctly.");
     }
 
+    public void setVisiblePopUpMultipleRequests() {
+    	JOptionPane.showMessageDialog(this, "Many requests on the clicked intersection, \n please select the one you want in the table.");
+    }
 
 
 }

@@ -148,7 +148,12 @@ public class TextualView extends JPanel{ //implements Observer {
     	this.remove(scrollPane);
     	
     	requestList=controller.getRequestList();
+    	
+    	deliveryTour.setReqlist(requestList);
+    	
     	List <TimeDelivery> times = deliveryTour.computeTime();
+    	
+    	deliveryTour.setTimes(times);
     	
     	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
     	
@@ -189,13 +194,15 @@ public class TextualView extends JPanel{ //implements Observer {
 		//at 0 is the time for the departure which we don't display 
 		int p=1;
 		
+		System.out.println(requestList.getListRequests().toString());
+		
 		for (Pair<Pair<Integer, Boolean>, Intersection> pair : intersections) {
 			String address = pair.snd.getName();
 			
 			if(address==null) {
 				address = pair.snd.setAddress(jOpenCageGeocoder);
 			}
-			
+
 			str="<HTML>" + ("Request Id - " + (pair.fst.fst+1) +" : ") + "<br>";
 			if (!pair.fst.snd) {
 				str += "PICKUP - " + address +" at "+times.get(p).toString()+ "</HTML>"; 

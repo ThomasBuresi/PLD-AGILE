@@ -55,6 +55,11 @@ public class DeliveryTour {
      * Represents the solution of the best tour calculated
      */ 
 	TSP tsp;
+		
+	/**
+	 * Times corresponding to the steps of the tour
+	 */
+	List<TimeDelivery> times;
 
     /**
      * Constructor of <code>DeliveryTour</code>  that calculates
@@ -69,6 +74,7 @@ public class DeliveryTour {
 		this.g = new DijkstraGraph(this.map, this.reqlist);
 		this.ordretsp = new ArrayList<Integer>();
 		this.durations= new ArrayList<Float>();
+		this.times=null;
     }
     /**
      * Constructor of <code>DeliveryTour</code>  that takes as parameters the
@@ -84,6 +90,7 @@ public class DeliveryTour {
 		this.g = g;
 		this.ordretsp = new ArrayList<Integer>();
 		this.durations= new ArrayList<Float>();
+		this.times=null;
     }
     
  
@@ -102,8 +109,9 @@ public class DeliveryTour {
      * @param i the index after which the new step should be added
      * @param step the intersection to be added
      * @param PoD true for pickup, false for delivery
+     * @param d duration in minutes
      */
-	public void addIntermediateStep(Intersection previousInter, Intersection step, boolean PoD) {
+	public void addIntermediateStep(Intersection previousInter, Intersection step, boolean PoD,float d) {
 		int i = this.getIndexOfIntersection(previousInter);
 		tour.add(++i,
 				new Pair<>(step, DijkstraGraph.computeShortestPath(previousInter, step).getAllPreviousSegments()));
@@ -113,6 +121,8 @@ public class DeliveryTour {
 		else {
 			pickupOrDeliver.add(i, "Delivery Address");
 		}
+		d = d/60f;// from minutes to hour 
+		durations.add(i,d); //?? good index 
 		
 		if (i + 1 < tour.size()) {
 			Pair<Intersection, List<Segment>> nextStep = tour.get(i + 1);
@@ -230,7 +240,8 @@ public class DeliveryTour {
 		File file = new File(filename);
         FileWriter fr = null;
         BufferedWriter br = null;
-        List <TimeDelivery> times = this.computeTime();
+        
+        if(times==null) times= this.computeTime();
        
         try{
             fr = new FileWriter(file);
@@ -305,6 +316,7 @@ public class DeliveryTour {
 
 	public List<TimeDelivery> computeTime(){
 		List <TimeDelivery> result = new ArrayList <TimeDelivery>();
+		List<Float> durationsMethod = durations;
 		// departure time
 		result.add(new TimeDelivery().addhours(this.reqlist.departureTime/3600));
 		for (int i = 1 ; i< tour.size();i++) {
@@ -312,10 +324,10 @@ public class DeliveryTour {
 			for (int j = 0 ; j< tour.get(i).snd.size(); j ++) {
 				longueurtotale +=  tour.get(i).snd.get(j).length/1000;
 			}
-			durations.set(i, durations.get(i)+longueurtotale/15); 
+			durationsMethod.set(i, durationsMethod.get(i)+longueurtotale/15); 
 		}
-		for (int i = 1; i < durations.size(); i++) {
-			result.add(result.get(i-1).addhours(durations.get(i)));
+		for (int i = 1; i < durationsMethod.size(); i++) {
+			result.add(result.get(i-1).addhours(durationsMethod.get(i)));
 		}
 		return result;
 	}
@@ -338,6 +350,18 @@ public class DeliveryTour {
 	
 	public List<Pair<Intersection, List<Segment>>> getTour() {
 		return tour;
+	}
+	
+	public void setReqlist(RequestList r) {
+		reqlist=r;
+	}
+	
+	public void setTimes(List<TimeDelivery> list) {
+		times=list;
+	}
+	
+	public List<TimeDelivery> getTimes (){
+		return times;
 	}
 }
 			

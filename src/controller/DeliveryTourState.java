@@ -74,26 +74,34 @@ public class DeliveryTourState extends MapLoadedState {
 		int panelHeight = graphicalView.getHeight();
 		int panelWidth = graphicalView.getWidth();
 		
-		int id = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
+		List<Integer> idList = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
 		
 		
-		System.out.println(id);
-		
-		graphicalView.updateHighlight(id);
-		textualView.highlightTable(id);
-		
-		
-		if(id!=-1) {
-			//if on a request : 
+		if(idList.size()!=0) {
 			
-			w.setVisibleRemove();
+			if(idList.size()>1) {
+				
+				w.setVisiblePopUpMultipleRequests();
+				
+			}else{
+				int id = idList.get(0);
+				
+				System.out.println(id);
+				graphicalView.updateHighlight(id);
+				textualView.highlightTable(id);
+				
+				//if on a request : 
+				
+				w.setVisibleRemove();
+				
+				//update the table to highlight the corresponding request
+				// highlight map
+				//graphicalView.getGraphicalCityMap().getGraphicalIntersection().drawHighlight(g, height, width, id);
+				
+				
+				c.setCurrentState(c.removeRequestState);
+			}
 			
-			//update the table to highlight the corresponding request
-			// highlight map
-			//graphicalView.getGraphicalCityMap().getGraphicalIntersection().drawHighlight(g, height, width, id);
-			
-			
-			c.setCurrentState(c.removeRequestState);
 		} 
 		
 		//TODO save id 

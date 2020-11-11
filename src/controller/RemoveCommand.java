@@ -46,6 +46,12 @@ public class RemoveCommand implements Command {
 	 */
 	private Intersection beforeDelivery;
 	
+	
+	/**
+	 * index to add the element for redo
+	 */
+	private int index;
+	
     /**
      * Default constructor
      */
@@ -65,7 +71,7 @@ public class RemoveCommand implements Command {
     	beforePickup=deliveryTour.removeStep(pickup);
     	
     	int i=0;
-    	int index = -1;
+    	index = -1;
     	List <Request> requests = controller.getRequestList().getListRequests();
     	for (Request res : requests) {
     		if (res.getId() == r.getId()) {
@@ -76,6 +82,9 @@ public class RemoveCommand implements Command {
     	if (index != -1) {
     		controller.getRequestList().getListRequests().remove(index);
     	}    
+    	
+    	deliveryTour.setReqlist(controller.getRequestList());
+    	
     	//Delivery tour path updated directly in method remove or add 
     	controller.setDeliveryTour(deliveryTour);
     	
@@ -87,16 +96,15 @@ public class RemoveCommand implements Command {
 
     }
 
-    /**
-     * 
-     */
     
     public void undoCommand() {
     	// true for the pickup, false for the delivery 
-    	deliveryTour.addIntermediateStep(beforePickup, pickup, true);
-        deliveryTour.addIntermediateStep(beforeDelivery, delivery, false);
+    	deliveryTour.addIntermediateStep(beforePickup, pickup, true,(float)r.getPickupDuration()/60f);
+        deliveryTour.addIntermediateStep(beforeDelivery, delivery, false,(float)r.getDeliveryDuration()/60f);
          
-        controller.getRequestList().getListRequests().add(r);
+        controller.getRequestList().getListRequests().add(index,r);
+        
+        deliveryTour.setReqlist(controller.getRequestList());
         
         controller.setDeliveryTour(deliveryTour);
     }

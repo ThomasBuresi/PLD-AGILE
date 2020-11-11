@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import model.Request;
 import model.RequestList;
 import view.GraphicalView;
@@ -42,15 +44,24 @@ public class RemoveRequestState implements State {
 		int panelHeight = graphicalView.getHeight();
 		int panelWidth = graphicalView.getWidth();
 		
-		int id = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
-		
-		System.out.println(id);
-		
-		graphicalView.updateHighlight(id);
-		textualView.highlightTable(id);
+		List<Integer> idList = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
 		
 		
-		
+		if(idList!=null) {
+			
+			if(idList.size()>1) {
+				
+				w.setVisiblePopUpMultipleRequests();
+				
+			}else{
+				int id = idList.get(0);
+				
+				System.out.println(id);
+				graphicalView.updateHighlight(id);
+				textualView.highlightTable(id);
+				
+			}
+		}
 	}
 	
 	@Override 
@@ -63,7 +74,18 @@ public class RemoveRequestState implements State {
 		
 		int idRequestToRemove = c.getWindow().getTextualView().getISelectedRequest();
 		
-		Request r = c.getRequestList().getListRequests().get(idRequestToRemove);
+		System.out.println("Id to remove "+idRequestToRemove);
+		System.out.println(c.getRequestList().getListRequests().toString());
+		
+		
+		Request r = null;
+    	for (Request res : c.getRequestList().getListRequests()) {
+    		if (res.getId() == idRequestToRemove) {
+    			r = res;
+    	    }
+       }
+		
+		//Request r = c.getRequestList().getListRequests().get(idRequestToRemove);
 		
 		
 		

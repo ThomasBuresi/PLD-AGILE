@@ -197,21 +197,21 @@ public class GraphicalIntersection {
     	return null;
     }
     
-    public int getClickedRequestId(int xCoord,int yCoord, int panelHeight, int panelWidth) {
+    public List<Integer> getClickedRequestId(int xCoord,int yCoord, int panelHeight, int panelWidth) {
     	List<Request> list = requestList.getListRequests();
 		
-		int id = -1;
+    	List<Integer> id = new ArrayList<Integer>();
 		
 		for (Request r : list) {
 			int xInterP = (int)Math.round((r.getPickupAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
 			int yInterP = panelHeight - (int)Math.round((r.getPickupAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*panelHeight);
 			if ((xCoord >= xInterP - 5) && (xCoord<= xInterP + 5) && (yCoord >= yInterP - 5) && (yCoord<= yInterP + 5)) {
-				id=r.getId();
+				id.add(r.getId());
 			}
 			int xInterD = (int)Math.round((r.getDeliveryAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
 			int yInterD = panelHeight - (int)Math.round((r.getDeliveryAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*panelHeight);
 			if ((xCoord >= xInterD - 5) && (xCoord<= xInterD + 5) && (yCoord >= yInterD - 5) && (yCoord<= yInterD + 5)) {
-				id=r.getId();
+				id.add(r.getId());
 			}
 		}
     	return id;

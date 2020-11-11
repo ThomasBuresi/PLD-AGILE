@@ -10,7 +10,7 @@ public class MapRequestsLoadedState extends MapLoadedState{
 	@Override
 	public void computeDeliveryTour(Controller controller, Window window) {
 		DeliveryTour d = new DeliveryTour(controller);
-		d.fillDeliveryTour(20000);
+		d.fillDeliveryTour(5000);
 		controller.setDeliveryTour(d);
 		
 		GraphicalView graphicalView = window.getGraphicalView();

@@ -56,10 +56,10 @@ public class DeliveryTour {
      */ 
 	TSP tsp;
 		
-	/**
-	 * Times corresponding to the steps of the tour
-	 */
-	List<TimeDelivery> times;
+//	/**
+//	 * Times corresponding to the steps of the tour
+//	 */
+//	List<TimeDelivery> times;
 
     /**
      * Constructor of <code>DeliveryTour</code>  that calculates
@@ -74,7 +74,7 @@ public class DeliveryTour {
 		this.g = new DijkstraGraph(this.map, this.reqlist);
 		this.ordretsp = new ArrayList<Integer>();
 		this.durations= new ArrayList<Float>();
-		this.times=null;
+
     }
     /**
      * Constructor of <code>DeliveryTour</code>  that takes as parameters the
@@ -90,7 +90,7 @@ public class DeliveryTour {
 		this.g = g;
 		this.ordretsp = new ArrayList<Integer>();
 		this.durations= new ArrayList<Float>();
-		this.times=null;
+
     }
     
  
@@ -154,6 +154,7 @@ public class DeliveryTour {
 		int index= this.getIndexOfIntersection(i);
 		this.tour.remove(index);
 		this.pickupOrDeliver.remove(index);
+		this.durations.remove(index);
 		//this.ordretsp.remove(index);
 		Intersection temp = tour.get(index).fst;
 		List <Segment> tempSeg = DijkstraGraph.computeShortestPath(temp, tour.get(index-1).fst).getAllPreviousSegments();
@@ -237,7 +238,7 @@ public class DeliveryTour {
         FileWriter fr = null;
         BufferedWriter br = null;
         
-        if(times==null) times= this.computeTime();
+        List <TimeDelivery> times = this.computeTime();
        
         try{
             fr = new FileWriter(file);
@@ -312,7 +313,10 @@ public class DeliveryTour {
 
 	public List<TimeDelivery> computeTime(){
 		List <TimeDelivery> result = new ArrayList <TimeDelivery>();
-		List<Float> durationsMethod = durations;
+		List<Float> durationsMethod = new ArrayList <Float>(durations.size());
+		for (float f : durations) {
+			durationsMethod.add(f);
+		}
 		// departure time
 		result.add(new TimeDelivery().addhours(this.reqlist.departureTime/3600));
 		for (int i = 1 ; i< tour.size();i++) {
@@ -352,13 +356,13 @@ public class DeliveryTour {
 		reqlist=r;
 	}
 	
-	public void setTimes(List<TimeDelivery> list) {
-		times=list;
-	}
-	
-	public List<TimeDelivery> getTimes (){
-		return times;
-	}
+//	public void setTimes(List<TimeDelivery> list) {
+//		times=list;
+//	}
+//	
+//	public List<TimeDelivery> getTimes (){
+//		return times;
+//	}
 }
 			
 

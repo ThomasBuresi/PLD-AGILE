@@ -153,7 +153,7 @@ public class TextualView extends JPanel{ //implements Observer {
     	
     	List <TimeDelivery> times = deliveryTour.computeTime();
     	
-    	deliveryTour.setTimes(times);
+//    	deliveryTour.setTimes(times);
     	
     	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
     	

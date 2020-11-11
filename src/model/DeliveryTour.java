@@ -233,9 +233,7 @@ public class DeliveryTour {
     				float longueur = 0.0f;
     				int dernierseg = seg.size();
     				int i =1;
-    				for (Segment s : s
-    						
-    						eg) {
+    				for (Segment s : seg) {
     					segmentsuivant = s;
     					if (i != dernierseg) {
     						if (segmentprecedent != null && segmentsuivant != null && segmentsuivant.getName().equals(segmentprecedent.getName())!= true) {

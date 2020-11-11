@@ -53,7 +53,10 @@ public class RemoveCommand implements Command {
 	private int index;
 	
     /**
-     * Default constructor
+     * Constructor of RemoveCommand
+     * @param controller
+     * @param tour the calculated tour
+     * @param r the request to remove from the tour
      */
     public RemoveCommand(Controller controller,DeliveryTour tour,Request r) { //A request ? id ?  
     	this.r=r;

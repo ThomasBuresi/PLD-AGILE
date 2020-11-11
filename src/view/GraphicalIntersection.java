@@ -92,21 +92,40 @@ public class GraphicalIntersection {
     
     public void drawIntersection(Graphics g, int height, int width) 
     {     
-    	Color colors[] = {Color.red, Color.green, Color.yellow, Color.cyan, Color.pink, Color.orange, Color.gray, Color.magenta};
-    	List<Request> requests = requestList.getListRequests();
+    	List<Color> color = new ArrayList<Color>();
     	
-    	//System.out.println(requestList);
+    	color.add(Color.red);
+    	color.add(Color.green);
+    	color.add(Color.yellow);
+    	color.add(Color.cyan);
+    	color.add(Color.pink);
+    	color.add(Color.orange);
+    	color.add(Color.gray);
+    	color.add(Color.magenta);
+    	
+    	color.add(new Color(62, 98, 89));
+    	color.add(new Color(98, 146, 158));
+    	color.add(new Color(130, 51, 41));
+    	color.add(new Color(84, 106, 123));
+    	color.add(new Color(138, 48, 51));
+    	color.add(new Color(184, 140, 158));
+    	color.add(new Color(164, 48, 63));
+    	color.add(new Color(200, 214, 175));
+    	color.add(new Color(162, 112, 53));
+    	
+    	Color colors[] = color.toArray(new Color[color.size()]);
+    	List<Request> requests = requestList.getListRequests();
     	
     	int departure_py = height - (int)Math.round((requestList.getDeparture().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-5;
     	int departure_px = (int)Math.round((requestList.getDeparture().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-5;
 
         g.fillRect(departure_px, departure_py, 10, 10);
-      
-    	
-        //System.out.println(" Min : "+longMin + " " + latMin+ " / Max :" + longMax + " " + latMax);
         
     	int col_counter = 0;
     	for (Request res : requests) {
+    		if (col_counter == colors.length) {
+    			col_counter = 0;
+    		}
     		g.setColor(colors[col_counter]);
     		g.fillRect((int)Math.round((res.getPickupAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-5,
         			height - (int)Math.round((res.getPickupAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-5, 
@@ -114,13 +133,7 @@ public class GraphicalIntersection {
     		g.fillOval((int)Math.round((res.getDeliveryAddress().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*width)-5,
         			height - (int)Math.round((res.getDeliveryAddress().getLatitude()-latMinMap)/(latMaxMap-latMinMap)*height)-5, 
         			10, 10);
-    		if (col_counter == colors.length) 
-    		{
-    			col_counter = 0;
-    		} else 
-    		{
-    			col_counter++;
-    		}
+    		col_counter++;
     	}
     	g.setColor(Color.black);
     	

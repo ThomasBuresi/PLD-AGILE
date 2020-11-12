@@ -21,7 +21,7 @@ import model.Segment;
  * Graphical representation for the map of all the segments. Highlighted or not. 
  * The segments can be highlighted to represent the tour.
  * 
- * @authors H4122
+ * @author H4122
  */
 public class GraphicalSegment {
 

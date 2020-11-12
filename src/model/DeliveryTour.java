@@ -10,7 +10,6 @@ import com.sun.tools.javac.util.Pair;
 import controller.Controller;
 import tsp.DijkstraGraph;
 import tsp.TSP;
-import tsp.TSP2;
 import tsp.TSP3;
 
 
@@ -105,13 +104,13 @@ public class DeliveryTour {
     }
     
     /**
-     * Adds a new intersection after the i-th index (starting from 0), and updates relevant paths
-     * @param i the index after which the new step should be added
+     * Adds a new intersection after the intersection given as parameter, and updates relevant paths
+     * @param previousInter the intersection after which the new step should be added
      * @param step the intersection to be added
      * @param PoD true for pickup, false for delivery
      * @param d duration in minutes
      */
-	public void addIntermediateStep(Intersection previousInter, Intersection step, boolean PoD,float d) {
+	public void addIntermediateStep(Intersection previousInter, Intersection step, boolean PoD, float d) {
 		int i = this.getIndexOfIntersection(previousInter);
 		tour.add(++i,
 				new Pair<>(step, DijkstraGraph.computeShortestPath(previousInter, step).getAllPreviousSegments()));

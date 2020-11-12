@@ -54,7 +54,7 @@ public class DijkstraGraph implements Graph {
 	 * 
 	 * @param i the origin interest point
 	 * @param j the destination interest point
-	 * @returns the minimum travel distance, in meters
+	 * @return the minimum travel distance, in meters
 	 */
 	@Override
 	public int getCost(int i, int j) {

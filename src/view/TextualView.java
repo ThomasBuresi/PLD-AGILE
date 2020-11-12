@@ -32,7 +32,7 @@ import model.TimeDelivery;
 
 /**
  * View of the requests in a textual form : detailed in a table. 
- * @authors H4112 
+ * @author H4112 
  */
 
 public class TextualView extends JPanel{ 

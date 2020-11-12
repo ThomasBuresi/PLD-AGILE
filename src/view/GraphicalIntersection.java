@@ -17,7 +17,7 @@ import model.RequestList;
  * An intersection correspond to any point that is clickable in the add mode. 
  * All the intersections are linked by segments that represented in GraphicalSegment.
  * 
- * @authors H4112 
+ * @author H4112 
  */
 public class GraphicalIntersection {
 	
@@ -313,7 +313,7 @@ public class GraphicalIntersection {
     /**
      * Getter of the list of the intersections to be added 
      * 
-     * @return ArrayList<Intersection> 
+     * @return list of the intersections to be added 
      */
     public ArrayList<Intersection> getToBeAdded() {
     	return toBeAdded;

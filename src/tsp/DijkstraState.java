@@ -58,7 +58,7 @@ public class DijkstraState implements Comparator<DijkstraState> {
 	}
 
 	/**
-	 * @returns a list of all previous segments in chronological order
+	 * @return a list of all previous segments in chronological order
 	 */
 	public List<Segment> getAllPreviousSegments() {
 		LinkedList<Segment> res = new LinkedList<Segment>();

@@ -71,7 +71,7 @@ class DeliveryTourTest {
 		// Look up the addresses for points of interest before generating the roadmap :
 		JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
 		reqlist.getDeparture().setAddress(jOpenCageGeocoder);
-		for(Request r : reqlist) {
+		for(Request r : reqlist.getListRequests()) {
 			r.getDeliveryAddress().setAddress(jOpenCageGeocoder);
 			r.getPickupAddress().setAddress(jOpenCageGeocoder);
 		}

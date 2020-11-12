@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * To define the modifications of the table if a cell is clicked. 
  * In our application we just change the background color for selected rows. 
  * 
- * @authors H4112
+ * @author H4112
  *
  */
 public class HighlightCellRenderer extends DefaultTableCellRenderer {
@@ -27,7 +27,7 @@ public class HighlightCellRenderer extends DefaultTableCellRenderer {
 	
 	/**
 	 * Def rows to highlight
-	 * @param row
+	 * @param rows array of rows to highlight
 	 */	
 	public HighlightCellRenderer(int[] rows) {
 		super();

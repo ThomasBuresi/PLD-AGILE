@@ -3,19 +3,14 @@ package view;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.*;
 
-import controller.AddRequestState;
 import controller.Controller;
-import controller.DeliveryTourState;
-import controller.RemoveRequestState;
-import controller.State;
-import model.Intersection;
+
 
 /**
  * Mouse listener to react from the user's mouse interactions with the application.
  * 
- * @authors H4112
+ * @author H4112
  */
 public class MouseListen extends MouseAdapter{
 

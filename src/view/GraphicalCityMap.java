@@ -19,7 +19,7 @@ import model.RequestList;
  * This class groups all the graphical elements of the city map. 
  * It is used as the view of the CityMap of the model. 
  * 
- * @authors H4112
+ * @author H4112
  */
 public class GraphicalCityMap {
 	

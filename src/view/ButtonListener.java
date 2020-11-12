@@ -24,7 +24,7 @@ import tsp.TSP1;
  * For every button, it will call the corresponding method in the controller. 
  * It will launch a serie of actions and change the states and views. 
  * 
- * @authors H4112
+ * @author H4112
  */
 public class ButtonListener implements ActionListener {
 	

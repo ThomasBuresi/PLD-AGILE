@@ -28,7 +28,7 @@ import model.CityMap;
 /**
  * Window is containing the main frame of the Deliver'If application. 
  * 
- * @authors H4112
+ * @author H4112
  */
 public class Window extends JFrame{
 

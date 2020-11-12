@@ -12,7 +12,7 @@ import model.Intersection;
 /**
  * Global GraphicalView containing the main GraphicalCityMap and the zoom functions.
  * 
- * @authors H4112
+ * @author H4112
  */
 
 public class GraphicalView extends JPanel{

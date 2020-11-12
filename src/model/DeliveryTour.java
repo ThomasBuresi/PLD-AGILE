@@ -173,7 +173,7 @@ public class DeliveryTour {
 
 
     /**
-     * TODO
+     * Writes in the console the tour
      */ 
 	public void affiche() {
 		for (Pair<Intersection, List<Segment>> pair: tour) {
@@ -232,6 +232,8 @@ public class DeliveryTour {
 	/**
      * Exports the delivery tour as a description of the steps of the tour
      * to take to a file (its path is given as a parameter)
+     * 
+     * @param filename path to the file where to export the tour
      */
 	public void writeDeliveryTourToFile(String filename) {
 		File file = new File(filename);

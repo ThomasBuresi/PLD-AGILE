@@ -18,9 +18,10 @@ public class MapLoadedState extends InitialState{
 	@Override
 	public void loadRequestsFile(Controller controller, Window window) {
 		fc = new JFileChooser();
-    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
-    			System.getProperty("file.separator")+ "src" + 
-    			System.getProperty("file.separator")+ "resources"));
+//    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
+//		System.getProperty("file.separator")+ "src" + 
+//		System.getProperty("file.separator")+ "resources"));
+		fc.setCurrentDirectory( new File ( System.getProperty("user.dir")));
     	
     	window.setLoadingRequests();
         window.repaint();

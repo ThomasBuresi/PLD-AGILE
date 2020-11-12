@@ -22,10 +22,10 @@ public class InitialState implements State {
 	@Override
 	public void loadMap(Controller c,  Window w) {
 		fc = new JFileChooser();
-    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
-    			System.getProperty("file.separator")+ "src" + 
-    			System.getProperty("file.separator")+ "resources"));
-		
+//    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
+//    			System.getProperty("file.separator")+ "src" + 
+//    			System.getProperty("file.separator")+ "resources"));
+		fc.setCurrentDirectory( new File ( System.getProperty("user.dir")));
 		int val_ret = fc.showOpenDialog(null);
 
         if (val_ret == JFileChooser.APPROVE_OPTION) {

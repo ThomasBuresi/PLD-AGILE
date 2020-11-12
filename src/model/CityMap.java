@@ -190,6 +190,8 @@ public class CityMap {
 		}
 		return true;
 	}
+	
+	// Getters, setters
 
 	public HashMap<Long, Intersection> getListIntersection() {
 		return listIntersection;

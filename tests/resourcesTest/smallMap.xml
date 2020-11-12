@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<map>
+<intersection id="1" latitude="45.75400" longitude="4.857400"/>
+<intersection id="2" latitude="45.75400" longitude="4.857410"/>
+<intersection id="3" latitude="45.75410" longitude="4.857400"/>
+<intersection id="4" latitude="45.75410" longitude="4.857410"/>
+<intersection id="6" latitude="45.75420" longitude="4.857420"/>
+<intersection id="7" latitude="45.75420" longitude="4.857410"/>
+<intersection id="5" latitude="45.75420" longitude="4.857415"/>
+<segment destination="2" length="10.0" name="Rue A" origin="1"/>
+<segment destination="1" length="10.0" name="Rue A" origin="2"/>
+
+<segment destination="3" length="10.0" name="Rue E" origin="1"/>
+<segment destination="1" length="10.0" name="Rue E" origin="3"/>
+
+<segment destination="4" length="14.14" name="Rue F" origin="1"/>
+<segment destination="4" length="10.0" name="Rue B" origin="2"/>
+<segment destination="5" length="10.0" name="Rue C" origin="4"/>
+<segment destination="5" length="10.0" name="Rue D" origin="3"/>
+<segment destination="5" length="10.0" name="Rue D" origin="2"/>
+<segment destination="2" length="10.0" name="Rue D" origin="5"/>
+
+<segment destination="7" length="10.0" name="Rue H" origin="6"/>
+<segment destination="6" length="10.0" name="Rue G" origin="3"/>
+<segment destination="7" length="10.0" name="Rue I" origin="4"/>
+
+
+</map>

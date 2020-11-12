@@ -17,7 +17,8 @@ import tsp.TSP;
 import tsp.TSP1;
 import tsp.TSP2;
 
-class DeliveryTourTest {
+class DeliveryTourTest
+ {
 
 	@Test
 	void testDeliveryTour() {
@@ -76,7 +77,6 @@ class DeliveryTourTest {
 			r.getPickupAddress().setAddress(jOpenCageGeocoder);
 		}
 		
-		d.writeDeliveryTourToFile("test.txt");
 	}
 
 }

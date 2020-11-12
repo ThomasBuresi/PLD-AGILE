@@ -26,9 +26,10 @@ public class DeliveryTourState extends MapLoadedState {
 	@Override 
 	public void exportTourFile(Controller c, Window w) {
 		fc = new JFileChooser();
-    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
-    			System.getProperty("file.separator")+ "src" + 
-    			System.getProperty("file.separator")+ "resources"));
+//    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
+//		System.getProperty("file.separator")+ "src" + 
+//		System.getProperty("file.separator")+ "resources"));
+		fc.setCurrentDirectory( new File ( System.getProperty("user.dir")));
     	
 		int val_ret_requests = fc.showOpenDialog(null);
 

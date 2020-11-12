@@ -66,16 +66,10 @@ public class RemoveRequestState implements State {
 	
 	@Override 
 	public void removeRequest(Controller c,Window w) {
-//		perform the removal
-//		add the remove command to the list of commands to prepare the possible undo/redo 
-//		update the computation of the tour 
-//		update the views (graph+textual)
-//		update state of the controller 
 		
 		int idRequestToRemove = c.getWindow().getTextualView().getISelectedRequest();
 		
 		System.out.println("Id to remove "+idRequestToRemove);
-		System.out.println(c.getRequestList().getListRequests().toString());
 		
 		Request r = null;
     	for (Request res : c.getRequestList().getListRequests()) {
@@ -86,17 +80,20 @@ public class RemoveRequestState implements State {
 		
 		
 		if(r!=null) {
+			// add the remove command to the list of commands to prepare the possible undo/redo 
 			ListOfCommands list = c.getListOfCommands();
 			list.add(new RemoveCommand(c, c.getDeliveryTour(),r));
 			
 			c.setListOfCommands(list);
 			
 			w.getGraphicalView().setId(-1);
-			
+			// update the views (graph+textual)
 			w.getGraphicalView().updateGraphicalCityMap(c);
 			w.getTextualView().update(c);
 			
 			w.setVisibleAddExport();
+
+			// update state of the controller 
 			c.setCurrentState(c.deliveryTourState);
 			
 		}else {

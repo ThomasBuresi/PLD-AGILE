@@ -194,8 +194,6 @@ public class TextualView extends JPanel{
 		//at 0 is the time for the departure which we don't display 
 		int p=1;
 		
-		System.out.println(requestList.getListRequests().toString());
-		
 		for (Pair<Pair<Integer, Boolean>, Intersection> pair : intersections) {
 			String address = pair.snd.getName();
 			

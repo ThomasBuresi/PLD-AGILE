@@ -43,6 +43,7 @@ public class ContinueComputationState extends MapRequestsLoadedState{
         graphicalView.updateGraphicalCityMap(controller);
         textualView.update(controller);
 		
+        window.getTextualView().highlightTable(-1);
 		window.setVisibleAddExport();
 		controller.setCurrentState(controller.deliveryTourState);
 		
@@ -51,6 +52,7 @@ public class ContinueComputationState extends MapRequestsLoadedState{
 	public void skipContinueCalculation(Controller controller, Window window) {
 		//directly goes to the next state 
 		window.setVisibleAddExport();
+		window.getTextualView().highlightTable(-1);
 		controller.setCurrentState(controller.deliveryTourState);
 	}
 	

@@ -20,7 +20,6 @@ import javax.swing.table.*;
 import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.sun.tools.javac.util.Pair;
 
-import controller.ContinueComputationState;
 import controller.Controller;
 import controller.MapRequestsLoadedState;
 import controller.RemoveRequestState;
@@ -298,7 +297,7 @@ public class TextualView extends JPanel{
 
 		iSelectedRequest = Integer.parseInt(str)-1;
 		
-		if(!(controller.getCurrentState() instanceof ContinueComputationState)){
+		if(!(controller.getCurrentState() instanceof MapRequestsLoadedState)){
 			highlightTable(iSelectedRequest);
 			//update graphical view ?? with iSelectedRequest ! 
 			controller.getWindow().getGraphicalView().updateHighlight(iSelectedRequest);

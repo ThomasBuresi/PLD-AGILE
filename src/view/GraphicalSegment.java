@@ -36,42 +36,46 @@ public class GraphicalSegment {
 	protected DeliveryTour deliveryTour;
 	
 	/**
-	 * 
+	 * The minimal latitude of the loaded map 
 	 */
 	protected float latMin;
 	
 	/**
-	 * 
+	 * The maximal latitude of the loaded map 
 	 */
 	protected float latMax;
 	
 	/**
-	 * 
+	 * The minimal longitude of the loaded map 
 	 */
 	protected float longMin;
 	
 	/**
-	 * 
+	 * The maximal longitude of the loaded map 
 	 */
 	protected float longMax;
 	
 	/**
-	 * 
+	 * The minimal latitude of the loaded map that is shown
+	 * at the moment (if zoomed in)
 	 */
 	protected float latMinMap;
 	
 	/**
-	 * 
+	 * The maximal latitude of the loaded map that is shown
+	 * at the moment (if zoomed in)
 	 */
 	protected float latMaxMap;
 	
 	/**
-	 * 
+	 * The minimal latitude of the loaded map that is shown
+	 * at the moment (if zoomed in)
 	 */
 	protected float longMinMap;
 	
 	/**
-	 * 
+	 * The minimal latitude of the loaded map that is shown
+	 * at the moment (if zoomed in)
 	 */
 	protected float longMaxMap;
 	
@@ -191,6 +195,17 @@ public class GraphicalSegment {
   	  	}
     }
     
+    /**
+     * Reset the coordinates of the shown map to the default ones :
+     * Zoom out
+     */
+    public void resetCoord() {
+		this.latMinMap = this.latMin;
+		this.latMaxMap = this.latMax;
+		this.longMinMap = this.longMin;
+		this.longMaxMap = this.longMax;
+	}
+    
     public void setLatMinMap(float latMinMap) {
 		this.latMinMap = latMinMap;
 	}
@@ -223,11 +238,6 @@ public class GraphicalSegment {
 		return longMaxMap;
 	}
 
-	public void resetCoord() {
-		this.latMinMap = this.latMin;
-		this.latMaxMap = this.latMax;
-		this.longMinMap = this.longMin;
-		this.longMaxMap = this.longMax;
-	}
+	
 
 }

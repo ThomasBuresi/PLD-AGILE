@@ -13,11 +13,16 @@ import model.Request;
 import model.RequestList;
 
 /**
+ * Graphical representation for the map of all the intersections. Highlighted or not. 
+ * An intersection correspond to any point that is clickable in the add mode. 
+ * All the intersections are linked by segments that represented in GraphicalSegment.
  * 
+ * @authors H4112 
  */
 public class GraphicalIntersection {
+	
 	/**
-     * 
+     * List of the intersections that need to be displayed. 
      */
 	protected HashMap<Long, Intersection> listIntersection;
 	
@@ -27,7 +32,7 @@ public class GraphicalIntersection {
 	protected ArrayList<Intersection> toBeAdded;
 	
 	/**
-     * 
+     * List of the requests corresponding to the map that will be drawn, and highlighted if necessary. 
      */
 	private RequestList requestList;
 	
@@ -72,8 +77,15 @@ public class GraphicalIntersection {
 	protected float longMaxMap;
 	
 	/**
-     * Default constructor
-     */
+	 * Constructor of the graphical representation of the intersections.
+	 * 
+	 * @param listIntersection
+	 * @param requestList
+	 * @param latMin
+	 * @param latMax
+	 * @param longMin
+	 * @param longMax
+	 */
     public GraphicalIntersection(HashMap<Long, Intersection> listIntersection, RequestList requestList, 
     		float latMin, float latMax, float longMin, float longMax) {
     	this.listIntersection = listIntersection; 
@@ -90,6 +102,15 @@ public class GraphicalIntersection {
     	System.out.println("new intersection view");
     }
     
+    /**
+     * Method to draw the intersections of the Request List. 
+     * Each pair of intersections (pickup and delivery) of the request will be drawn in the same color. 
+     * (for up to 17 requests the colors will be unique, over there will be some duplicates)
+     * 
+     * @param g
+     * @param height
+     * @param width
+     */
     public void drawIntersection(Graphics g, int height, int width) 
     {     
     	List<Color> color = new ArrayList<Color>();
@@ -162,6 +183,15 @@ public class GraphicalIntersection {
     	
     }
 
+    /**
+     * Method to draw a highlight for a given request that was selected by the user.
+     * An highlight si a black rectangle or circle drawn around the intersections of such a request. 
+     * 
+     * @param g
+     * @param height
+     * @param width
+     * @param id of the selected request to be highlighted
+     */
     public void drawHighlight(Graphics g, int height, int width,int id) {
     	Request r = null;
     	for (Request res : requestList.getListRequests()) {
@@ -180,6 +210,13 @@ public class GraphicalIntersection {
     	}
     }
     
+    /**
+     * Method designed for the add mode to add the intersections to be added under certain conditions. 
+     * The conditions are that the second and 4rth points to be added need to already be in a request 
+     * otherwise they are not accepted. 
+     * 
+     * @param i the intersection 
+     */
     public void addSelectedIntersection(Intersection i) {
     	if (toBeAdded.size() == 1 || toBeAdded.size() == 3){
     		List <Request> res = requestList.getListRequests();
@@ -197,7 +234,16 @@ public class GraphicalIntersection {
     }
     
 
-    
+    /**
+     * From some coordinated on the map it will return the corresponding clicked intersection.
+     * If the coordinates don't correspond to an intersection, it returns null. 
+     * 
+     * @param xCoord
+     * @param yCoord
+     * @param panelHeight
+     * @param panelWidth
+     * @return Intersection that was clicked or null 
+     */
     public Intersection getClickedIntersection(int xCoord,int yCoord, int panelHeight, int panelWidth) {
     	for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
 			int xInter = (int)Math.round((entry.getValue().getLongitude()-longMinMap)/(longMaxMap-longMinMap)*panelWidth);
@@ -210,6 +256,17 @@ public class GraphicalIntersection {
     	return null;
     }
     
+    /**
+     * From some coordinated on the map it will return the corresponding clicked request Id, 
+     * or many if there were many request at this location.
+     * If the coordinates don't correspond to a request, it returns an empty list. 
+     * 
+     * @param xCoord
+     * @param yCoord
+     * @param panelHeight
+     * @param panelWidth
+     * @return List of Ids of resquests that are Intergers 
+     */
     public List<Integer> getClickedRequestId(int xCoord,int yCoord, int panelHeight, int panelWidth) {
     	List<Request> list = requestList.getListRequests();
 		
@@ -230,13 +287,23 @@ public class GraphicalIntersection {
     	return id;
     }
     
+    
+    /**
+     * Re initialise the list of points to be added.
+     */
     public void reInitializedToBeAdded() {
     	toBeAdded= new ArrayList<Intersection>();
     }
     
+    /**
+     * Getter of the list of the intersections to be added 
+     * 
+     * @return ArrayList<Intersection> 
+     */
     public ArrayList<Intersection> getToBeAdded() {
     	return toBeAdded;
     }
+    
 
 	public void setLatMinMap(float latMinMap) {
 		this.latMinMap = latMinMap;

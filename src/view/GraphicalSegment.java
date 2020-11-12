@@ -18,12 +18,21 @@ import model.Intersection;
 import model.Segment;
 
 /**
+ * Graphical representation for the map of all the segments. Highlighted or not. 
+ * The segments can be highlighted to represent the tour.
  * 
+ * @authors H4122
  */
 public class GraphicalSegment {
 
-	protected HashMap<Long, Intersection> listIntersection;
+	/**
+	 * List of the intersections contained in the map.
+	 */
+	private HashMap<Long, Intersection> listIntersection;
 	
+	/**
+	 * Delivery tour that we will have to print on the map by changing the representation of some segments. 
+	 */
 	protected DeliveryTour deliveryTour;
 	
 	/**
@@ -67,7 +76,13 @@ public class GraphicalSegment {
 	protected float longMaxMap;
 	
     /**
-     * Default constructor
+     * Constructor of GraphicalSegment without the delivery tour.
+     * 
+     * @param listIntersection
+     * @param latMin
+     * @param latMax
+     * @param longMin
+     * @param longMax
      */
     public GraphicalSegment(HashMap<Long, Intersection> listIntersection, float latMin, float latMax,
     		float longMin, float longMax) {
@@ -84,6 +99,16 @@ public class GraphicalSegment {
     	this.longMaxMap = longMax;
     }
     
+    /**
+     * Constructor of GraphicalSegment with the delivery tour.
+     * 
+     * @param listIntersection
+     * @param deliveryTour
+     * @param latMin
+     * @param latMax
+     * @param longMin
+     * @param longMax
+     */
     public GraphicalSegment(HashMap<Long, Intersection> listIntersection, DeliveryTour deliveryTour, 
     		float latMin, float latMax, float longMin, float longMax) {
 
@@ -99,7 +124,13 @@ public class GraphicalSegment {
     	this.longMaxMap = longMax;
     }
     
-    
+    /**
+     * Draw all the black segments according to the size of the map and the data. 
+     * 
+     * @param g
+     * @param height
+     * @param width
+     */
     public void drawSegment(Graphics g, int height, int width) 
     {     
         for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
@@ -114,6 +145,13 @@ public class GraphicalSegment {
   	  	}
     }
     
+    /**
+     * Draw the delivery tour over the other segments that were already drawn but in colors. 
+     * 
+     * @param g
+     * @param height
+     * @param width
+     */
     public void drawTour(Graphics g, int height, int width) 
     {     
     	Graphics2D g2d = (Graphics2D) g;

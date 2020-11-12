@@ -26,7 +26,9 @@ import controller.Controller;
 import model.CityMap;
 
 /**
- * Window
+ * Window is containing the main frame of the Deliver'If application. 
+ * 
+ * @authors H4112
  */
 public class Window extends JFrame{
 
@@ -130,30 +132,16 @@ public class Window extends JFrame{
 	public Boolean add_request_button = false;
 	
 	
-	
 	/**
-	 * Main to test the window 
-	 * @param args
+	 * Constructor to build the default basic window. 
+	 * @param controller
 	 */
-	/*public static void main(String[] args) {
-		//CityMap cityMap=new CityMap(); //useful citymap is created in Controller.java
-		Controller controller = new Controller();
-		//controller.loadFile("src/resources/largeMap.xml");
-		//Frame
-        Window  test = new Window(controller); //,cityMap); to be deleted
-        test.setVisible(true);
-    }*/
-	
-	
-	/**
-     * Default constructor to build the default basic window 
-     */
-    public Window(Controller controller) { //, CityMap cityMap) { to be deleted
+    public Window(Controller controller) { 
     	
     	graphicalView = new GraphicalView(controller);
         textualView = new TextualView(controller);
         
-    	ButtonListener buttonListener = new ButtonListener(controller, this, graphicalView, textualView);
+    	ButtonListener buttonListener = new ButtonListener(controller);
     	MouseListen mouseListen = new MouseListen(controller, graphicalView, this);
     	
     	graphicalView.addMouseListener(mouseListen);
@@ -261,20 +249,6 @@ public class Window extends JFrame{
         
         legend = new JTextArea();
         
-
-        
-        //JScrollPane scroll = new JScrollPane();
-        //for (int i = 0; i < 5; i++) {
-        //    scroll.add(new JButton("Button n°" + i));
-        //}
-        
-        //CityMap cityMap = controller.getCityMap();
-
-        // to add the buttons in a complementary way to the textual view
-//        JPanel right_panel = new JPanel();
-//        right_panel.setBounds(950,100,300,500);
-//        right_panel.add(load_file);
-//        right_panel.add(load_requests_file);
         
         //For the bottom indication zone
         bottom_panel = new JPanel();
@@ -308,33 +282,14 @@ public class Window extends JFrame{
         this.add(export_tour);
         this.add(undo_button);
         this.add(redo_button);
-        
-
     	
         this.repaint();
     	this.setVisible(true);
-    	// Graphical and Textual views & other attributes ?
-    	
-    	/*
-    	//Get Address from coordinates API
-    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
-
-    	JOpenCageReverseRequest request = new JOpenCageReverseRequest(45.760174, 4.877455); //latitude, longitude
-    	request.setLanguage("fr"); // prioritize results in a specific language using an IETF format language code
-    	request.setNoDedupe(true); // don't return duplicate results
-    	request.setLimit(5); // only return the first 5 results (default is 10)
-    	request.setNoAnnotations(true); // exclude additional info such as calling code, timezone, and currency
-    	request.setMinConfidence(3); // restrict to results with a confidence rating of at least 3 (out of 10)
-
-    	JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
-
-    	// get the formatted address of the first result:
-    	String formattedAddress = response.getResults().get(0).getFormatted(); 
-    	System.out.println(formattedAddress);
-    	// formattedAddress is now '12 Rue Fr�d�ric Passy, 69100 Villeurbanne, France'
-    	*/
     }
     
+    /**
+     * Paint all the components of the frame and the legend mini icons. 
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);	
@@ -348,14 +303,9 @@ public class Window extends JFrame{
         
     }
     
-    public GraphicalView getGraphicalView () {
-    	return graphicalView;
-    }
-    
-    public TextualView getTextualView () {
-    	return textualView;
-    }
-    
+    /**
+     * Set the visible elements in the MapLoadedState.
+     */
     public void setVisibleRequestButton() {
     	indications.setText("Your Next Step : \r\n"
     			+ "Please load your Requests File (XML).\r\n "
@@ -372,31 +322,23 @@ public class Window extends JFrame{
     	
     }
     
+    /**
+     * Set a loading text when the request file is processed.
+     */
     public void setLoadingRequests() {
     	indications.setText("\n\n\n                  Loading the requests... ");
     }
     
-    public void setErrorAtOpening() {
-
-//    	//indications.setText(indications.getText()+ " \n\r Please load a compatible file");
-//    	JFrame popup = new JFrame ("Warning");
-//        popup.setSize(200,100);
-//        popup.setLocation(500,300);
-//        popup.setResizable(false);
-//        
-//        JTextArea textPopup = new JTextArea ("            ---Error--- \n   Please load a compatible file. ");
-//        
-//        //textPopup.setBounds(20,10,150,80);
-//        
-//        textPopup.setForeground(Color.red);
-//        textPopup.setEditable(false);
-//        
-//        popup.add(textPopup);
-//        popup.setVisible(true);
-    	
+    /**
+     * Set an error pop up when the loaded xml file was not accepted.
+     */
+    public void setErrorAtOpening() {    	
     	JOptionPane.showMessageDialog(this, "Please load a compatible file");
     }
     
+    /**
+     * Set the visible elements in the MapRequestsLoadedState.
+     */
     public void setVisibleCalculateButton() {
     	indications.setText("Your Next Step : \r\n"
     			+ "Click on Calculate Delivery Tour to run the algorithm and get an optimized delivery tour on the map. \r\n"
@@ -411,6 +353,9 @@ public class Window extends JFrame{
     	redo_button.setVisible(false);
     }
     
+    /**
+     * Set the visible elements in the ContinueCalculationState.
+     */
     public void setContinueCalculation() {
     	indications.setText("Your Next Step : \r\n"
     			+ "Click on Continue to a more optimized tour since it will be calculated for 20 additional seconds. \r\n"
@@ -422,6 +367,9 @@ public class Window extends JFrame{
     	this.repaint();
     }
     
+    /**
+     * Set the visible elements in the DeliveryTourState.
+     */
     public void setVisibleAddExport () {
     	indications.setText("Your Next Step : \r\n"
     			+ "Your Delivery Tour has been computed, you have 3 options : \r\n"
@@ -445,6 +393,9 @@ public class Window extends JFrame{
     	this.repaint();
     }
     
+    /**
+     * Set the visible elements in the RemoveRequestState.
+     */
     public void setVisibleRemove () {
     	indications.setText("Your Next Step : \r\n"
     			+ "You can click on a point and its request elements are highlighted.\r\n"
@@ -464,7 +415,9 @@ public class Window extends JFrame{
     	this.repaint();
     }
     
-    
+    /**
+     * Set the visible elements in the AddRequestState.
+     */
     public void setVisibleAddMode() {
     	indications.setText("Your Next Step : \r\n"
     			+ "To add a request, please select 4 points in the following order : \r\n"
@@ -502,6 +455,9 @@ public class Window extends JFrame{
     
     }
     
+    /**
+     * Set the visible legend when a map is loaded. 
+     */
     public void addLegend() {
     	bottom_panel.remove(legend);
     	legend = new JTextArea("        LEGEND :\n"
@@ -514,18 +470,41 @@ public class Window extends JFrame{
     	this.repaint();
     }
     
+    /**
+     * Remove the legend. 
+     */
     public void removeLegend() {
     	bottom_panel.remove(legend);
     	this.repaint();
     }
     
+    /**
+     * Set visible a popup when the export was done correctly.
+     */
     public void setPopUpExport() {
     	JOptionPane.showMessageDialog(this, "The delivery route was exported correctly.");
     }
 
+    /**
+     * Set visible a popup when an intersection contained in many requests was clicked.
+     */
     public void setVisiblePopUpMultipleRequests() {
     	JOptionPane.showMessageDialog(this, "Many requests on the clicked intersection, \n please select the one you want in the table.");
     }
-
-
+    
+    /**
+     * Getter of the GraphicalView
+     * @return GraphicalView
+     */
+    public GraphicalView getGraphicalView () {
+    	return graphicalView;
+    }
+    
+    /**
+     * Getter of the TextualView
+     * @return TextualView 
+     */
+    public TextualView getTextualView () {
+    	return textualView;
+    }
 }

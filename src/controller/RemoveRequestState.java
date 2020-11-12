@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import model.Request;
 import model.RequestList;
 import view.GraphicalView;
@@ -42,15 +44,24 @@ public class RemoveRequestState implements State {
 		int panelHeight = graphicalView.getHeight();
 		int panelWidth = graphicalView.getWidth();
 		
-		int id = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
-		
-		System.out.println(id);
-		
-		graphicalView.updateHighlight(id);
-		textualView.highlightTable(id);
+		List<Integer> idList = graphicalView.getGraphicalCityMap().getGraphicalIntersection().getClickedRequestId(xCoord, yCoord, panelHeight, panelWidth);
 		
 		
-		
+		if(idList!=null) {
+			
+			if(idList.size()>1) {
+				
+				w.setVisiblePopUpMultipleRequests();
+				
+			}else{
+				int id = idList.get(0);
+				
+				System.out.println(id);
+				graphicalView.updateHighlight(id);
+				textualView.highlightTable(id);
+				
+			}
+		}
 	}
 	
 	@Override 
@@ -63,16 +74,23 @@ public class RemoveRequestState implements State {
 		
 		int idRequestToRemove = c.getWindow().getTextualView().getISelectedRequest();
 		
-		Request r = c.getRequestList().getListRequests().get(idRequestToRemove);
+		System.out.println("Id to remove "+idRequestToRemove);
+		System.out.println(c.getRequestList().getListRequests().toString());
 		
+		Request r = null;
+    	for (Request res : c.getRequestList().getListRequests()) {
+    		if (res.getId() == idRequestToRemove) {
+    			r = res;
+    	    }
+       }
 		
 		
 		if(r!=null) {
 			ListOfCommands list = c.getListOfCommands();
-			list.add(new RemoveCommand(c,c.getDeliveryTour(),r.getPickupAddress(),r.getDeliveryAddress()));
+			list.add(new RemoveCommand(c, c.getDeliveryTour(),r));
 			
 			c.setListOfCommands(list);
-			c.getRequestList().getListRequests().remove(idRequestToRemove);
+			
 			w.getGraphicalView().setId(-1);
 			
 			w.getGraphicalView().updateGraphicalCityMap(c);
@@ -84,9 +102,39 @@ public class RemoveRequestState implements State {
 		}else {
 			System.out.println("error on remove the request");
 		}
+
 		
+	}
+	
+	@Override
+	public void zoomOut(Controller controller, Window window) {
+		GraphicalView graphicalView = window.getGraphicalView();
+		if (graphicalView.graphicalCityMap.getGraphicalSegment() != null) {
+			graphicalView.graphicalCityMap.getGraphicalSegment().resetCoord();
+			if (graphicalView.graphicalCityMap.getGraphicalIntersection() != null) {
+				graphicalView.graphicalCityMap.getGraphicalIntersection().resetCoord();
+			}
+		}
+		window.repaint();
+	}
+	
+	@Override
+	public void zoomIn(Controller controller, Window window, float longMin, float longMax, float latMin, float latMax) {
+		GraphicalView graphicalView = window.getGraphicalView();
+		//Set the new coordinates for the segments of the map
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMaxMap(latMax);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLatMinMap(latMin);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLongMaxMap(longMax);
+		graphicalView.graphicalCityMap.getGraphicalSegment().setLongMinMap(longMin);
+		if (graphicalView.graphicalCityMap.getGraphicalIntersection() != null) {
+			//Set the new coordinates for the points from the requests of the map
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLatMaxMap(latMax);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLatMinMap(latMin);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLongMaxMap(longMax);
+			graphicalView.graphicalCityMap.getGraphicalIntersection().setLongMinMap(longMin);
+		}
 		
-		
+		window.repaint();
 	}
 	
 	

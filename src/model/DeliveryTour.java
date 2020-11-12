@@ -11,6 +11,7 @@ import controller.Controller;
 import tsp.DijkstraGraph;
 import tsp.TSP;
 import tsp.TSP2;
+import tsp.TSP3;
 
 
 
@@ -42,6 +43,8 @@ public class DeliveryTour {
 	CityMap map ;
 	RequestList reqlist;
 	
+	List <Float> durations ;
+	
 	/**
      * Represents the graph with the shortest distance between all the 
      * intersections present in the map 
@@ -52,6 +55,11 @@ public class DeliveryTour {
      * Represents the solution of the best tour calculated
      */ 
 	TSP tsp;
+		
+//	/**
+//	 * Times corresponding to the steps of the tour
+//	 */
+//	List<TimeDelivery> times;
 
     /**
      * Constructor of <code>DeliveryTour</code>  that calculates
@@ -60,11 +68,13 @@ public class DeliveryTour {
     public DeliveryTour(Controller controller) {
 		this.tour = new ArrayList <Pair<Intersection, List<Segment>>>();
 		this.pickupOrDeliver =new ArrayList<String>();
-		this.tsp = new TSP2();
+		this.tsp = new TSP3();
 		this.map = controller.getCityMap();
 		this.reqlist = controller.getRequestList();
 		this.g = new DijkstraGraph(this.map, this.reqlist);
 		this.ordretsp = new ArrayList<Integer>();
+		this.durations= new ArrayList<Float>();
+
     }
     /**
      * Constructor of <code>DeliveryTour</code>  that takes as parameters the
@@ -79,6 +89,8 @@ public class DeliveryTour {
 		this.reqlist = controller.getRequestList();
 		this.g = g;
 		this.ordretsp = new ArrayList<Integer>();
+		this.durations= new ArrayList<Float>();
+
     }
     
  
@@ -96,18 +108,28 @@ public class DeliveryTour {
      * Adds a new intersection after the i-th index (starting from 0), and updates relevant paths
      * @param i the index after which the new step should be added
      * @param step the intersection to be added
+     * @param PoD true for pickup, false for delivery
+     * @param d duration in minutes
      */
-	public void addIntermediateStep(Intersection indexprecedent, Intersection step) {
-		int i = this.getIndexOfIntersection(indexprecedent);
-		Pair<Intersection, List<Segment>> previousStep = tour.get(i);
+	public void addIntermediateStep(Intersection previousInter, Intersection step, boolean PoD,float d) {
+		int i = this.getIndexOfIntersection(previousInter);
 		tour.add(++i,
-				new Pair<>(step, DijkstraGraph.computeShortestPath(previousStep.fst, step).getAllPreviousSegments()));
+				new Pair<>(step, DijkstraGraph.computeShortestPath(previousInter, step).getAllPreviousSegments()));
+		if (PoD) {
+			pickupOrDeliver.add(i, "Pickup Address");//ou i+1 ? je ne me souviens plus comment ca marche ++i
+		}
+		else {
+			pickupOrDeliver.add(i, "Delivery Address");
+		}
+		d = d/60f;// from minutes to hour 
+		durations.add(i,d); //?? good index 
+		
 		if (i + 1 < tour.size()) {
 			Pair<Intersection, List<Segment>> nextStep = tour.get(i + 1);
 			Pair<Intersection, List<Segment>> newStep = new Pair<>(nextStep.fst,
 					DijkstraGraph.computeShortestPath(step, nextStep.fst).getAllPreviousSegments());
 			tour.remove(i + 1);
-			tour.add(newStep);
+			tour.add(i+1, newStep);
 		}
 	}
 	
@@ -132,9 +154,10 @@ public class DeliveryTour {
 		int index= this.getIndexOfIntersection(i);
 		this.tour.remove(index);
 		this.pickupOrDeliver.remove(index);
-		this.ordretsp.remove(index);
+		this.durations.remove(index);
+		//this.ordretsp.remove(index);
 		Intersection temp = tour.get(index).fst;
-		List <Segment> tempSeg = g.getSegmentPaths()[index][index-1];
+		List <Segment> tempSeg = DijkstraGraph.computeShortestPath(temp, tour.get(index-1).fst).getAllPreviousSegments();
 		tour.set(index, new Pair<Intersection, List<Segment>>(temp,tempSeg));
 		return tour.get(index-1).fst;
 	}
@@ -178,30 +201,30 @@ public class DeliveryTour {
 		this.addDeparture(reqlist.getDeparture());
 		this.addIntersectionDetail("");
 		this.ordretsp.add(0);
+		this.durations.add(0.0f);
 		// on commence a un car on a deja traite le cas du depart
 		for(int l = 1; l < 1+2*reqlist.getListRequests().size(); l++) {
 			//ajouter au delivery tour l'intersection qui correspond au numero de la requete ->
 			int currentsolution=tsp.getSolution(l);	
 			if (currentsolution%2!=0) {
-	//			System.out.println(currentsolution + "   " + (tsp.getSolution(l)/2));
-	//			System.out.println("Pickup Address :" + reqlist.getListRequests().get(tsp.getSolution(l)/2).getPickupAddress().getIdIntersection() );
 				this.addIntersectionDetail("Pickup Address");
 				this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 ).getPickupAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+				this.durations.add( ((float)reqlist.getListRequests().get(tsp.getSolution(l)/2).pickupDuration)/3600);
 			}
 			else {
-	//			System.out.println(currentsolution + "   " + (tsp.getSolution(l)/2 -1));
-	//			System.out.println("Delivery Address :" + reqlist.getListRequests().get(tsp.getSolution(l)/2 - 1).getDeliveryAddress().getIdIntersection() );
 				this.addIntersectionDetail("Delivery Address");
 				this.addStep(reqlist.getListRequests().get(tsp.getSolution(l)/2 -1).getDeliveryAddress(), g.getSegmentPaths()[tsp.getSolution(l)][tsp.getSolution(l-1)]); // inverser l'ordre??
+				this.durations.add( ((float)reqlist.getListRequests().get(tsp.getSolution(l)/2-1).deliveryDuration)/3600);
 			}
 
 		
 		this.ordretsp.add(currentsolution);
 		}
-		//retour au point de départ :
+		//retour au point de depart :
 
 		this.ordretsp.add(0);
 		this.addIntersectionDetail("Return to Departure");
+		this.durations.add(0.0f);
 		this.addStep(reqlist.getDeparture(), g.getSegmentPaths()[tsp.getSolution(2*reqlist.getListRequests().size())][tsp.getSolution(0)]); // inverser l'ordre??
 		
 	}
@@ -214,6 +237,8 @@ public class DeliveryTour {
 		File file = new File(filename);
         FileWriter fr = null;
         BufferedWriter br = null;
+        
+        List <TimeDelivery> times = this.computeTime();
        
         try{
             fr = new FileWriter(file);
@@ -222,7 +247,7 @@ public class DeliveryTour {
             br.write("~~~~~~~~~~~ Delivery Roadmap ~~~~~~~~~~~"+ System.getProperty("line.separator"));
             for (Pair<Intersection, List<Segment>> pair: tour) {
             	if (p==0) {
-            		br.write("Departure : " + pair.fst.getName() +  System.getProperty("line.separator"));
+            		br.write("Departure : " + pair.fst.getName() + " at " + times.get(0).toString() +  System.getProperty("line.separator"));
             		br.write (System.getProperty("line.separator"));
             	}
          
@@ -230,32 +255,47 @@ public class DeliveryTour {
     			if (seg != null) {
     				Segment segmentprecedent = null;
     				Segment segmentsuivant;
-    				float longueur = 0.0f;
+    				int longueur = 0;
     				int dernierseg = seg.size();
     				int i =1;
     				for (Segment s : seg) {
     					segmentsuivant = s;
-    					if (i != dernierseg) {
-    						if (segmentprecedent != null && segmentsuivant != null && segmentsuivant.getName().equals(segmentprecedent.getName())!= true) {
-        						longueur += segmentprecedent.length;
-        						br.write("          For" + longueur + "m take " + segmentprecedent.getName()+ System.getProperty("line.separator"));
-        						longueur = 0.0f;
+    					if (segmentsuivant != null && segmentprecedent != null) {
+    						if (i != dernierseg) {
+        						if (segmentsuivant.getName().equals(segmentprecedent.getName())!= true && !segmentsuivant.getName().equals("Name absent")) {
+            						longueur += (int) segmentprecedent.length;
+            						br.write("          For " + longueur + "m take " + segmentprecedent.getName()+ System.getProperty("line.separator"));
+            						longueur = 0;
+            					}
+            					else {
+            						longueur += (int) segmentprecedent.length;
+            					}
         					}
         					else {
-        						
+        						if (segmentprecedent != null && segmentsuivant != null && segmentsuivant.getName().equals(segmentprecedent.getName())!= true) {
+        							longueur += (int) segmentprecedent.length;
+            						br.write("          For " + longueur + "m take " + segmentprecedent.getName()+ System.getProperty("line.separator"));
+            						longueur = (int) segmentsuivant.length;
+            						br.write("          For " + longueur + "m take " + segmentsuivant.getName()+ System.getProperty("line.separator"));
+        						}
+        						else {
+        							longueur += (int) segmentsuivant.length;
+            						br.write("          For " + longueur + "m take " + segmentsuivant.getName()+ System.getProperty("line.separator"));
+        						}
         					}
-    					}
-    					else {
-    						
-    					}
+        					
+        				}
     					segmentprecedent= segmentsuivant;
     					i++;
-    				}
+    					}
+    					
     			}
+    			br.write (System.getProperty("line.separator"));
     			if (p!=0) {
-    				br.write("Step " + p +": "+ this.pickupOrDeliver.get(p)+ System.getProperty("line.separator"));
+    				br.write("Step " + p +": "+ this.pickupOrDeliver.get(p)+ " at " + times.get(p).toString()+System.getProperty("line.separator"));
     				br.write("Address : " + pair.fst.getName() + System.getProperty("line.separator"));
     				br.write (System.getProperty("line.separator"));
+    				
     			}
     			p++;
             }
@@ -271,6 +311,26 @@ public class DeliveryTour {
         }
 	}
 
+	public List<TimeDelivery> computeTime(){
+		List <TimeDelivery> result = new ArrayList <TimeDelivery>();
+		List<Float> durationsMethod = new ArrayList <Float>(durations.size());
+		for (float f : durations) {
+			durationsMethod.add(f);
+		}
+		// departure time
+		result.add(new TimeDelivery().addhours(this.reqlist.departureTime/3600));
+		for (int i = 1 ; i< tour.size();i++) {
+			float longueurtotale = 0.0f;
+			for (int j = 0 ; j< tour.get(i).snd.size(); j ++) {
+				longueurtotale +=  tour.get(i).snd.get(j).length/1000;
+			}
+			durationsMethod.set(i, durationsMethod.get(i)+longueurtotale/15); 
+		}
+		for (int i = 1; i < durationsMethod.size(); i++) {
+			result.add(result.get(i-1).addhours(durationsMethod.get(i)));
+		}
+		return result;
+	}
 	/**
      * Adds the description of the intersection: if it'a a pickup/delivery point
      * or the return to the deposit 
@@ -291,6 +351,18 @@ public class DeliveryTour {
 	public List<Pair<Intersection, List<Segment>>> getTour() {
 		return tour;
 	}
+	
+	public void setReqlist(RequestList r) {
+		reqlist=r;
+	}
+	
+//	public void setTimes(List<TimeDelivery> list) {
+//		times=list;
+//	}
+//	
+//	public List<TimeDelivery> getTimes (){
+//		return times;
+//	}
 }
 			
 

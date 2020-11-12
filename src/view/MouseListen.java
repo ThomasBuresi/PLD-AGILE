@@ -13,33 +13,42 @@ import controller.State;
 import model.Intersection;
 
 /**
+ * Mouse listener to react from the user's mouse interactions with the application.
  * 
+ * @authors H4112
  */
 public class MouseListen extends MouseAdapter{
 
+	/**
+	 * Controller
+	 */
 	private Controller controller;
 	
+	/**
+	 * Graphical representation of the map and the zooms actions.
+	 */
 	private GraphicalView graphicalView;
 	
-//	private Window window;
-//	
-//	private int panelWidth;
-//	
-//	private int panelHeight;
-	
+	/**
+	 * X coordinate when mouse pressed for zoom in
+	 */
 	private int pressedX;
 	
+	/**
+	 * Y coordinate when mouse pressed for zoom in
+	 */
 	private int pressedY;
 
     /**
-     * Default constructor
+     * Contructor of MouseListen
+     * 
+     * @param controller
+     * @param graphicalView
+     * @param window
      */
     public MouseListen(Controller controller, GraphicalView graphicalView, Window window) {
-//    	this.window = window;
     	this.graphicalView = graphicalView;
     	this.controller = controller;
-//    	this.panelHeight = this.graphicalView.getHeight();
-//    	this.panelWidth = this.graphicalView.getWidth();
     }
 
     @Override
@@ -47,54 +56,15 @@ public class MouseListen extends MouseAdapter{
 		
     }
 
+    /**
+     * Get the coordinates for the click that will be processed in the states classes. 
+     */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
 		int xCoord = e.getX();
 		int yCoord = e.getY();
 		
 		controller.leftClick(xCoord,yCoord);
-		
-//		State currentState = controller.getCurrentState();
-//		if(currentState instanceof DeliveryTourState) {
-//			
-//			//only the clicks to remove are detected in this state 
-//			
-//			controller.leftClick(xCoord,yCoord);
-//		} else if(currentState instanceof RemoveRequestState){
-//				
-//			int xCoord = e.getX();
-//			int yCoord = e.getY();
-//			//only the clicks to remove are detected in this state 
-//			
-//			//on the click if it's on the same point or not different actions
-//			// go bakc to other state if on the same 
-//			// other changes the display 
-//			
-//			
-//		} else if (currentState instanceof AddRequestState) {
-//			//4 points to detect ? how ? 
-//		}
-//		
-		
-		//controller.addRequest(xCoord, yCoord);
-		/*HashMap<Long, Intersection> listIntersection;
-		if (controller.getCityMap() != null) {
-			listIntersection = controller.getCityMap().getListIntersection();
-			if (listIntersection != null) {
-				float latMax = graphicalView.graphicalCityMap.graphicalSegment.getLatMaxMap();
-				float latMin = graphicalView.graphicalCityMap.graphicalSegment.getLatMinMap();
-				float longMin = graphicalView.graphicalCityMap.graphicalSegment.getLongMinMap();
-				float longMax = graphicalView.graphicalCityMap.graphicalSegment.getLongMaxMap();
-				for (Map.Entry <Long, Intersection> entry : listIntersection.entrySet()) {
-					int xInter = (int)Math.round((entry.getValue().getLongitude()-longMin)/(longMax-longMin)*panelWidth);
-					int yInter = panelHeight - (int)Math.round((entry.getValue().getLatitude()-latMin)/(latMax-latMin)*panelHeight);
-					if ((xCoord >= xInter - 3) && (xCoord<= xInter + 3) && (yCoord >= yInter - 3) && (yCoord<= yInter + 3)) {
-						System.out.println(entry.getValue());
-					}
-				}
-			}
-		} */
 	}
 	
 	@Override

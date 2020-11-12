@@ -7,8 +7,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -22,30 +20,47 @@ import javax.swing.table.*;
 import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.sun.tools.javac.util.Pair;
 
+import controller.ContinueComputationState;
 import controller.Controller;
+import controller.MapRequestsLoadedState;
+import controller.RemoveRequestState;
 import model.DeliveryTour;
 import model.Intersection;
 import model.Request;
 import model.RequestList;
 import model.Segment;
+import model.TimeDelivery;
 
 /**
- * 
+ * View of the requests in a textual form : detailed in a table. 
+ * @authors H4112 
  */
-//@SuppressWarnings("deprecation")
-public class TextualView extends JPanel{ //implements Observer {
+
+public class TextualView extends JPanel{ 
 
 	/**
-     * Default constructor
-     */
+	 * Controller
+	 */
 	private Controller controller;
 	
+	/**
+	 * List of the requests corresponding to the map that will be highlighted on it if necessary. 
+	 */
 	private RequestList requestList;
 	
+	/**
+	 * Delivery tour that we will have to print on the map. 
+	 */
 	private DeliveryTour deliveryTour;
 	
+	/**
+	 * Table used to display the requests and tour details. 
+	 */
 	private JTable requestTable;
 	
+	/**
+	 * Scroll pane used to add a scroll bar to the table.
+	 */
 	private JScrollPane scrollPane;
 	
 	/**
@@ -55,19 +70,17 @@ public class TextualView extends JPanel{ //implements Observer {
 	
 	
     /**
-     * Default constructor
+     * Contructor of the textual view
+     * @param controller
      */
     public TextualView(Controller controller) {
     	super(new GridLayout(1,0));
     	setBounds(950,60,300,460);
         setBackground(Color.white);
         
-        iSelectedRequest=-1;
+        iSelectedRequest = -1;
         
-        this.controller=controller;
-        
-        //requestTable = new JTable();
-    	//super(new GridLayout(1,0));
+        this.controller = controller;
         
     	requestTable = new JTable();
     	requestTable.setPreferredScrollableViewportSize(new Dimension(300, 460));
@@ -91,11 +104,9 @@ public class TextualView extends JPanel{ //implements Observer {
         repaint();
     }
 
-//    public void repaint(Graphics g) {
-//		super.repaint();
-//		paintComponent(g);
-//	}
-    
+    /**
+     * Fill the table when the requests data is loaded in the application.
+     */
     public void fillTable() {
     	this.remove(scrollPane);
     	
@@ -113,39 +124,40 @@ public class TextualView extends JPanel{ //implements Observer {
 			String deliveryAddress = res.getDeliveryAddress().setAddress(jOpenCageGeocoder);
 			String pickupAddress = res.getPickupAddress().setAddress(jOpenCageGeocoder);
 
-			str="<HTML>" + ("Request "+i+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
+			str="<HTML>" + ("Request Id - "+i+" : ") + "<br>" + ("PICKUP - "+pickupAddress) + "<br>" + ("DELIVERY - "+deliveryAddress) + "</HTML>";
 			
 			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
 			
 			i++;
 		}
 		
-		//MyCellRenderer MyRenderer=new MyCellRenderer();
-		
 		requestTable = new JTable(tableModel);
-		//JScrollPane tableSP = new JScrollPane(requestTable);
-		//tableSP.setPreferredSize(new Dimension(400,800));
-		//requestTable.setAutoscrolls(true);
-		//requestTable.setLayout(null);
 		requestTable.getColumnModel().getColumn(0).setMinWidth(300);
-		//requestTable.getColumnModel().getColumn(0).setCellRenderer(MyRenderer);
+		
 		int j = 0 ;
 		while(j < tableModel.getRowCount()) {
 			requestTable.setRowHeight(j, 110);
 			j++;
 		}
-		//requestTable.setBounds(0, 0, 300,460);
-		//requestTable.setPreferredScrollableViewportSize(new Dimension(300, 460));
-		//requestTable.setVisible(true);
-		//add(new JScrollPane(requestTable));
-//		requestTable.setAutoscrolls(this.getAutoscrolls());
-		//add(requestTable);
+		
 		scrollPane = new JScrollPane(requestTable);
         this.add(scrollPane);
     }
     
+    /**
+     * Fill the table when the requests are re ordered according to the calculated delivery tour.
+     */
     public void orderTable() {
     	this.remove(scrollPane);
+    	
+    	requestList=controller.getRequestList();
+    	
+    	deliveryTour.setReqlist(requestList);
+    	
+    	List <TimeDelivery> times = deliveryTour.computeTime();
+    	
+    	JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("fbedb322032b496e89461ac6473217a4");
+    	
     	
     	List <Pair<Intersection, List<Segment>>> tour=deliveryTour.getTour();
     	List<Request> requestsNotOrdered = requestList.getListRequests();
@@ -164,10 +176,10 @@ public class TextualView extends JPanel{ //implements Observer {
 
     			for (int j=0; j<requestsNotOrdered.size(); ++j) {
     				if(requestsNotOrdered.get(j).getPickupAddress().getIdIntersection()==intersectionId) {
-    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, false),pair.fst)); 
+    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(requestsNotOrdered.get(j).getId(), false),pair.fst)); 
     				}
     				if(requestsNotOrdered.get(j).getDeliveryAddress().getIdIntersection()==intersectionId) {
-    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(j, true),pair.fst)); 
+    					intersections.add(new Pair<Pair<Integer, Boolean>, Intersection>(new Pair<Integer, Boolean>(requestsNotOrdered.get(j).getId(), true),pair.fst)); 
     				}
     			}
     		}
@@ -180,29 +192,34 @@ public class TextualView extends JPanel{ //implements Observer {
 		tableModel.addColumn("Requests");
 		String str;
 		
+		//at 0 is the time for the departure which we don't display 
+		int p=1;
+		
+		System.out.println(requestList.getListRequests().toString());
+		
 		for (Pair<Pair<Integer, Boolean>, Intersection> pair : intersections) {
 			String address = pair.snd.getName();
-			str="<HTML>" + ("Request " + (pair.fst.fst+1) +" : ") + "<br>";
+			
+			if(address==null) {
+				address = pair.snd.setAddress(jOpenCageGeocoder);
+			}
+
+			str="<HTML>" + ("Request Id - " + (pair.fst.fst+1) +" : ") + "<br>";
 			if (!pair.fst.snd) {
-				str += "PICKUP - " + address + "</HTML>"; 
+				str += "PICKUP - " + address +" at "+times.get(p).toString()+ "</HTML>"; 
 			} else {
-				str+= "DELIVERY - " + address + "</HTML>"; 
+				str+= "DELIVERY - " + address +" at "+times.get(p).toString()+ "</HTML>"; 
 			}
 			
-			
+			p++;
 			tableModel.insertRow(tableModel.getRowCount(), new Object[] { str });
 		}
 		
-		//MyCellRenderer MyRenderer=new MyCellRenderer();
-		
 		requestTable = new JTable(tableModel);
 		requestTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		//JScrollPane tableSP = new JScrollPane(requestTable);
-		//tableSP.setPreferredSize(new Dimension(400,800));
-		//requestTable.setAutoscrolls(true);
-		//requestTable.setLayout(null);
+		
 		requestTable.getColumnModel().getColumn(0).setMinWidth(300);
-		//requestTable.getColumnModel().getColumn(0).setCellRenderer(MyRenderer);
+		
 		int k = 0 ;
 		while(k < tableModel.getRowCount()) {
 			requestTable.setRowHeight(k, 80);
@@ -217,35 +234,28 @@ public class TextualView extends JPanel{ //implements Observer {
 		    }
 		});
 		
-		
-		//requestTable.setBounds(0, 0, 300,460);
-		//requestTable.setPreferredScrollableViewportSize(new Dimension(300, 460));
-		//requestTable.setVisible(true);
-		//add(new JScrollPane(requestTable));
-//		requestTable.setAutoscrolls(this.getAutoscrolls());
-		//add(requestTable);
 		scrollPane = new JScrollPane(requestTable);
         this.add(scrollPane);
     }
     
     
     /**
-     * TODO
+     * Highligh tin the table the request corresponding to a given id. 
+     * @param id
      */
     public void highlightTable(int id) {
     	int []rows = {-1,-1};
-    	
     	iSelectedRequest=id;
     	
     	if(id!=-1) {
-    		Request r = requestList.getListRequests().get(id);
+    		
         	int k = 0 ;
         	
         	int j=0;
     		while(k < requestTable.getRowCount()) {
-    			//yourString.substring(yourString.indexOf("no") + 3 , yourString.length());
+    			
     			String s = requestTable.getModel().getValueAt(k, 0).toString();
-    			String idRequestS = s.substring("<HTML>Request ".length(), "<HTML>Request ".length()+3);
+    			String idRequestS = s.substring("<HTML>Request Id - ".length(), "<HTML>Request Id - ".length()+3);
     			String str = idRequestS.replaceAll("[^-?0-9]+", ""); 
     			System.out.println("we get as an id : "+str);
 
@@ -259,48 +269,51 @@ public class TextualView extends JPanel{ //implements Observer {
     			k++;
     		}
     	}
-    	
-		
+
 		requestTable.getColumnModel().getColumn(0).setCellRenderer(new HighlightCellRenderer(rows));
 
 		repaint();
     }
     
-    //+listener on the table
-    
-    
+ 
+    /**
+     * Listener that reacts if a row of the table is clicked but only during specific stated of the controller
+     * highlights this given request. 
+     * @param e event
+     */
     protected void handleSelectionEvent(ListSelectionEvent e) {
         if (e.getValueIsAdjusting())
             return;
 
-        // e.getSource() returns an object like this
-        // javax.swing.DefaultListSelectionModel 1052752867 ={11}
-        // where 11 is the index of selected element when mouse button is released
-
         String strSource= e.getSource().toString();
-        
         
         int start = strSource.indexOf("{")+1,
             stop  = strSource.length()-1;
         int index = Integer.parseInt(strSource.substring(start, stop));
         
         String s = requestTable.getModel().getValueAt(index, 0).toString();
-		String idRequestS = s.substring("<HTML>Request ".length(), "<HTML>Request ".length()+3);
+		String idRequestS = s.substring("<HTML>Request Id - ".length(), "<HTML>Request Id - ".length()+3);
 		String str = idRequestS.replaceAll("[^-?0-9]+", ""); 
 		System.out.println("we get as an id : "+str);
 
 		iSelectedRequest = Integer.parseInt(str)-1;
 		
-		
-		highlightTable(iSelectedRequest);
-		
-		//update graphical view ?? with iSelectedRequest ! 
-		controller.getWindow().getGraphicalView().updateHighlight(iSelectedRequest);
+		if(!(controller.getCurrentState() instanceof ContinueComputationState)){
+			highlightTable(iSelectedRequest);
+			//update graphical view ?? with iSelectedRequest ! 
+			controller.getWindow().getGraphicalView().updateHighlight(iSelectedRequest);
+			if(!(controller.getCurrentState() instanceof RemoveRequestState)) {
+				controller.setCurrentState(controller.removeRequestState);
+				controller.getWindow().setVisibleRemove();
+				
+			}
+		}
 		
     }
 
     /**
-     * 
+     * Update the content of the table and so the textual view. 
+     * @param controller
      */
     public void update(Controller controller) {
         
@@ -310,6 +323,8 @@ public class TextualView extends JPanel{ //implements Observer {
     		if (controller.getDeliveryTour() != null) {
         		deliveryTour = controller.getDeliveryTour();
         		orderTable();
+        		System.out.println("TABLE ORDERED ");
+        		this.updateUI(); // This helps for the undo / redo
         	} else {
         		deliveryTour = null;
         		fillTable();
@@ -324,6 +339,10 @@ public class TextualView extends JPanel{ //implements Observer {
         repaint();
     }
     
+    /**
+     * Getter of the id of the selected request in the table when cliqued. 
+     * @return id 
+     */
     public int getISelectedRequest () {
     	return iSelectedRequest ;
     }

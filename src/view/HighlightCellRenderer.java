@@ -1,17 +1,28 @@
 package view;
 
 import java.awt.Color;
+
 import java.awt.Component;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+ * 
+ * Customed Cell Renderer for the JTable in the TextualView. 
+ * To define the modifications of the table if a cell is clicked. 
+ * In our application we just change the background color for selected rows. 
+ * 
+ * @authors H4112
+ *
+ */
 public class HighlightCellRenderer extends DefaultTableCellRenderer {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The rows of the JTable. 
+	 */
 	private int[] rows;
 	
 	/**
@@ -23,7 +34,9 @@ public class HighlightCellRenderer extends DefaultTableCellRenderer {
 		this.rows=rows;
 	}
 	
-	
+	/**
+	 * Get the modified table. 
+	 */
 	public Component getTableCellRendererComponent(JTable table,
             Object value,
             boolean isSelected,
@@ -43,8 +56,6 @@ public class HighlightCellRenderer extends DefaultTableCellRenderer {
 		// Only for specific cell
 		if (row == rows[0] || row== rows[1] && column == 0) {
 		
-		// you may want to address isSelected here too
-		//c.setForeground(/*special foreground color*/);
 			c.setBackground(Color.lightGray);
 		}else {
 			c.setBackground(Color.white);

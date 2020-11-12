@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class SeqIter implements Iterator<Integer> {
-	private Integer[] candidates;
-	private int nbCandidates;
+	protected Integer[] candidates;
+	protected int nbCandidates;
 
 	/**
 	 * Create an iterator to traverse the set of vertices in <code>unvisited</code> 

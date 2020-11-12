@@ -1,18 +1,167 @@
 ~~~~~~~~~~~ Delivery Roadmap ~~~~~~~~~~~
-Departure : 11 Impasse de l'Ordre, 69001 Lyon, France
+Departure : 57 Rue Coignet, 69001 Lyon, France at 8h0mins
 
-Step 1: Pickup Address
-Address : 3 Rue de Nazareth, 69001 Lyon 3e Arrondissement, France
 
-Step 2: Pickup Address
-Address : 1 b Rue Pascal, 69100 Villeurbanne, France
+          For 435m take Cours Docteur Long
+          For 493m take Cours Eugénie
+          For 490m take Avenue Lacassagne
+          For 27m take Place Jules Hottin
 
-Step 3: Delivery Address
-Address : 27 Rue Richelieu, 69100 Villeurbanne, France
+Step 1: Pickup Address at 9h17mins
+Address : 27 Rue de l'Église, 69001 Lyon, France
 
-Step 4: Delivery Address
-Address : Coll�ge Gilbert Dru, Rue Jeanne Hachette, 69001 Lyon, France
+          For 343m take Cours Docteur Long
+          For 76m take Rue Charles Richard
+          For 169m take Rue du Capitaine
 
-Step 5: Return to Departure
-Address : 11 Impasse de l'Ordre, 69001 Lyon, France
+Step 2: Pickup Address at 9h25mins
+Address : 10b Rue du Capitaine, 69001 Lyon, France
+
+          For 78m take Rue du Capitaine
+          For 628m take Rue Jeanne d'Arc
+          For 300m take Rue Feuillat
+          For 174m take Rue Fiol
+          For 77m take Rue du Docteur Rebatel
+          For 394m take Rue de Montbrillant
+          For 72m take Rue du Professeur Paul Sisley
+          For 281m take Rue Saint-Philippe
+          For 406m take Rue du Dauphiné
+          For 60m take Rue du Général Mouton-Duvernet
+          For 76m take Name absent
+          For 312m take Cours Gambetta
+          For 127m take Rue Jules Jusserand
+          For 144m take Place Bir-Hakeim
+          For 164m take Avenue Félix Faure
+          For 17m take Rue Garibaldi
+
+Step 3: Pickup Address at 11h55mins
+Address : 261 Rue Garibaldi, 69001 Lyon 3e Arrondissement, France
+
+          For 25m take Name absent
+          For 283m take Name absent
+          For 79m take Rue d'Alsace
+          For 132m take Cours Émile Zola
+          For 392m take Rue Jean-Claude Vivant
+          For 172m take Rue Millon
+          For 124m take Rue d'Inkermann
+          For 183m take Rue de la Viabert
+          For 377m take Rue Bellecombe
+          For 69m take Rue Saint-Antoine
+          For 656m take Rue Maurice Flandin
+          For 67m take Rue Paul Bert
+          For 354m take Rue du Général Mouton-Duvernet
+          For 628m take Avenue Félix Faure
+          For 17m take Rue Garibaldi
+
+Step 4: Delivery Address at 14h55mins
+Address : 71 Rue Francis de Pressensé, 69100 Villeurbanne, France
+
+          For 25m take Name absent
+          For 301m take Name absent
+          For 153m take Rue Francis de Pressensé
+          For 148m take Cours André Philip
+          For 26m take Rond-Point des Charpennes
+          For 108m take Cours André Philip
+          For 13m take Rue de Bat Yam
+          For 423m take Cours André Philip
+          For 408m take Avenue Verguin
+          For 885m take Boulevard des Belges
+          For 170m take Name absent
+          For 274m take Name absent
+          For 32m take Name absent
+          For 19m take Pont Winston Churchill
+
+Step 5: Pickup Address at 15h40mins
+Address : Pont Winston Churchill, Place Adrien Godien, 69004 Lyon, France
+
+          For 232m take Pont Winston Churchill
+          For 530m take Avenue de Grande-Bretagne
+          For 522m take Quai de Serbie
+          For 173m take Place du Maréchal Lyautey
+          For 455m take Quai Général Sarrail
+          For 827m take Quai Victor Augagneur
+          For 400m take Quai Claude Bernard
+          For 70m take Place Ollier
+          For 152m take Rue Salomon Reinach
+          For 766m take Rue de Marseille
+          For 161m take Boulevard Yves Farge Rue de Marseille
+          For 61m take Boulevard Yves Farge
+          For 170m take Rue Blanche et Georges Caton
+          For 86m take Rue des Verriers
+
+Step 6: Delivery Address at 19h17mins
+Address : 1 Rue des Verriers, 69007 Lyon 7e Arrondissement, France
+
+          For 88m take Rue des Verriers
+          For 187m take Rue Galland
+          For 81m take Rue de la Grande Famille
+          For 91m take Rue Lortet
+          For 332m take Avenue Jean Jaurès
+          For 437m take Avenue Berthelot
+          For 664m take Rue Paul Duvivier
+          For 137m take Route de Vienne
+
+Step 7: Delivery Address at 19h50mins
+Address : 103 Route de Vienne, 69008 Lyon 8e Arrondissement, France
+
+          For 492m take Route de Vienne
+          For 1582m take Avenue Berthelot
+          For 359m take Avenue Paul Santy
+          For 9m take Rue Varichon
+
+Step 8: Pickup Address at 22h59mins
+Address : 27 Avenue Paul Santy, 69008 Lyon 8e Arrondissement, France
+
+          For 235m take Rue Varichon
+
+Step 9: Delivery Address at 24h42mins
+Address : 99999 Rue Commandant Pégout, 69008 Lyon 8e Arrondissement, France
+
+          For 280m take Avenue Jean Mermoz
+          For 10m take Boulevard Ambroise Paré
+          For 281m take Boulevard Edmond Michelet
+          For 32m take Avenue du Général Frère
+          For 346m take Rue du Professeur Beauvisage
+          For 128m take Rue de la Concorde
+          For 168m take Rue Laurent Carle
+          For 65m take Rue Rochambeau
+          For 70m take Rue Varichon
+
+Step 10: Pickup Address at 26h36mins
+Address : 98 Avenue Jean Mermoz, 69008 Lyon 8e Arrondissement, France
+
+          For 235m take Avenue Jean Mermoz
+
+Step 11: Pickup Address at 26h48mins
+Address : 69 Avenue Jean Mermoz, 69008 Lyon 8e Arrondissement, France
+
+          For 305m take Avenue Jean Mermoz
+          For 285m take Rue Maryse Bastié
+
+Step 12: Delivery Address at 26h53mins
+Address : 84 Rue Bataille, 69008 Lyon, France
+
+          For 258m take Rue Maryse Bastié
+          For 459m take Boulevard Jean XXIII
+          For 13m take Avenue des Frères Lumière
+          For 45m take Place d'Arsonval
+          For 1102m take Avenue Rockefeller
+          For 840m take Avenue Franklin Roosevelt
+
+Step 13: Delivery Address at 28h35mins
+Address : 99999 Avenue Franklin Roosevelt, 69500 Bron, France
+
+          For 59m take Boulevard Laurent Bonnevay
+          For 956m take Avenue Franklin Roosevelt
+          For 482m take Boulevard Pinel
+          For 265m take Avenue Lacassagne
+
+Step 14: Delivery Address at 28h49mins
+Address : 229 Avenue Lacassagne, 69001 Lyon 3e Arrondissement, France
+
+          For 243m take Avenue Lacassagne
+          For 27m take Place Jules Hottin
+
+Step 15: Return to Departure at 30h4mins
+Address : 57 Rue Coignet, 69001 Lyon, France
 

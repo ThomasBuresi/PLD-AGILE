@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.util.*;
 
 import javax.swing.JFileChooser;
 
@@ -33,25 +32,29 @@ public class InitialState implements State {
            File file = fc.getSelectedFile();
            
            CityMap cityMap = new CityMap(file.getAbsolutePath());
-       	   cityMap.fillMap();
+       	   if(cityMap.fillMap()) {
        	   
-       	   c.setCityMap(cityMap);
-       	   System.out.println("map loaded");
-       	   c.setDeliveryTour(null);
-       	   c.setRequestList(null);
-           GraphicalView graphicalView = w.getGraphicalView();
-           TextualView textualView = w.getTextualView();
-           
-           graphicalView.updateGraphicalCityMap(c);
-           //window.repaint();
-           w.setVisibleRequestButton();
-           w.removeLegend();
-           textualView.update(c);
-           
-           c.setCurrentState(c.mapLoadedState);
-        		   
+	       	   c.setCityMap(cityMap);
+	       	   System.out.println("map loaded");
+	       	   c.setDeliveryTour(null);
+	       	   c.setRequestList(null);
+	           GraphicalView graphicalView = w.getGraphicalView();
+	           TextualView textualView = w.getTextualView();
+	           
+	           graphicalView.updateGraphicalCityMap(c);
+	           //window.repaint();
+	           w.setVisibleRequestButton();
+	           w.removeLegend();
+	           textualView.update(c);
+	           
+	           c.setCurrentState(c.mapLoadedState);
+       	   }
+       	   else {
+       		   System.err.println("Could not load city map properly");
+       		   w.setErrorAtOpening();
+       	   }
         } else {
-             System.out.println("L'ouverture est annul�e\n");
+             System.err.println("The city map import was cancelled.\n");
         }
 		
 	}

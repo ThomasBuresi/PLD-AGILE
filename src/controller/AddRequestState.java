@@ -5,6 +5,12 @@ import view.Window;
 
 import model.Intersection;
 
+/**
+ * State during which the adding is done.
+ * 
+ * @author H4112
+ *
+ */
 public class AddRequestState implements State{
 	
 	@Override

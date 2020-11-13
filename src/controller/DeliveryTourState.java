@@ -9,6 +9,12 @@ import view.GraphicalView;
 import view.TextualView;
 import view.Window;
 
+/**
+ * State where the delivery tour is displayed. 
+ * 
+ * @author H4112
+ *
+ */
 public class DeliveryTourState extends MapLoadedState {
 	
 	/**
@@ -26,9 +32,7 @@ public class DeliveryTourState extends MapLoadedState {
 	@Override 
 	public void exportTourFile(Controller c, Window w) {
 		fc = new JFileChooser();
-//    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
-//		System.getProperty("file.separator")+ "src" + 
-//		System.getProperty("file.separator")+ "resources"));
+
 		fc.setCurrentDirectory( new File ( System.getProperty("user.dir")));
     	
 		int val_ret_requests = fc.showOpenDialog(null);
@@ -46,16 +50,7 @@ public class DeliveryTourState extends MapLoadedState {
 	
 	@Override 
 	public void leftClick(Controller c, Window w,int xCoord,int yCoord) {
-		//mettre en mode remove et highlight dans la request list la requête à supprimer la 
-		//plus proche 
-		
-		//case the textual view is clicked 
-		//update style points sur la carte 
-		
-		
-		// how to check that the point is in the map ? or is on a request ? 
-		
-		//List<Request> list = c.getRequestList().getListRequests();
+
 		GraphicalView graphicalView = w.getGraphicalView();
 		TextualView textualView = w.getTextualView();
 		
@@ -78,25 +73,13 @@ public class DeliveryTourState extends MapLoadedState {
 				graphicalView.updateHighlight(id);
 				textualView.highlightTable(id);
 				
-				//if on a request : 
-				
 				w.setVisibleRemove();
-				
-				//update the table to highlight the corresponding request
-				// highlight map
-				//graphicalView.getGraphicalCityMap().getGraphicalIntersection().drawHighlight(g, height, width, id);
-				
 				
 				c.setCurrentState(c.removeRequestState);
 			}
 			
 		} 
 		
-		//TODO save id 
-		
-		//or which request is in the state clicked 
-		
-		//otherwise don't do anything
 		
 	}
 	
@@ -109,7 +92,7 @@ public class DeliveryTourState extends MapLoadedState {
 		
 		graphicalView.updateGraphicalCityMap(c);
 		textualView.update(c);
-		//update views TODO
+		
 		
 	}
 
@@ -121,7 +104,7 @@ public class DeliveryTourState extends MapLoadedState {
 		
 		graphicalView.updateGraphicalCityMap(c);
 		textualView.update(c);
-		//update views TODO
+		
 		
 	}
 }

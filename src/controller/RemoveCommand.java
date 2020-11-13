@@ -7,7 +7,10 @@ import model.Intersection;
 import model.Request;
 
 /**
+ * Command to remove a request with a do/undo.
  * 
+ * @author anaelle
+ *
  */
 public class RemoveCommand implements Command {
 
@@ -67,7 +70,7 @@ public class RemoveCommand implements Command {
     }
 
     /**
-     * 
+     * Remove the request in the tour and requestList.
      */
     public void doCommand() {
     	beforeDelivery=deliveryTour.removeStep(delivery);
@@ -90,16 +93,13 @@ public class RemoveCommand implements Command {
     	
     	//Delivery tour path updated directly in method remove or add 
     	controller.setDeliveryTour(deliveryTour);
-    	
-    	
-    	// TODO remember where it was remove > modif return of method removeStep 
-    	// that way the redo will be more direct 
 
-    	
 
     }
 
-    
+    /**
+     * Add the removed request in the tour and requestList.
+     */
     public void undoCommand() {
     	// true for the pickup, false for the delivery 
     	deliveryTour.addIntermediateStep(beforePickup, pickup, true,(float)r.getPickupDuration()/60f);

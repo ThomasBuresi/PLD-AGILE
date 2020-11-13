@@ -13,7 +13,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ *CityMap and its attribute to represent the map of the city that will be loaded from an XML file.
  * 
+ * @author H4112
+ *
  */
 public class CityMap {
 

@@ -2,14 +2,12 @@ package controller;
 
 import java.util.LinkedList;
 
-
 /**
- * Exported from PlaCo
+ * Exported from PlaCos
  * 
  * @author Christine Solnon
  *
  */
-
 public class ListOfCommands {
 	private LinkedList<Command> list;
 	private int currentIndex;

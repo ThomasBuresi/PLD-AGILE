@@ -9,6 +9,12 @@ import view.GraphicalView;
 import view.TextualView;
 import view.Window;
 
+/**
+ * State where the map is loaded and the requests can be loaded.
+ * 
+ * @author H4112
+ *
+ */
 public class MapLoadedState extends InitialState{
 	/**
 	 * To open a dialog window to load the files 
@@ -18,9 +24,7 @@ public class MapLoadedState extends InitialState{
 	@Override
 	public void loadRequestsFile(Controller controller, Window window) {
 		fc = new JFileChooser();
-//    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
-//		System.getProperty("file.separator")+ "src" + 
-//		System.getProperty("file.separator")+ "resources"));
+
 		fc.setCurrentDirectory( new File ( System.getProperty("user.dir")));
     	
     	window.setLoadingRequests();

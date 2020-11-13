@@ -14,7 +14,10 @@ import org.w3c.dom.NodeList;
 import utils.TimeUtils;
 
 /**
+ *List of all the requests imported from a compatible XML file. 
  * 
+ * @author H4112
+ *
  */
 public class RequestList {
 	
@@ -31,7 +34,7 @@ public class RequestList {
     protected int departureTime;
     
     /**
-     * TODO
+     * index 
      */
     protected int index;
 
@@ -75,7 +78,7 @@ public class RequestList {
 	 * in <code>listRequests</code>
 	 */
 	public boolean fillRequests() {
-		// TODO : improve the code by reducing the number of returns 
+		
 		try {
 			File file = new File(filePath);
 			System.err.println("Loading requests file " + filePath);
@@ -135,6 +138,8 @@ public class RequestList {
 		}
 		return res;
 	}
+	
+	// Getters and Setters 
 
 	public Intersection getDeparture() {
 		return departure;

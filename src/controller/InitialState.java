@@ -10,7 +10,10 @@ import view.TextualView;
 import view.Window;
 
 /**
+ * State where we load the map, without anything more in it.
  * 
+ * @author H4112
+ *
  */
 public class InitialState implements State {
 	
@@ -22,9 +25,7 @@ public class InitialState implements State {
 	@Override
 	public void loadMap(Controller c,  Window w) {
 		fc = new JFileChooser();
-//    	fc.setCurrentDirectory( new File ( System.getProperty("user.dir") + 
-//    			System.getProperty("file.separator")+ "src" + 
-//    			System.getProperty("file.separator")+ "resources"));
+
 		fc.setCurrentDirectory( new File ( System.getProperty("user.dir")));
 		int val_ret = fc.showOpenDialog(null);
 

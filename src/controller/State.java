@@ -96,7 +96,7 @@ public interface State {
 	public default void changeToAddRequestMode(Controller c, Window w) {};
 	
 	/**
-	 * TODO
+	 * Add a request to the tour after clicking on the button "Confirm Add". 
 	 * 
 	 * @param c controller
 	 * @param w the window
@@ -104,7 +104,7 @@ public interface State {
 	public default void addRequest(Controller c, Window w) {};
 	
 	/**
-	 * TODO
+	 * To reinitialise the selection of the 4 points in addmode for the user.
 	 * 
 	 * @param c controller
 	 * @param w the window
@@ -122,7 +122,7 @@ public interface State {
 	public default void exportTourFile(Controller c,Window w) {};
 	
 	/**
-	 * TODO
+	 * Actions after a left click.
 	 * 
 	 * @param c controller
 	 * @param w the window

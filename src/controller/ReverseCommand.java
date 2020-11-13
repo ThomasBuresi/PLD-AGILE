@@ -2,12 +2,11 @@ package controller;
 
 
 /**
- * Exporter from PlaCos
+ * Exported from PlaCos
  * 
  * @author Christine Solnon
  *
  */
-
 public class ReverseCommand implements Command{
 	private Command cmd;
 	

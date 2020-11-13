@@ -8,7 +8,7 @@ import view.TextualView;
 import view.Window;
 
 /**
- * During this state we 
+ * During this state we allow the user to continue the computation or not. 
  * 
  * 
  * @author H4112

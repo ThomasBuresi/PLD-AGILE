@@ -8,6 +8,10 @@ import view.Window;
 
 /**
  * 
+ * Class in charge of the organisation of the different actions in function of the current state.
+ * 
+ * @author H4112
+ *
  */
 public class Controller {
 
@@ -111,10 +115,7 @@ public class Controller {
     	currentState.removeRequest(this,window);
     }
     
-    /**
-     * TODO Move the content of this method to the corresponding state : remove/add where needed 
-     */
-    
+   
     public void cancel() {
     	window.getGraphicalView().getGraphicalCityMap().getGraphicalIntersection().reInitializedToBeAdded();
     	window.getGraphicalView().updateHighlight(-1);

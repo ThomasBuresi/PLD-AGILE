@@ -1,7 +1,10 @@
 package model;
 
 /**
+ * Request that are loaded from an XML file.
  * 
+ * @author H4112
+ *
  */
 public class Request {
 
@@ -59,7 +62,8 @@ public class Request {
 				+ ",\n pickupAddress=" + pickupAddress + ",\n pickupDuration=" + pickupDuration + "]";
 	}
     
-
+	//Getters and setters
+	
 	public int getDeliveryDuration() {
 		return deliveryDuration;
 	}

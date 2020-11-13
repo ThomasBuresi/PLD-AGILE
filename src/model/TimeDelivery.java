@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Durations of the tour.
+ * 
+ * @author H4112
+ *
+ */
 public class TimeDelivery {
 
 	private int hour;

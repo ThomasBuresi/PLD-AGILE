@@ -5,6 +5,12 @@ import view.GraphicalView;
 import view.TextualView;
 import view.Window;
 
+/**
+ * State where we can compute the delivery tour.
+ * 
+ * @author H4112
+ *
+ */
 public class MapRequestsLoadedState extends MapLoadedState{
 	
 	@Override

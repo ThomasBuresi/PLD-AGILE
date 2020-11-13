@@ -16,7 +16,10 @@ import tsp.TSP3;
 
 
 /**
+ * Delivery tour  with the generation of the durations and export file. 
  * 
+ * @author H4112
+ *
  */
 public class DeliveryTour {
 	
@@ -55,10 +58,6 @@ public class DeliveryTour {
      */ 
 	TSP tsp;
 		
-//	/**
-//	 * Times corresponding to the steps of the tour
-//	 */
-//	List<TimeDelivery> times;
 
     /**
      * Constructor of <code>DeliveryTour</code>  that calculates
@@ -133,8 +132,11 @@ public class DeliveryTour {
 	}
 	
 	/**
-     * TODO
-     */ 
+	 * Returns the index corresponding to an intersection of the tour.
+	 *  
+	 * @param i
+	 * @return
+	 */
 	public int getIndexOfIntersection(Intersection i) {
 		int index = 0;
 		for (Pair<Intersection, List<Segment>> pair: tour) {
@@ -147,8 +149,11 @@ public class DeliveryTour {
 	}
 	
 	/**
-     * TODO
-     */ 
+	 * Remove a portion of the tour of a given intersection.
+	 * 
+	 * @param i
+	 * @return
+	 */
 	public Intersection removeStep(Intersection i) {
 		int index= this.getIndexOfIntersection(i);
 		this.tour.remove(index);
@@ -311,7 +316,11 @@ public class DeliveryTour {
             }
         }
 	}
-
+	
+	/**
+	 * Compute the durations corresponding to the steps of the tour.
+	 * @return
+	 */
 	public List<TimeDelivery> computeTime(){
 		List <TimeDelivery> result = new ArrayList <TimeDelivery>();
 		List<Float> durationsMethod = new ArrayList <Float>(durations.size());
@@ -341,6 +350,8 @@ public class DeliveryTour {
 		this.pickupOrDeliver.add(detail);
 	}
 
+	// Getters and Setters 
+	
 	public DijkstraGraph getG() {
 		return g;
 	}
@@ -357,13 +368,7 @@ public class DeliveryTour {
 		reqlist=r;
 	}
 	
-//	public void setTimes(List<TimeDelivery> list) {
-//		times=list;
-//	}
-//	
-//	public List<TimeDelivery> getTimes (){
-//		return times;
-//	}
+
 }
 			
 

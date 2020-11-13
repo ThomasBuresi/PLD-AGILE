@@ -7,7 +7,7 @@ import model.Intersection;
 import model.Request;
 
 /**
- * 
+ * Specify the do/undo for the adding of a request. 
  */
 public class AddCommand implements Command {
 
@@ -49,7 +49,10 @@ public class AddCommand implements Command {
 	
 	
     /**
-     *
+     * Constructor of the adding command.
+     * @param c
+     * @param d
+     * @param toBeAdded
      */
     public AddCommand(Controller c, DeliveryTour d, ArrayList<Intersection> toBeAdded) {
        controller = c;
@@ -63,7 +66,7 @@ public class AddCommand implements Command {
     }
 
     /**
-     * 
+     * Add the request.
      */
     public void doCommand() {
         deliveryTour.addIntermediateStep(beforePickup, pickup, true,10f);
@@ -78,7 +81,7 @@ public class AddCommand implements Command {
     }
 
     /**
-     * 
+     * Remove the request that was added.
      */
     public void undoCommand() {
     	deliveryTour.removeStep(pickup);

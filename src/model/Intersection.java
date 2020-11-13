@@ -6,7 +6,10 @@ import com.byteowls.jopencage.model.JOpenCageResponse;
 import com.byteowls.jopencage.model.JOpenCageReverseRequest;
 
 /**
+ * Intersection contained in the map. 
  * 
+ * @author H4112
+ *
  */
 public class Intersection {
 	
@@ -91,7 +94,15 @@ public class Intersection {
 	public void addSegment(Segment s) {
 		listSegments.add(s);
 	}
+	
+	@Override
+	public String toString() {
+		return "Intersection [longitude=" + longitude + ", latitude=" + latitude + ", idIntersection=" + idIntersection
+				+ "]";
+	}
 
+	//Getters and setters 
+	
 	public List<Segment> getListSegments() {
 		return listSegments;
 	}
@@ -118,12 +129,6 @@ public class Intersection {
 
 	public void setIdIntersection(long idIntersection) {
 		this.idIntersection = idIntersection;
-	}
-
-	@Override
-	public String toString() {
-		return "Intersection [longitude=" + longitude + ", latitude=" + latitude + ", idIntersection=" + idIntersection
-				+ "]";
 	}
 
 	public String getName() {

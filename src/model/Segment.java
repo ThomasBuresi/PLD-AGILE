@@ -1,7 +1,10 @@
 package model;
 
 /**
+ * Segments contained in the map.
  * 
+ * @author H4112
+ *
  */
 public class Segment {
 	
@@ -54,6 +57,8 @@ public class Segment {
 				+ "]";
 	}
 
+	//Getters and setters 
+	
 	public String getName() {
 		return name;
 	}

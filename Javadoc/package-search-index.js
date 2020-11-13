@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.byteowls.jopencage"},{"l":"com.byteowls.jopencage.model"},{"l":"com.byteowls.jopencage.support"},{"l":"controller"},{"l":"deliverif"},{"l":"model"},{"l":"tsp"},{"l":"utils"},{"l":"view"}]

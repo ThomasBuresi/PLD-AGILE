@@ -15,8 +15,12 @@ import model.RequestList;
 import model.Segment;
 
 /**
- * @author sylvain
- *
+ * @author H4112 
+ * 
+ * This class implements the graph used by the TSP-problem solver.
+ * It generates a graph with every vertex being a point of interest
+ * (warehouse, pickup or delivery point) and the length of every
+ * directed edge (a,b) being the minimum distance in meters from a to b
  */
 public class DijkstraGraph implements Graph {
 

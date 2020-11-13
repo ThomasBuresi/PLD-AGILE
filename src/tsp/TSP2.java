@@ -2,6 +2,11 @@ package tsp;
 
 import java.util.Collection;
 
+/**
+ * @author H4112
+ * Second implementation of the Breach and Bound algorithm,
+ * with an elaborate lower bound function (in quadratic time complexity)
+ */
 public class TSP2 extends TSP1 {
 	
 	@Override

@@ -4,6 +4,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 
+/**
+ * @author H4112
+ * Improved version of SeqIter, which sorts the unvisited nodes
+ * by their distance to the current node, in ascending order.
+ */
 public class SeqIter2 extends SeqIter {
 	public class VertexComparator implements Comparator<Integer> {
 		Graph graph;

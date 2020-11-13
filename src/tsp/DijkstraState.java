@@ -9,6 +9,7 @@ import model.Segment;
 
 /**
  * This class represents each intermediate state of a Dijkstra search
+ * @author H4112
  */
 public class DijkstraState implements Comparator<DijkstraState> {
 

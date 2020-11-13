@@ -1,13 +1,5 @@
 package controller;
 
-import java.io.File;
-import java.util.*;
-
-import javax.swing.JFileChooser;
-
-import model.CityMap;
-import view.GraphicalView;
-import view.TextualView;
 import view.Window;
 
 /**

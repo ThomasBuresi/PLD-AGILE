@@ -1,17 +1,6 @@
 package controller;
 
-import java.io.File;
-import java.util.List;
-
-import javax.swing.JFileChooser;
-
-import com.sun.tools.javac.util.Pair;
-
-import model.CityMap;
 import model.DeliveryTour;
-import model.Intersection;
-import model.RequestList;
-import model.Segment;
 import tsp.DijkstraGraph;
 import tsp.TSP;
 import view.GraphicalView;

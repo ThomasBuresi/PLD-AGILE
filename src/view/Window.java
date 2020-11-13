@@ -2,28 +2,14 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.util.*;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.border.Border;
-
-import com.byteowls.jopencage.JOpenCageGeocoder;
-import com.byteowls.jopencage.model.JOpenCageResponse;
-import com.byteowls.jopencage.model.JOpenCageReverseRequest;
 
 import controller.Controller;
-import model.CityMap;
 
 /**
  * Window is containing the main frame of the Deliver'If application. 
@@ -31,6 +17,8 @@ import model.CityMap;
  * @author H4112
  */
 public class Window extends JFrame{
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Containing the city map graphical view 

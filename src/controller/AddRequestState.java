@@ -1,7 +1,6 @@
 package controller;
 
 import view.GraphicalView;
-import view.TextualView;
 import view.Window;
 
 import model.Intersection;
@@ -42,7 +41,6 @@ public class AddRequestState implements State{
 	@Override 
 	public void leftClick(Controller c, Window w,int xCoord,int yCoord) {
 		GraphicalView graphicalView = w.getGraphicalView();
-		TextualView textualView = w.getTextualView();
 		
 		int panelHeight = graphicalView.getHeight();
 		int panelWidth = graphicalView.getWidth();

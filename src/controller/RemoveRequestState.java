@@ -3,7 +3,6 @@ package controller;
 import java.util.List;
 
 import model.Request;
-import model.RequestList;
 import view.GraphicalView;
 import view.TextualView;
 import view.Window;

@@ -2,14 +2,9 @@ package view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import java.util.*;
-import java.util.Map.Entry;
-
-import javax.swing.JPanel;
 
 import com.sun.tools.javac.util.Pair;
 

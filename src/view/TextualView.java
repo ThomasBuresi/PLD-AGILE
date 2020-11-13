@@ -1,15 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -36,6 +33,9 @@ import model.TimeDelivery;
  */
 
 public class TextualView extends JPanel{ 
+
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Controller
@@ -200,12 +200,16 @@ public class TextualView extends JPanel{
 			if(address==null) {
 				address = pair.snd.setAddress(jOpenCageGeocoder);
 			}
+			String time = "";
+			if (p<times.size()) {
+				time = times.get(p).toString();
+			}
 
 			str="<HTML>" + ("Request Id - " + (pair.fst.fst+1) +" : ") + "<br>";
 			if (!pair.fst.snd) {
-				str += "PICKUP - " + address +" at "+times.get(p).toString()+ "</HTML>"; 
+				str += "PICKUP - " + address +" at "+ time + "</HTML>"; 
 			} else {
-				str+= "DELIVERY - " + address +" at "+times.get(p).toString()+ "</HTML>"; 
+				str+= "DELIVERY - " + address +" at "+time+ "</HTML>"; 
 			}
 			
 			p++;
@@ -260,7 +264,8 @@ public class TextualView extends JPanel{
     			
     			if(id==(idRequest-1)) {
     				//we need a custom cell renderer s
-    				rows[j]=k;
+    				if (j<=1)
+    					rows[j]=k;
     				j++;
     			}
     			k++;

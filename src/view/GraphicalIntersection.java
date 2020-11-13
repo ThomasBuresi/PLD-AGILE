@@ -1,12 +1,9 @@
 package view;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.*;
 
-import javax.swing.JPanel;
 
 import model.Intersection;
 import model.Request;

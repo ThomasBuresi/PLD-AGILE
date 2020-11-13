@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.*;
-
 
 import model.CityMap;
 import model.DeliveryTour;
@@ -93,7 +91,7 @@ public class Controller {
     	currentState.changeToAddRequestMode(this,window);
     }
     
-    public void addRequest() { //AddCommand , pass 4 Intersections as parameter
+    public void addRequest() { 
     	currentState.addRequest(this, window);
     }
     
@@ -105,12 +103,12 @@ public class Controller {
     	currentState.exportTourFile(this, window);
     }
     
-    public void leftClick (int xCoord,int yCoord) { //pass the id as parameter
+    public void leftClick (int xCoord,int yCoord) { 
     	currentState.leftClick(this,window,xCoord,yCoord);
     }
     
     public void removeRequest() {
-    	currentState.removeRequest(this,window);//RemoveCommand
+    	currentState.removeRequest(this,window);
     }
     
     /**

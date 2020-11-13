@@ -1,28 +1,13 @@
 package view;
 
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.*;
-
-import javax.swing.JFileChooser;
-
-import com.sun.tools.javac.util.Pair;
 
 import controller.Controller;
-import model.CityMap;
-import model.DeliveryTour;
-import model.Intersection;
-import model.RequestList;
-import model.Segment;
-import tsp.DijkstraGraph;
-import tsp.TSP;
-import tsp.TSP1;
 
 /**
  * For every button, it will call the corresponding method in the controller. 
- * It will launch a serie of actions and change the states and views. 
+ * It will launch a series of actions and change the states and views. 
  * 
  * @author H4112
  */

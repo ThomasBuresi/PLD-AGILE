@@ -4,7 +4,6 @@
 package tsp;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -14,7 +13,6 @@ import model.Intersection;
 import model.Request;
 import model.RequestList;
 import model.Segment;
-import tsp.DijkstraState;
 
 /**
  * @author sylvain

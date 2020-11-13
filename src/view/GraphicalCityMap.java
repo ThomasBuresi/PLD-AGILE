@@ -1,16 +1,10 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import java.util.*;
 
-import javax.swing.JPanel;
 
 import controller.Controller;
-import model.CityMap;
 import model.DeliveryTour;
 import model.Intersection;
 import model.RequestList;
